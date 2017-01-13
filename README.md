@@ -33,17 +33,8 @@
 #环境参考(切换环节  模拟登陆  账号密码)
 1.代言秀环境
 网络	daiyanwang-develop
-host	
-	本地开发组（127.0.0.1）
-	接口	192.168.1.251
-模拟登录	
-	http://m.cellmyth.cn/wap/mall/test?uid=1
 
 2.代颜街环境
 网络	daiyanwang-test
-	接口 192.168.30.191
-模拟登录	
-	http://m.cellmyth.cn/wechat/test/user_login?uid=160235
 
 3.代颜街后台登录
-	13720202532  12345678a
