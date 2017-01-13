@@ -19,50 +19,6 @@
 127.0.0.1           localhost             #hide
 127.0.0.1			seller.cellmyth.cn  
 #====
-#==== 本地开发
-#192.168.1.113         cellmyth.cn
-#192.168.1.113          m.cellmyth.cn
-#192.168.1.113          api.cellmyth.cn
-#192.168.1.113          520dyw.cn
-#192.168.1.113         www.520dyw.cn
-#192.168.1.113          api.520dyw.cn
-#192.168.1.113          static.520dyw.cn
-#192.168.1.113          angular.520dyw.cn
-#====
-#==== 内网调试
-#192.168.1.251          cellmyth.cn
-#192.168.1.251          m.cellmyth.cn
-#192.168.1.251          api.cellmyth.cn
-#192.168.1.251          520dyw.cn
-#192.168.1.251          www.520dyw.cn
-#192.168.1.251          api.520dyw.cn
-#192.168.1.251          static.520dyw.cn
-#192.168.1.251          angular.520dyw.cn
-#====
-#==== 外网测试
-#139.129.30.191          cellmyth.cn
-#139.129.30.191          m.cellmyth.cn
-#139.129.30.191          api.cellmyth.cn
-#139.129.30.191          520dyw.cn
-#139.129.30.191          www.520dyw.cn
-#139.129.30.191          api.520dyw.cn
-#139.129.30.191          static.520dyw.cn
-#139.129.30.191          angular.520dyw.cn
-#====
-#==== 猛哥测试
-192.168.1.113          cellmyth.cn
-192.168.1.113         m.cellmyth.cn
-192.168.1.113        admin.cellmyth.cn
-192.168.1.113         event.cellmyth.cn
-192.168.1.113        api.cellmyth.cn
-192.168.1.113         mall.cellmyth.cn
-192.168.1.113         shop.cellmyth.cn
-192.168.1.113         wechat.cellmyth.cn
-192.168.1.113        static.520dyw.cn
-#==== 
-
-#127.0.0.1       seller.cellmyth.cn
-
 
 
 #编码规范
