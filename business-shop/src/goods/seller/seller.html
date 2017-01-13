@@ -1,0 +1,71 @@
+<div class="seller" ng-controller="App.Goods.Seller.Controller">
+    <!--头部-->
+    <!-- <ion-header-bar align-title="center" class="bar bar-header">
+        <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button>
+        <h1 class="title">全部商家</h1>
+    </ion-header-bar> -->
+    <!--主体-->
+    <ion-content class="has-tabs" scrollbar-y="true" overflow-scroll="false" lazy-scroll>
+        <!--筛选-->
+        <div class="row choose">
+            <div class="col-50">
+                <!-- <label class="item item-input item-select">
+                    <select ng-model="form.industry_id" ng-change="search(form.industry_id)">
+                        <option value="0">全部行业</option>
+                        <option ng-repeat="list in industry_list" value="{{ list.id }}">{{list.title}}</option>
+                    </select>
+                </label> -->
+                <label class="item item-input item-select selectHideBox">
+                    <span class="showSelect">{{brand_title}}</span>
+                    <select class="selectBar" ng-model="form.industry_id" ng-change="search(form.industry_id)">
+                        <option value="0">全部行业</option>
+                        <option ng-repeat="list in industry_list" value="{{ list.id }}">{{list.title}}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-50">
+                <!-- <label class="selectBar item item-input item-select">
+                    <div class="" dy-city areaid="form.area_id" position="city.position" col="1" required=""></div>
+                </label> -->
+                <label class="item item-input item-select selectHideBox">
+                    <span class="showSelect pro-sel border-leftLine">{{pro}}</span>
+                    <div class="selectBar">
+                        <div class="" dy-city areaid="form.area_id" position="city.position" col="1" required=""></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="graybox"></div>
+        <!--地址-->
+        <!-- <div class="row seller-address font12">
+            <i class="icon ion-android-pin"></i> 武汉市洪山区关山大道光谷软件园A8栋附近
+        </div>
+        <div class="graybox"></div> -->
+        <div class="padding text-center text-gary" ng-show="noData">暂无搜索结果</div>
+        <div class="list" ng-repeat="list in search_list">
+            <a class="item item-thumbnail-left border-bottomLine" ui-sref="shop.seller-home({id: list.id})">
+                <img image-lazy-src="{{list.logo}}" image-lazy-loader="ios">
+                <h2>{{list.title}} <span class="shop_isBrand" ng-if="list.shop_type == '2'">品牌店</span></h2>
+                <p class="ribbon" ng-if="list.is_auth == 1"><i class="ribbon-icon"></i> 已认证</p>
+                <div class="discount">
+                <div class="disTab">
+                        {{list.industry[0].title}}&nbsp;&nbsp;{{list.industry[1].title}}&nbsp;&nbsp;{{list.industry[2].title}}
+                </div>
+                <span class="distance"><i class="icon ion-android-pin"></i>距离{{list.distance | number:2}}千米</span>
+                </div>
+            </a>
+            <div class="row seller-goods">
+                <div class="col-25 text-center" ng-repeat="goods_item in list.good_list">
+                    <a ui-sref="goods.detail({id: goods_item.id})" class="small-image-loader">
+                        <img image-lazy-src="{{goods_item.images[0]}}" image-lazy-loader="ios">
+                        <i class="shaddow"></i>
+                        <i class="price">{{ goods_item.current_price || 0 | dyCurrency }}</i>
+                    </a>
+                </div>
+            </div>
+            <div class="graybox"></div>
+        </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+        <div class="padding text-center text-gary" ng-show="moreData">没有更多数据了</div>
+    </ion-content>
+</div>

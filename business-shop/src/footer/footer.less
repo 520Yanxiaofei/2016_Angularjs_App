@@ -1,0 +1,42 @@
+.tab-footer{
+	.tab-item.active{
+		color: @header-bg-color;
+	}
+	.tabs{
+    	background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
+        background-color: #FFF;
+        .tab-item{
+            .icon{
+                background-image: url(../image/home-nav.png);
+                background-repeat: no-repeat;
+                background-position: center top;
+                background-size: auto 236px;
+            }
+            .i-home{background-position: center 0px !important; }
+            .i-shop{background-position: center -58px !important; }
+            .i-find{background-position: center -112px !important; }
+            .i-me{background-position: center -175px !important; }            
+        }
+        .tab-item.active{
+            .i-home{background-position: center -29px !important; }
+            .i-shop{background-position: center -87px !important; }
+            .i-find{background-position: center -142px !important; }
+            .i-me{background-position: center -204px !important; }
+        }
+    }
+    .shoptab .icon{
+    	font-size:24px;
+    	height:25px;
+    	margin-top:3px;
+    }
+    .tab-item{
+    	max-width: 100%;
+    }
+    .bar{
+		padding:0;
+	}
+	.bar-footer{
+		height: 49px;
+		padding: 0;
+	}
+}

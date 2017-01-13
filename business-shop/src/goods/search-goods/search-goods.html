@@ -1,0 +1,53 @@
+<div class="search-goods" ng-controller="App.Goods.SearchGoods.Controller">
+    <!--头部-->
+   <!--  <ion-header-bar align-title="center" class="bar bar-header">
+        <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button>
+        <h1 class="title">{{page_title}}</h1>
+    </ion-header-bar> -->
+    <!--主体-->
+    <ion-content class="has-tabs" scrollbar-y="true" overflow-scroll="false" lazy-scroll>
+        <!--筛选-->
+        <div class="row choose">
+            <div class="col-50">
+                <label class="item item-input item-select selectHideBox">
+                    <span class="showSelect">{{brand_title || '全部品牌'}}</span>
+                    <select class="selectBar" ng-model="brand_id" ng-change="searchByBrand(brand_id)">
+                        <option value="0">全部品牌</option>
+                        <option ng-repeat="brand in brand_list.list" value="{{brand.id}}">{{brand.title}}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-50">
+                <label class="item item-input item-select selectHideBox">
+                    <span class="showSelect">{{category_title || '全部分类'}}</span>
+                    <select class="selectBar" ng-model="category_id" ng-change="searchByCategory(category_id)">
+                        <option value="0">全部分类</option>
+                        <option ng-repeat="category in category_list" value="{{category.id}}">{{category.title}}</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="graybox"></div>
+        <div class="padding text-center text-gray" ng-show="noData">暂无搜索记录</div>
+        <div class="list search-goods-list">
+            <div ng-repeat="list in search_list">
+                <a class="item item-thumbnail-left" ui-sref="goods.detail({id: list.id})">
+                    <img image-lazy-src="{{list.images[0].url}}" image-lazy-loader="ios">
+                    <h2>{{list.title}}</h2>
+                    <p class="home-price" style="bottom:28px;right:10px"><span>已销售：{{list.sales_all || 0}}</span></p>
+                    <p class="home-price">{{list.current_price | dyCurrency}}</p>
+                    <s class="old-price">原价：{{list.original_price || 0 | dyCurrency}}</s>
+                </a>
+                <div class="search-shopname">
+                    <a ui-sref="shop.seller-home({id: list.shop.id})" class="dark">
+                        <img image-lazy-src="{{list.shop.logo}}"><span>{{list.shop.title}}</span>
+                        <p class="ribbon" ng-show="list.shop.is_auth == 1"><i class="ribbon-icon"></i> 已认证</p>
+                    </a>
+                </div>
+                <div class="graybox"></div>
+            </div>        
+        </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+        <div class="padding text-center text-gray" ng-show="moreData">没有更多数据了</div>
+    </ion-content>
+</div>

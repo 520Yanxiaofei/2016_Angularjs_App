@@ -1,0 +1,41 @@
+<div class="contribution" ng-controller="App.Commonweal.Contribution.Controller">
+    <ion-content class="content">
+        <h2 class="title">小善大爱，爱是一种情怀！</h2>
+        <div class="contri">
+            <ul class="contriUser">
+                <li class="radiused">
+                    <img ng-src="{{logins.avatar}}" image-lazy-loader="ios">
+                </li>
+                <li><span class="contri-jiao"></span></li>
+                <li class="radiused">
+                    <img ng-src="{{userData.avatar}}" image-lazy-loader="ios">
+                </li>
+            </ul>
+            <div class="contri-user">
+                <div class="contri-title">我为{{userData.name}}投票</div>
+                <div class="contri-tou">
+                    <div ng-if="!moneyise">
+                        <span class="fl">投<strong>{{moneyData.vote}}</strong>票</span>
+                        <span class="fr">金额<strong>￥{{moneyData.money || 0}}.00</strong>元</span>
+                    </div>
+                    <div ng-if="moneyise">
+                        <span class="fl">投<strong>{{datasd.moneyValue + 8}}</strong>票</span>
+                        <span class="fr">金额<strong>￥{{datasd.moneyValue || 0}}.00</strong>元</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="contri-tab">
+                <li ng-class="{active: money.isActive}" ng-repeat="money in moneyList" on-touch="voteMoney(money,money.m)">{{money.m}}元</li>
+            </ul>
+            <div class="contri-text">
+                <input type="number" placeholder="其它" ng-change="numberText()" ng-focus="moneyText()" ng-model="datasd.moneyValue">
+                <span>元</span>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-footerCon">
+        <div class="contri-btn active" on-touch="weixinPay()">
+            确认投票
+        </div>
+    </ion-footer-bar>
+</div>

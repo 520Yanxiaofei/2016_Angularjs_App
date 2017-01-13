@@ -1,0 +1,88 @@
+<div class="home" ng-controller="App.Home.Controller">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="widget">
+                <div class="widget-extra themed-background-dark-amethyst text-center">
+                    <div class="widget-options">
+                        <div class="btn-group">
+                            <a ui-sref="edit()" class="btn btn-default">修改店铺信息</a>
+                        </div>
+                    </div>
+                    <h3 class="widget-content-light">店铺名片</h3>
+                </div>
+                <div class="widget-simple">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <img ng-src="{{shop_info.data.logo}}" alt="" width="114" height="114">
+                        </div>
+                        <div class="col-xs-8">
+                            <h4>{{shop_info.data.title}}</h4>
+                            <div class="row">
+                                <div class="col-xs-12">ID码：{{shop_info.data.area_id}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">行业：{{formatIndustry(shop_info.data.industry)}}</div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12 widget-simple">
+                            <div class="row">
+                                <div class="col-xs-4">姓名：</div>
+                                <div class="col-xs-8 col-md-pull-3 col-xs-pull-2">{{shop_info.data.contact}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">地址：</div>
+                                <div class="col-xs-8 col-md-pull-3 col-xs-pull-2"><span dy-city areaid="shop_info.data.area_id" position="shop_info.data.position" style="display:none"></span>{{shop_info.data.position|dyPosition}}{{shop_info.data.address}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">电话：</div>
+                                <div class="col-xs-8 col-md-pull-3 col-xs-pull-2">{{shop_info.data.mobile}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="widget">
+                <div class="widget-extra themed-background-dark-default text-center">
+                    <h3 class="widget-content-light">财务信息</h3>
+                </div>
+                <div class="widget-simple">
+                    <div class="row push">
+                        <div class="col-xs-6">今天收入：</div>
+                        <div class="col-xs-6 col-md-pull-1 text-danger">{{shop_account.data.daymoney.amount|dyCurrency}}</div>
+                    </div>
+                    <div class="row push">
+                        <div class="col-xs-6">可提现金额：</div>
+                        <div class="col-xs-6 col-md-pull-1 text-danger">{{shop_account.data.money.amount|dyCurrency}}</div>
+                    </div>
+                    <div class="row push">
+                        <div class="col-xs-6">已提取金额：</div>
+                        <div class="col-xs-6 col-md-pull-1 text-danger">{{shop_account.data.total.amount|dyCurrency}}</div>
+                    </div>
+                    <div class="clearfix">
+                        <button type="button" class="btn btn-block btn-primary" ng-click="extract()">快速提现</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="widget">
+                <div class="widget-extra themed-background-dark-fire text-center">
+                    <h3 class="widget-content-light">店铺提醒</h3>
+                </div>
+                <div class="widget-simple">
+                    <div class="row">
+                        <div class="col-xs-6 order-count">订单提醒：</div>
+                        <a class="col-xs-6 col-md-pull-1 text-primary" ui-sref="orders.undelivered()">待发货订单({{shop_notice.data.order_count}})</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 goods-count">宝贝提醒：</div>
+                        <a class="col-xs-6 col-md-pull-1 text-primary" ui-sref="goods.unshelves()">待上架宝贝({{shop_notice.data.goods_count}})</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="address" ng-controller="App.Address.Controller" ng-init="search()">
+    <form action="" enctype="multipart/form-data" class="form-horizontal block" onsubmit="return false;">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="example-select">服务区域：</label>
+                
+                <div dy-city class="col-md-6" areaid="form.area_id" position="help.position" itemclass="col-md-4" itemdefault="help.itemdefault" setdefault="help.setdefault" >
+                                    
+                </div>
+                <div class="col-md-2 form-actions">
+                    <button class="btn btn-primary" ng-click="search()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="block">
+        
+        <table class="table table-bordered table-vcenter text-center allListInfo">
+            <tr class="block-title">
+                <!-- <th class="text-center">
+                    <input type="checkbox" ng-click="selectAll()" ng-checked="select_all">
+                </th> -->
+                <th class="text-center">服务地址</th>
+                <th class="text-center">联系人</th>
+                <th class="text-center">联系电话</th>
+                
+                <th class="text-center">操作</th>
+            </tr>
+            <tr ng-repeat="item in data" ng-hide="data.length==0">
+                <!-- <th class="text-center">
+                    <input type="checkbox" ng-checked="item.checked" ng-click="change(item)">
+                </th> -->
+                <td>{{item.address}}</td>
+                <td>{{item.contacts}}</td>
+                <td>{{item.mobile}}</td>
+                
+                <td><a ng-click="edit(item)">编辑</a>&nbsp;&nbsp;<a ng-click="del(item.id)">删除</a></td>
+            </tr>
+            <tr ng-show="data.length==0">
+                <td colspan="5">暂无数据</td>
+            </tr>
+            <tr class="text-left">
+                <td colspan="5">
+                    <button class="btn btn-primary" ng-click="add()">新增服务地址</button>
+<!--                     <button class="btn btn-primary" ng-click="del()">批量删除</button> -->
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <div class="row text-center">
+                        <uib-pagination total-items="total" ng-model="currentPage" ng-change="search()" items-per-page="itemsPerPage" boundary-link-numbers="true" boundary-links="true" force-ellipses="true" max-size="maxSize" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

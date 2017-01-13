@@ -1,0 +1,126 @@
+<div class="user-info" ng-controller="App.User.Info.Controller">
+    <ion-content scrollbar-y="true" overflow-scroll="false" class="has-footer">
+        <div class="face-box clearfix">
+            <div class="head">
+                <div class="item item-avatar lev">
+                    <img ng-src="{{member_info.avatar}}">
+                    <h2 class="light">{{member_info.nickname}}</h2>
+                    <!-- <p class="level-tips"><span>等级：</span>Lev{{member_info.level}}</p> -->
+                    <p class="level-tips">
+                        <span>颜值分等级：</span>
+	                    <i class="lev-sun" ng-repeat="key in showLevel(member_info.level)[0] track by $index"></i><i class="lev-moon" ng-repeat="key in showLevel(member_info.level)[1] track by $index"></i><i class="lev-star" ng-repeat="key in showLevel(member_info.level)[2] track by $index"></i>
+                    </p>
+                </div>
+                <!-- <div class="edit-box text-center">
+                    <button class="button button-icon ion-ios-gear-outline light font18"></button>
+                </div> -->
+            </div>
+            <div class="nav-box light">
+                <div class="row text-center">
+                    <div class="col-25 border-rightLine ">
+                        <p>{{member_amount_info.integral||0}}</p>
+                        <p>颜值分</p>
+                    </div>   
+                    <div class="col-25 border-rightLine ">
+                        <p>{{member_amount_info.gold/100 || 0}}</p>
+                        <p>代言币</p>
+                    </div>
+                    <div class="col-25 border-rightLine ">
+                        <p>{{member_amount_info.voucher/100 || 0}}</p>
+                        <p>红包</p>
+                    </div>
+                    <div class="col-25">
+                        <p>{{member_amount_info.money/100 || 0}}</p>
+                        <p>余额</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item item-divider">
+                我的订单
+            </div>
+            <div class="row border-bottomLine my-orders">
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="user.orderList">
+                        <i class="icon nav1"></i>全部订单
+                    </a>
+                </div>
+                <div class="col col-25" ui-sref="user.orderList({status:0})">
+                    <a class="tab-item">
+                        <i class="icon nav2"></i>待付款
+                    </a>
+                </div>
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="user.orderList({status:2})">
+                        <i class="icon nav3"></i>待收货
+                    </a>
+                </div>
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="user.orderList({status:3})">
+                        <i class="icon nav4"></i>交易完成
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="list" ng-if="sub.sub == 1">
+            <div class="item item-divider">
+                我的销售订单
+            </div>
+            <div class="row border-bottomLine my-orders">
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="user.orderPick">
+                        <i class="icon nav5"></i>自提订单
+                    </a>
+                </div>
+                <div class="col col-25" ui-sref="user.orderReplenish">
+                    <a class="tab-item">
+                        <i class="icon nav6"></i>补货订单({{sub.replenish_count}})
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="divider-box"></div>
+        <div class="list">
+            <a class="item item-icon-right" ui-sref="user.address">
+            	收货地址<i class="icon ion-ios-arrow-right"></i>
+	        </a>
+            <!-- <a class="item item-icon-right" href="#">
+                            颜值分兑换<i class="icon ion-ios-arrow-right"></i>
+                        </a> -->
+            <a class="item item-icon-right" ui-sref="user.myseniority" ng-if="check_aptitude.code != 0">
+                我的代言资格<i class="icon ion-ios-arrow-right"></i>
+            </a>
+            <a class="item item-icon-right" ui-sref="user.mydata" ng-if="check_aptitude.code != 0">
+                我的代言资料<i class="icon ion-ios-arrow-right"></i>
+            </a>
+            <a class="item item-icon-right" ui-sref="user.mycollection">
+	            我的收藏<i class="icon ion-ios-arrow-right"></i>
+	        </a>
+        </div>
+        <div class="divider-box"></div>
+        <div class="list">
+            <a class="item item-icon-right" ng-click="gotoApplyPage(status)" ng-if="member_info.role == 4">
+                店铺入驻
+                <span class="item-note">
+			      {{applyEmum[status].title}}<i class="icon ion-ios-arrow-right"></i>
+			    </span>
+            </a>
+            <a class="item item-icon-right" ui-sref="user.anotherPay()">
+                我的代付申请
+                <span class="item-note">
+                  <i class="icon ion-ios-arrow-right"></i>
+                </span>
+            </a>
+            <!-- <a class="item item-icon-right" ui-sref="back.application-services">
+                申请售后服务<i class="icon ion-ios-arrow-right"></i>
+                        </a> -->
+        </div>
+        <div class="divider-box"></div>
+        <div class="list" ng-if="daiyanjie">
+            <a class="item item-icon-right" ng-click="loginOut()">
+                退出
+            </a>
+        </div>
+    </ion-content>
+</div>

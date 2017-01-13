@@ -1,0 +1,39 @@
+<div class="address-edit" ng-controller="App.User.AddressEdit.Controller">
+    <!-- <ion-header-bar align-title="center" class="bar">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button>
+        </div>
+        <h1 class="title light">{{pageTitle}}</h1>
+    </ion-header-bar> -->
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+        <div class="list">
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>收货人</span>
+                <input type="text" ng-model="address.consignee">
+            </div>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>手机号码</span>
+                <input type="tel" ng-model="address.mobile" onkeyup="value=value.replace(/[^\d]/g,'')" type="tel">
+            </div>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>邮政编码<span class="assertive">(6位数字或空或0)</span></span>
+                <input type="tel" ng-model="address.zipcode" maxlength="6" onkeyup="value=value.replace(/[^\d]/g,'')" type="tel">
+            </div>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>收货地址</span>
+                <div class="row padding text-left" dy-city areaid="address.area_id" position="position" col="3" itemclass="col-33" required="">
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>详细地址</span>
+                <input type="text" ng-model="address.address">
+            </div>
+        </div>
+        <!-- <div class="padding-left">您还可以输入<span class="assertive">400</span>个字</div> -->
+        <div class="padding">
+            <button class="button button-block button-positive btn-bottom" on-touch="updateAddress()" ng-disabled="isOperating">
+                保存并使用
+            </button>
+        </div>
+    </ion-content>
+</div>

@@ -1,0 +1,27 @@
+<div class="another-pay-info" ng-controller="App.Order.AnotherPayInfo.Controller">
+    <ion-content scrollbar-y="true" overflow-scroll="true">
+        <div class="text-center tip-content">
+            <div class="not-pass">
+                <img class="tip-img" ng-src="{{img}}" alt="加载中">
+                <p class="tip-info"  ng-if="order_detail.status == '0'">
+                    您已经申请他人为你代付，请耐心等待！
+                </p>
+                <p class="tip-info care-text"  ng-if="order_detail.status == '0'">
+                    代付人代言号：{{order_detail.number}}   
+                </p>
+                <p class="tip-info"  ng-if="order_detail.status == '1'">
+                    您已经申请他人为你代付,代付成功！
+                </p>
+                <p class="tip-info" ng-if="order_detail.status == '2'">
+                    您的代付申请已经被拒绝，请重新选择支付方式！
+                </p>
+                <p class="text-center" ng-if="order_detail.status == '0'">
+                    <a class="apply button" on-touch="goOrderDetail()">查看订单详情</a>
+                </p>
+                <p class="text-center" ng-if="order_detail.status == '2'">
+                    <a class="apply button" on-touch="goOrderPay(order_id)">重新选择支付方式</a>
+                </p>
+            </div>
+        </div>
+    </ion-content>
+</div>

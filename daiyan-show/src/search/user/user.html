@@ -1,0 +1,37 @@
+<div class="search-user" ng-controller="App.Search.User.Controller">
+    <!-- 活动搜索 -->
+    <ion-header-bar class="bar bar-header search-input" ng-class="{isfocus:isFocus}">
+        <div class="list list-inset" ng-class="{isfocus:isFocus}">
+            <label class="item item-input" ng-class="{isfocus:isFocus}">
+                <i class="icon ion-ios-search-strong placeholder-icon" ng-class="{isfocus:isFocus}"></i>
+                <form action="javascript:return true;">
+                  <input type="search" class="search-text" ng-class="{focus:getfocus}" placeholder="搜索内容" get-focus="getfocus" ng-model="searchVal" ng-focus="focus()" ng-blur="blur()" ng-keyup="toSearch($event)">
+                </form>
+            </label>
+            <i class="ion-android-cancel" ng-show="ishaveVal()" ng-click="clearVal()"></i>
+        </div>
+        <button class="button button-small light" ng-show="isFocus" ng-click="isCancel()">取消</button>
+    </ion-header-bar>
+    <ion-content class="search-content">
+        <!-- 下拉刷新 -->
+        <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher>
+        <!-- 活动列表 -->
+        <div ng-if="isEmpty" class="empty">搜索结果为空</div>
+        <div class="activity-list">
+            <ul>
+               <li ng-repeat="user in users" ng-click="toUser(user.uid)">
+                  <div class="user-img">
+                     <img ng-src="{{user.avatar}}">
+                  </div>
+                  <div class="user-name">
+                     <h3>{{ user.name }}</h3>
+                     <p class="act-ticket"><i></i><span>{{ user.voteCount }}</span>票</p>
+                  </div>
+                  <button class="user-vote">投票</button>
+               </li>
+            </ul>
+        </div>
+         <!-- 上拉加载更多 -->
+        <ion-infinite-scroll ng-if="isLoadMore" ng-show="!isLoadMore" on-infinite="loadMore()" distance="1%" ></ion-infinite-scroll>
+    </ion-content>
+</div>

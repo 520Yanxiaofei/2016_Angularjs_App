@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <button class="bootbox-close-button close" type="button" ng-click="cancel()">
+        ×
+    </button>
+    <h3 class="modal-title" style="text-align: center;">{{data.modal_title}}</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal form-bordered" novalidate>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-text-input">代言号</label>
+            <div class="col-md-9">
+                <input type="text" ng-model="form.sub_number" name="mumber" class="form-control" placeholder="" required>
+                <!-- <span class="help-block text-danger" ng-show="infoForm.address.$invalid && infoForm.$submitted">详细地址不能为空</span> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-text-input">线下店名称</label>
+            <div class="col-md-9">
+                <input type="text" ng-model="form.sub_shop_name" name="shop_name" class="form-control" placeholder="" required>
+                <!-- <span class="help-block text-danger" ng-show="infoForm.address.$invalid && infoForm.$submitted">详细地址不能为空</span> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-select">所在区域</label>
+            <div class="col-md-9">
+                <div dy-city class="row" areaid="form.area_id" position="help.position" setdefault="true" itemclass="col-md-4">
+                </div>
+            </div>
+            <!-- <div class="col-md-2">
+                                    <span class="help-block" ng-show="!form.area_id && infoForm.submitted">请选择所在区域！</span>
+                                </div> -->
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-text-input">详细地址</label>
+            <div class="col-md-9">
+                <input type="text" ng-model="form.sub_street_address" name="address" class="form-control" placeholder="" required>
+                <!-- <span class="help-block text-danger" ng-show="infoForm.address.$invalid && infoForm.$submitted">详细地址不能为空</span> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-text-input">联系人姓名</label>
+            <div class="col-md-9">
+                <input type="text" ng-model="form.sub_username" name="contacts" class="form-control" placeholder="" required>
+                <!-- <span class="help-block text-danger" ng-show="infoForm.address.$invalid && infoForm.$submitted">详细地址不能为空</span> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-text-input">联系电话</label>
+            <div class="col-md-9">
+                <input type="text" ng-model="form.tel_phone" name="mobile" class="form-control" placeholder="" required>
+                <!-- <span class="help-block text-danger" ng-show="infoForm.address.$invalid && infoForm.$submitted">详细地址不能为空</span> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-text-input">线下店状态</label>
+            <div class="col-md-9">
+                <select name="example-select" class="form-control" size="1" ng-model="form.status">
+                    <option value="1">禁用</option>
+                    <option value="2">启用</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+</div>

@@ -1,0 +1,78 @@
+<div class="goods-unshelves" ng-controller="App.Goods.Unshelves.Controller">
+    <form action="" enctype="multipart/form-data" class="form-horizontal block" onsubmit="return false;">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="col-md-3 control-label" for="example-select">品牌：</label>
+                <div class="col-md-9">
+                    <select name="example-select" class="form-control" size="1" ng-model="brand_id">
+                        <option value="0">全部</option>
+                        <option value="{{brand.id}}" ng-repeat="brand in brand_list.data.list">{{brand.title}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-md-3 control-label" for="example-select">分类：</label>
+                <div class="col-md-9">
+                    <select name="example-select" class="form-control" size="1" ng-model="category_sys_id">
+                        <option value="0">全部</option>
+                        <option value="{{category_sys.id}}" ng-repeat="category_sys in category_sys_list.data">{{category_sys.title}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-md-4 control-label">商品名称：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="title">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" ng-click="search()">搜 索</button>
+            </div>
+        </div>
+    </form>
+    <div class="block">
+        <table class="table table-bordered table-vcenter text-center allListInfo">
+            <tr class="block-title">
+                <th class="text-center">
+                    <input type="checkbox" ng-click="selectAll()" ng-checked="select_all">
+                </th>
+                <th class="text-center">商品编号</th>
+                <th class="text-center">商品名称</th>
+                <th class="text-center">商品品牌</th>
+                <th class="text-center">商品分类</th>
+                <th class="text-center">商品价格</th>
+                <th class="text-center">商品库存</th>
+                <th class="text-center">最后修改时间</th>
+                <th class="text-center">操作</th>
+            </tr>
+            <tr ng-repeat="good in goods.data.list" ng-hide="goods.data.list.length==0">
+                <th class="text-center">
+                    <input type="checkbox" ng-checked="good.checked" ng-click="change(good)">
+                </th>
+                <td>{{good.id}}</td>
+                <td>{{good.title}}</td>
+                <td>{{good.brand_name}}</td>
+                <td>{{good.category_name}}</td>
+                <td>{{good.current_price|dyCurrency}}</td>
+                <td>{{good.stock}}</td>
+                <td>{{good.update_time*1000|date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td><a ui-sref="goods.detail({id:good.id})">详情</a>&nbsp;&nbsp;<a ng-click="editGoods(good.id)">编辑</a>&nbsp;&nbsp;<a ng-click="goodOnline(good)">上架</a></td>
+            </tr>
+            <tr ng-show="goods.data.list.length==0">
+                <td colspan="9">暂无数据</td>
+            </tr>
+            <tr class="text-left">
+                <td colspan="9">
+                    <button class="btn btn-primary" ng-click="goodsDel()">删除</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="9">
+                    <div class="row text-center">
+                        <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="itemsPerPage" boundary-link-numbers="true" boundary-links="true" force-ellipses="true" max-size="maxSize" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+{
+  "name": "ng-daiyanwang",
+  "version": "0.0.1",
+  "homepage": "",
+  "authors": [
+    "haol <171213574@qq.com>"
+  ],
+  "description": "angular for daiyanwang",
+  "main": "index.html",
+  "keywords": [
+    "ng-daiyanwang"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "~1.4.9",
+    "angular-resource": "~1.4.8",
+    "ionic": "~1.2.4",
+    "ionic-image-lazy-load": "ion-image-lazy-load#*",
+    "angular-qrcode": "monospaced/angular-qrcode#^6.2.1",
+    "jquery": "^3.0.0"
+  },
+  "resolutions": {
+    "angular": "~1.4.9"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,72 @@
+<div class="show-welfare" ng-controller="Show.Welfare.Controller">
+    <ion-content class="has-footer has-nav-footer">
+        <ion-refresher pulling-text="数据更新中..." on-refresh="doRefresh()"></ion-refresher>
+        <div class="header-count">
+            <div class="num-box">
+                <i class="num" ng-repeat="n in love_count track by $index">{{n}}</i>份爱心
+            </div>
+            <div class="right-tip">
+                <i class="heart"></i>代言公益
+            </div>
+        </div>
+        <!-- banner -->
+        <div class="nav-slider-box-banner-every-shows">
+            <ion-slide-box class="slider-box" does-continue="true" show-pager="false" auto-play="true">
+                <ion-slide>
+                    <img src="image/banner-1.png" alt="">
+                </ion-slide>
+            </ion-slide-box>
+        </div>
+        
+        <!-- activity -->
+        <div class="activity-box">
+            <h3 class="active-title">推荐项目</h3>
+            <div class="activity-item row">
+                <div class="col-50" ng-repeat="show in recommend_list.shows" on-finish-render-filters>
+                    <a ui-sref="commonweal.detail({ id : show.id })">
+                        <div class="img-box">
+                            <img ng-src="{{ show.img }}" alt="">
+                        </div>
+                        <p class="activity-item-title">{{ show.title }}</p>
+                        <p class="activity-item-tips">
+                            <span>
+                                <img class="heart" src="image/heart.png"  alt="">
+                                已筹集<strong class="text-warning">{{ show.voteCount }}</strong>份爱心
+                            </span>
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="active-search-line row">
+            <div class="col-25"><span class="search-line-title">公益项目</span></div>
+            <div class="col-75">
+                <input type="text" placeholder="查询活动"  on-touch="goSearch()" readonly />
+            </div>
+        </div>
+        <!-- 活动详情 -->
+        <div class="active-box">
+            <div class="active-content padding clearfix" ng-repeat="show in hotShow" on-finish-render-filters>
+                <a class="list-link-box"  ui-sref="commonweal.detail({ id : show.id })">
+                    <div class="">
+                        <div style="float:left; width:40%; padding:0; overflow:hidden;">
+                            <div class="img-box" ng-class="{ 'has-finished' : show.isExpired == 1 }">
+                                <img ng-src="{{ show.img }}" alt="">
+                            </div>
+                        </div>
+                        <div  style="float:left; width:60%; padding:0; overflow:hidden;">
+                            <div class="active-description">
+                                <h3 class="active-title">{{ show.title }}</h3>
+                                <p class="description-info">{{ show.subTitle }}</p>
+                                <p class="more"><img src="image/heart-pink.png" alt="">共
+                                    <span class="num">{{ show.voteCount }}</span> 票</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="getWelfareList()" distance="1%"></ion-infinite-scroll>
+        <div class="padding text-center text-orange" ng-show="!moreDataCanBeLoaded">没有更多数据了</div>
+    </ion-content>
+</div>

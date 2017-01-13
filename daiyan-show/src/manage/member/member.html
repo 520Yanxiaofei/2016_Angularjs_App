@@ -1,0 +1,38 @@
+<div class="Draftuser" ng-controller="App.Manage.Member.Controller">
+    <!-- <div class="bar bar-header">
+        <ul class="Imgtabuser">
+            <li ng-repeat="item in select() "><img ng-src="{{item.avatar}}"/></li>
+        </ul>
+    </div> -->
+    <ion-content scroll="true"  padding="true" delegate-handle="member">
+        <div data-ng-repeat="(letter, users) in info.users" class="alpha_list" id="{{letter}}">
+            <ion-list show-delete="!shouldShowDeleted" can-swipe="true">
+                <ion-item class="item item-divider " >
+                    {{::letter}}
+                </ion-item>
+                <ion-item ng-repeat="user in users" class="item-avatar item-remove-animate">
+                        <img ng-src="{{user.avatar}}">
+                        <h4>{{user.name}}&nbsp;<span>{{getManageCode(user.manageStatus)}}</span><strong>{{user.voteCount}}票</strong></h4>
+                        <ion-delete-button>
+                            <div class="item-checkbox">
+                                <label class="checkbox item-checkPa">
+                                    <input type="checkbox" ng-model="user.checked" ng-change="select(user)">
+                                </label>
+                            </div>
+                        </ion-delete-button>
+                   
+                </ion-item>
+            </ion-list>
+        </div>
+        
+    </ion-content>
+    <div class="bar bar-footer bar-energized">
+          <button class="button button-balanced col-30" ng-click="setManager()">设为管理员</button>
+          <button class="button button-stable col-30" ng-click="removeManager()">取消管理员</button>
+    </div>
+    <ul class="alpha_sidebar">
+        <li  ng-repeat="(letter, users) in info.users" dy-alphabet-click="clickAlphabet(letter)">
+            {{::letter}}
+        </li>
+    </ul>
+</div>

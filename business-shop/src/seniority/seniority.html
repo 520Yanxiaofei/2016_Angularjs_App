@@ -1,0 +1,73 @@
+<div class="seniority" ng-controller="App.Seniority.Controller">
+    <ion-header-bar align-title="left" class="bar-positive">
+        <div class="home-serachbg">
+            <div class="home-searchbg-input">
+                <div class="inner-bg">
+                    <span class="search-home"></span>
+                    <input type="text" class="home-serachbgInput" placeholder="搜索内容" ui-sref="goods.search" readonly>
+                </div>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content on-scroll="contentScroll()" class="has-header" scrollbar-y="true" overflow-scroll="false" lazy-scroll>
+        <!-- <ion-refresher pulling-text="数据刷新中..." on-refresh="doRefresh()"></ion-refresher> -->
+        <!--幻灯图-->
+        <ion-slide-box auto-play="true" show-pager="false" slide-interval="2000">
+            <ion-slide ng-repeat="advert in adverts">
+                <a href="{{advert.link}}">
+                    <div class="slide-pic">
+                        <img ng-src="{{advert.image}}" alt="">
+                    </div>
+                </a>
+            </ion-slide>
+        </ion-slide-box>
+        <!--代言人资格专区-->
+        <div class="home-header">
+            <i class="home-headerIcon"></i>代言人资格专区
+        </div>
+        <div class="row home-shop home-shop-list">
+            <div class="col col-50" ng-repeat="seniority_people in seniority_people_list" ui-sref="goods.detail({id: seniority_people.goods_id})">
+                <img class="home-img" ng-src="{{seniority_people.image}}" alt="">
+                <div class="goods-item">
+                    <div class="goods-name">
+                        {{seniority_people.goods_name}}
+                    </div>
+                    <div class="shop-name">
+                        <img class="shop-logo" ng-src="{{seniority_people.logo}}">
+                        <span class="shop-name-txt">{{seniority_people.shop_name}}</span>
+                    </div>
+                    <div class="">
+                        <s class="yuan-price">{{seniority_people.original_price || 0 | dyCurrency}}</s>
+                    </div>
+                    <div class="price-num">
+                        <span class="price">{{seniority_people.current_price || 0 | dyCurrency}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--代言商资格专区-->
+        <div class="home-header">
+            <i class="home-headerIcon"></i>代言商资格专区
+        </div>
+        <div class="row home-shop home-shop-list">
+            <div class="col col-50" ng-repeat="seniority_business in seniority_business_list" ui-sref="goods.detail({id: seniority_business.goods_id})">
+                <img class="home-img" ng-src="{{seniority_business.image}}" alt="">
+                <div class="goods-item">
+                    <div class="goods-name">
+                        {{seniority_business.goods_name}}
+                    </div>
+                    <div class="shop-name">
+                        <img class="shop-logo" ng-src="{{seniority_business.logo}}">
+                        <span class="shop-name-txt">{{seniority_business.shop_name}}</span>
+                    </div>
+                    <div class="">
+                        <s class="yuan-price">{{seniority_business.original_price || 0 | dyCurrency}}</s>
+                    </div>
+                    <div class="price-num">
+                        <span class="price">{{seniority_business.current_price || 0 | dyCurrency}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</div>

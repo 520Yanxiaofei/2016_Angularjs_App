@@ -1,0 +1,70 @@
+html,
+body {
+  min-height: 100%;
+  min-width: 100%;
+  background-color: #394263;
+}
+#login-container {
+	top: 120px;
+}
+.set-psw {
+	margin: 20px -15px;
+	color: #ccc;
+}
+.set-psw .set-psw-to {
+	font-style: normal;
+	cursor: pointer;
+	color: #0000ff;
+}
+.set-psw .set-psw-to:hover {
+	color: #f00;
+	text-decoration: underline;
+}
+.bind-mobile {
+	padding: 20px 40px;
+}
+.bind-mobile .mobile {
+	margin-bottom: 0;
+}
+.bind-mobile .mobile p {
+	color: #000;
+}
+.bind-mobile .mobile-vali input {
+	border-radius:0;
+}
+.bind-mobile .mobile-vali div:first-child {
+	padding-right: 0;
+}
+.bind-mobile .mobile-vali div:last-child {
+	padding-left: 0;
+}
+.bind-mobile .mobile-vali div:last-child button {
+	width: 145px;
+	height: 46px;
+	font-size: 13px;
+	border-radius: 0;
+	background-color: #fff;
+	color: #000;
+}
+.bind-mobile .tips {
+	margin-bottom: 0;
+	color: #f00;
+}
+.bind-mobile .save-psw {
+	text-align: center;
+	margin-bottom: 0;
+}
+.bind-mobile .save {
+	width: 140px;
+	font-size: 13px;
+}
+.back {
+	margin-bottom: 0;
+	text-align: right;
+}
+.back .backTo {
+	text-decoration: underline;
+}
+
+
+

@@ -1,0 +1,43 @@
+<div class="good-search" ng-controller="App.Goods.Search.Controller">
+    <!--     <ion-header-bar align-title="left" class="bar bar-header item-input-inset">
+        <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button>
+        <div class="item-input-wrapper">
+            <div class="select-box">
+                <select class="select-bar" ng-model="seachType">
+                    <option value="shop">店铺</option>
+                    <option value="goods">商品</option>
+                </select>
+                <i class="icon ion-ios-arrow-down"></i>
+            </div>
+            <input type="text" placeholder="请输入关键词" ng-model="cur_keyword" focus="isFocus" id="myselector" ng-click="aa();$event.stopPropagation();">
+            <i class="icon ion-ios-search placeholder-icon" on-touch="search(cur_keyword)"></i>
+        </div>
+    </ion-header-bar>
+ -->
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+        <div class="bar bar-header item-input-inset">
+            <!-- <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button> -->
+            <div class="item-input-wrapper">
+                <div class="select-box">
+                    <select class="select-bar" ng-model="seachType" ng-change="getSearchType(seachType)">
+                        <option value="shop">店铺</option>
+                        <option value="goods">商品</option>
+                    </select>
+                    <i class="icon ion-ios-arrow-down"></i>
+                </div>
+                <input type="text" placeholder="请输入关键词" ng-model="form.cur_keyword" focus="isFocus" id="myselector" ng-click="$event.stopPropagation();" ng-keyup="keyUpSearch($event)">
+                <i class="icon ion-ios-search placeholder-icon" on-touch="search(form.cur_keyword)"></i>
+            </div>
+        </div>
+        <!-- <button onclick="window.location.reload(true)">刷新</button> -->
+        <div class="list border-bottomLine" ng-show="form.cur_keyword">
+            <div class="item item-icon-right" on-touch="search(form.cur_keyword)">
+                {{form.cur_keyword}}
+                <i class="icon ion-ios-close-empty" on-touch="clearKeyword($event)"></i>
+            </div>
+        </div>
+        <!-- <p class="clear-srarch-record text-center" on-touch="delAllRecord()">
+            清除所有搜索记录
+        </p> -->
+    </ion-content>
+</div>

@@ -1,0 +1,19 @@
+<div class="tab-footer" ng-controller="App.Footer.Controller">
+    <!--底部固定导航-->
+    <ion-footer-bar class="bar bar-footer" ng-hide="tab == 'none'">
+        <div class="shoptab tabs tabs-icon-top">
+            <a class="tab-item" ng-class="{active: tab=='home'}" ui-sref="home">
+                <i class="icon i-home"></i> 首页
+            </a>
+            <a class="tab-item" ng-class="{active: tab=='shop'}" ui-sref="goods.seller">
+                <i class="icon i-shop"></i> 店家
+            </a>
+            <a class="tab-item" ng-class="{active: tab=='find'}" ui-sref="goods.search-goods">
+                <i class="icon i-find"></i> 精品
+            </a>
+            <a class="tab-item" ng-class="{active: tab=='me'}" ui-sref="user.info">
+                <i class="icon i-me"></i> 我
+            </a>
+        </div>
+    </ion-footer-bar>
+</div>

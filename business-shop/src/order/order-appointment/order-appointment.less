@@ -1,0 +1,179 @@
+.order-appointment {
+    background: #f1f1f1;
+    a {
+        text-decoration: none;
+        color: #222;
+    }
+
+    .appointment-text {
+        padding: 5px 0;
+        background-color: #fff;
+        p {
+            padding: 6px 15px;
+            margin: 0 0 5px;
+        }
+        .address-choose {
+            height: 25px;
+            padding: 0 10px;
+            background-image: none;
+            label {
+                width: 25%;
+                height: 25px;
+                line-height: 25px;
+                font-weight: bold;
+            }
+            .text-left {
+                width: 75%;
+                padding: 0;
+                line-height: 25px;
+                select {
+                    width: 95%;
+                    height: 20px;
+                    overflow: hidden;
+                    border: 1px solid #ccc;
+                }
+            }
+        }
+    }
+
+    .address-content {
+        margin: 0 auto;
+        top: 107px;
+        background-color: #fff;
+        padding: 10px 10px 0;
+
+
+        li {
+            width: 100%;
+            padding: 0 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            color: #666;
+
+            @media screen and (min-width:320px) {
+                span.now {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+            @media screen and (min-width:375px) {
+                span.now {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+            @media screen and (min-width:414px) {
+                span.now {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+            span.now {
+                position: absolute;
+                right: 0;
+                top: 0;
+                background-color: #ddd;
+                border-radius: 2px;
+            }
+            h2 {
+                font-size: 14px;
+                margin-top: 8px;
+                margin-bottom: 0;
+                color: #fc853b;
+            }
+            .contact-address {
+                font-size: 14px;
+                margin-top: 7px;
+                margin-bottom: 0;
+            }
+            .contact-tel {
+                margin-top: 8px;
+                margin-bottom: 8px;
+                line-height: 15px;
+                white-space: normal;
+            }
+            &.active {
+                background-color: #fff8e3;
+                span.now {
+                    background:#ff8508 url(../image/nowPosition.png) no-repeat center center;
+                    background-size: 50% 50%;
+                }
+            }
+        }
+    }
+
+    .address-style {
+        display: block;
+        -height: 70px;
+        margin-bottom: 0;
+        background: #fff;
+        padding:0;
+        ul {
+            margin:0 auto;
+            padding-top:10px;
+            width:94%;
+            height:33px;
+            li {
+                float: left;
+                width: 50%;
+                height: 28px;
+                border-bottom: 1px solid #ddd;
+                span {
+                    display: block;
+                    height: 25px;
+                    line-height: 25px;
+                    border-radius: 3px;
+                    margin: 0 auto;
+                    text-align: center;
+                    -width: 100px;
+                }
+            }
+            li.active{
+                color: #fff;
+                border-bottom: 2px solid @header-bg-color;
+                span {
+                    background-color: @header-bg-color;
+                }
+            }
+        }
+        p {
+            background-color: #fff;
+            label {
+                background-color: #fff;
+                input {
+                    height: 25px;
+                    border: 1px solid #666;
+                    border-radius: 2px;
+                }
+            }
+        }
+    }
+    @media screen and (min-width:320px) {
+        .bar-footer {
+            height: 50px;
+        }
+    }
+    @media screen and (min-width:375px) {
+        .bar-footer {
+            height: 55px;
+        }
+    }
+    @media screen and (min-width:414px) {
+        .bar-footer {
+            height: 60px;
+        }
+    }
+    .bar-footer {
+        width: 100%;
+        .address-confirm {
+            border-radius: 3px;
+            font-size: 16px;
+            margin: 0 auto;
+            background-color: @header-bg-color;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+}

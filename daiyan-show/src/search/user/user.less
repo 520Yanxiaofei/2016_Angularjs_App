@@ -1,0 +1,159 @@
+.search-user {
+    .search-activity {
+        background:#373737;
+        .more {
+            position: absolute;
+            right: 8px;
+            font-size: 32px;
+        }
+    }
+    .search-input {
+        height: 48px;
+        padding: 8px 50px;
+        background-color: #fa7800;
+        &.isfocus {
+            padding: 8px 11px;
+        }
+        .list-inset {
+            margin: 0;
+            width: 100%;
+            height: 31px;
+            padding-right: 0;
+            float: left;
+            background-color: #fa7800;
+            &.isfocus {
+                padding-right: 53px;
+            }
+            label {
+                margin: 0;
+                padding: 0;
+                border: none;
+                border-radius: 5px;
+                padding-left: 60px;
+                &.isfocus {
+                    padding-left: 0;
+                }
+                i:first-child {
+                    margin: 0 10px;
+                    padding-right: 10px;
+                    height: 16px;
+                    border-right: none;
+                    font-size: 16px;
+                    &.isfocus {
+                        border-right: 1px solid #ddd;
+                    }
+                }
+                i:before {
+                    font-size: 22px;
+                    position: relative;
+                    top: -3px;
+                }
+                i.active {
+                    border-right: none;
+                }
+                input {
+                    height: 26px;
+                }
+                .cancel {
+                    position: absolute;
+                    right: 10px;
+                    background: #000;
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+            .ion-android-cancel {
+                margin: 0 10px;
+                font-size: 16px;
+                position: absolute;
+                height: 20px;
+                top: 5px;
+                right: 50px;
+                z-index: 100;
+                font-size: 20px;
+                color: #ddd;
+            }
+        }
+        .button-small {
+            height: 30px;
+            min-height: 30px;
+            line-height: 30px;
+            background: #fa7800;
+            font-size: 18px;
+            position: absolute;
+            padding: 0 15px;
+            right: 0;
+        }
+    }
+
+    .search-content {
+        top: 47px;
+        .empty {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #999;
+        }
+       .activity-list li {
+            width: 100%;
+            height: 64px;
+            position: relative;
+            border-bottom: 1px solid #ddd;
+            .user-img {
+                width: 45px;
+                height: 45px;
+                float: left;
+                margin-left: 12px;
+                margin-top: 10px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+            .user-name {
+                margin: 12px 82px 0 10px;
+                height: 45px;
+                float: left;
+                h3 {
+                    margin-bottom: 5px;
+                    font-size: 14px;
+                    color: #222;
+                }
+                .act-ticket {
+                    height: 15px;
+                    line-height: 15px;
+                }
+                .act-ticket {
+                    i {
+                        display: inline-block;
+                        width: 13px;
+                        height: 10px;
+                        background-size: cover;
+                        background-image: url(../../image/heart.png);
+                        margin-right: 5px;
+                    }
+                    span {
+                        color: #ffa200;
+                        margin-right: 5px;
+                    }
+                }
+            }
+            .user-vote {
+                position: absolute;
+                width: 60px;
+                height: 30px;
+                border-radius: 5px;
+                border: none;
+                background-color: #ffa200;
+                color: #fff;
+                right: 12px;
+                top: 17px;
+            }
+       }
+    }
+
+
+}

@@ -1,0 +1,55 @@
+@color: #ff8b1a;
+.Welfareadd {
+    .content {
+        background: #f1f1f1;
+    }
+    .list{
+        margin:0;
+    }
+    .list li{
+        background:#fff;
+        border:1px solid #ddd;
+        padding:12px;
+        border-radius:4px;
+        line-height:24px;
+        font-size: 14px;
+        margin-bottom:12px;
+        textarea{
+            font-size:14px;
+            width:100%;
+            line-height: 22px;
+            resize:none
+        }
+    }
+    label.item{
+        padding:5px 0;
+        padding-left:30px;
+        background:none;
+        border:none;
+        font-size:14px;
+    }
+    .checkbox input:checked:before,
+    .checkbox input:checked + .checkbox-icon:before {
+        background: @color;
+        border-color: @color;
+    }
+    .item-checkbox .checkbox{
+        left:0;
+        padding-left:0
+    }
+    .footer-bar{
+        text-align: center;
+        padding:0;
+        line-height: 44px;
+        .footerBtn{
+            width:50%;
+            background:#c6c6c6;
+            font-size:18px;
+            color:#fff
+        }
+        .active{
+                background:@color;
+            }
+    }
+
+}

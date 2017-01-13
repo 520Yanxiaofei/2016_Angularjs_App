@@ -1,0 +1,72 @@
+<div class="orderAddress" ng-controller="App.Order.OrderAddress.Controller">
+    <!-- <ion-header-bar class="bar bar-header bar-positive">
+        <button class="button button-icon icon ion-ios-arrow-left" ng-click="canGoBack && goBack()"></button>
+        <div class="h1 title">选择自提点</div>
+    </ion-header-bar> -->
+    <ion-header-bar class="bar bar-header address-position">
+        <p class="now-address">
+            <img src="image/order-address-position.png">
+            <!-- <span>武汉市洪山区光谷软件园a8栋附近</span> -->
+            <span>{{nowAddress}}</span>
+        </p>
+    </ion-header-bar>
+    <div class="has-header address-text">
+        <div class="bar bar-header list address-style">
+            <ul>
+                <li ng-click="autoAdd()" ng-class="{active:autoCho}"><span>自动定位</span></li>
+                <li ng-click="selfAdd()" ng-class="{active:selfCho}"><span>选择地区</span></li>
+            </ul>
+        </div>
+        <!-- 选择地区 -->
+        <div class="bar list address-choose" ng-show="selfCho">
+            <div class="row padding text-left" dy-city areaid="area_id" position="position" col="3" itemclass="col-33" required="">
+            </div>
+        </div>
+        <div class="list list-inset address-search" ng-show="selfCho">
+            <label class="item item-input" ng-class="{focus:!isBlur}">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="经销商点名" ng-model="searchWord" ng-focus="searchFocus()" ng-blur="searchBlur()">
+            </label>
+            <button class="button button-small light address-search-btn" ng-show="!isBlur" ng-click="searchAdd(searchWord)">搜索</button>
+        </div>
+    </div>
+    <ion-content class="address-content" ng-class="{hideAddChoose:selfCho}" scrollbar-y="true" overflow-scroll="false">
+        <!-- 下拉刷新 -->
+        <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher>
+        <!-- 自动定位地点 -->
+        <ul class="list" ng-if="autoCho">
+            <li class="item address-list" ng-repeat="add in nowAdd" ng-class="{active:isActive($index, add.address)}" ng-click="chooseAddAuto($index, add.address, add.id)">
+                <span class="now"></span>
+                <h2 class="address-title">{{ add.title }}</h2>
+                <p class="contact-person">
+                    <span>{{ add.name }}</span>
+                    <span>{{ add.tel }}</span>
+                </p>
+                <p class="contact-address">
+                    {{ add.address }}
+                </p>
+                <span class="address-range"><i></i>{{ add.distance | number }}千米</span>
+            </li>
+        </ul>
+        <!-- 选择地区地点列表 -->
+        <ul class="list" ng-if="selfCho">
+            <li class="item address-list" ng-repeat="add in nowAdd" ng-class="{active:isActive($index, add.address)}" ng-click="chooseAddSelf($index, add.address, add.id)">
+                <span class="now"></span>
+                <h2 class="address-title">{{ add.title }}</h2>
+                <p class="contact-person">
+                    <span>{{ add.name }}</span>
+                    <span>{{ add.tel }}</span>
+                </p>
+                <p class="contact-address">
+                    {{ add.address }}
+                </p>
+                <span class="address-range"><i></i>{{ add.distance | number }}千米</span>
+            </li>
+        </ul>
+        <!-- 上拉加载更多 -->
+        <ion-infinite-scroll ng-if="isLoadMore" on-infinite="loadMore()" distance="1%" ></ion-infinite-scroll>
+    </ion-content>
+    <ion-footer-bar align-title="left">
+        <button class="button button-full light address-confirm" ng-click="confirmAdd()">确认</button>
+    </ion-footer-bar>
+</div>

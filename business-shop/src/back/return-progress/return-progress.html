@@ -1,0 +1,58 @@
+<div class="return-progress" ng-controller="App.Back.ReturnProgress.Controller">
+    <!-- <ion-header-bar align-title="center" class="bar bar-header">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button>
+        </div>
+        <h1 class="title light">退货进度</h1>
+    </ion-header-bar> -->
+    <ion-content>
+        <div class="list">
+            <div class="item item-divider">
+                售后服务单号：125366644636
+            </div>
+            <div class="item text-dark" href="#">
+                <h2>已退款</h2>
+                <p>2016-4-10 12:00:00</p>
+            </div>
+            <div class="item text-gray" href="#">
+                <h2>实物审核通过，财务正在退款！</h2>
+                <p>2016-4-10 12:00:00</p>
+            </div>
+            <div class="item text-gray" href="#">
+                <h2>商家审核通过，请退还商品！</h2>
+                <p>2016-4-10 12:00:00</p>
+            </div>
+            <div class="item text-gray" href="#">
+                <h2>商家正在审核过程中，请等待！</h2>
+                <p>2016-4-10 12:00:00</p>
+            </div>
+            <div class="item text-gray" href="#">
+                <h2>提交退货申请成功，等待商家审核！</h2>
+                <p>2016-4-10 12:00:00</p>
+            </div>
+            <div class="item item-divider">
+                退货快递信息
+            </div>
+            <div class="item text-gray" href="#">
+                <h2>订单号：8254788754457</h2>
+                <h2>退货原因：长时间未收到货</h2>
+                <h2>退款金额：￥3000.00</h2>
+                <h2>配送方式：快递</h2>
+                <h2>承运快递：顺丰快递</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-50 padding">
+                <button class="button button-block button-positive btn-orange" on-touch="showActionSheet()">
+                    取消退货
+                </button>
+            </div>
+            <div class="col-50 padding">
+                <button class="button button-block button-positive btn-orange" on-touch="openModal()">
+                    退货快递信息
+                </button>
+            </div>
+        </div>
+    </ion-content>    
+</div>
+

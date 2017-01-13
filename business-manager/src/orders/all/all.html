@@ -1,0 +1,232 @@
+<div class="all" ng-controller="App.Orders.All.Controller">
+    <div class="form-group block">
+        <div class="row">
+            <div class="col-md-11">
+                <input type="text" class="form-control" ng-model="form.number" placeholder="订单号搜索">
+            </div>
+            <!-- <div class="col-md-1">
+                <button class="btn btn-primary" ng-click="search()">查询</button>
+            </div> -->
+        </div>
+        <p></p>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="col-md-5">
+                    <div class="col-md-3 control-label" style="line-height: 36px">下单时间</div>
+                    <div class="input-group input-daterange col-md-9" data-date-format="mm/dd/yyyy">
+                        <input type="text" placeholder="开始时间" class="form-control text-center"
+                               uib-datepicker-popup="yyyy-MM-dd" ng-model="form.start_time"
+                               datepicker-options="dateOptions" is-open="datePicker.d1" ng-click="datePicker.d1=true;"
+                               close-text="关闭" clear-text="清除" current-text="今天">
+                        <span class="input-group-addon">至</span>
+                        <input type="text" class="form-control text-center" placeholder="结束时间"
+                               uib-datepicker-popup="yyyy-MM-dd" ng-model="form.end_time"
+                               datepicker-options="dateOptions" is-open="datePicker.d2" ng-click="datePicker.d2=true"
+                               close-text="关闭" clear-text="清除" current-text="今天">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-3" style="line-height: 36px;">买家昵称</div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" placeholder="" ng-model="form.nickname">
+                    </div>
+                </div>
+                <div class="col-md-3" ng-if="pageStatus=='orders.all'">
+                    <div class="col-md-4" style="line-height: 36px">订单状态:</div>
+                    <div class="col-md-8">
+                        <select name="example-select" class="form-control" size="1" ng-model="form.status">
+                            <option value="">全部订单</option>
+                            <option ng-repeat="(value,name) in statusEmum" value="{{value}}">{{name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary" ng-click="search()">查询</button>
+            </div>
+            <div class="col-md-10" style="margin-top:10px">
+                <div class="col-md-5">
+                    <div class="col-md-3" style="line-height: 36px">收货区域</div>
+                    <div dy-city class="col-md-9" areaid="form.area_id" position="help.position" itemclass="col-md-4"
+                         itemdefault="help.itemdefault" setdefault="help.setdefault">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-3" style="line-height: 36px;">配送方式</div>
+                    <div class="col-md-9">
+                        <select name="example-select" class="form-control" size="1" ng-model="form.ship_type">
+                            <option value="">全部</option>
+                            <option ng-repeat="(value,name) in shipEmum" value="{{value}}">{{name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-4" style="line-height: 36px;">优惠类型</div>
+                    <div class="col-md-8">
+                        <select name="example-select" class="form-control" size="1" ng-model="form.coupon_type">
+                            <option value="">全部</option>
+                            <option ng-repeat="(value,name) in discounts" value="{{value}}">{{name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p></p>
+    </div>
+    <div class="block">
+        <table class="table table-bordered table-vcenter">
+            <tbody>
+            <tr class="block-title">
+                <th class="text-center col-md-3">宝贝</th>
+                <th class="text-center col-md-2">单价（元）</th>
+                <th class="text-center col-md-1">数量</th>
+                <th class="text-center col-md-2">买家</th>
+                <th class="text-center col-md-2">操作</th>
+                <th class="text-center col-md-2">实收款（元）</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-vcenter table-bordered" ng-repeat="item in data">
+            <tbody>
+            <tr>
+                <td colspan="6">
+                    <div class="col-md-5">
+                        订单号: {{item.number}}&nbsp;&nbsp;&nbsp;&nbsp;创建时间: {{item.create_time*1000|date :
+                        "yyyy-MM-dd H:mm"}}
+                    </div>
+                    <div class="col-md-7 text-right"
+                         ng-if="item.pay_list.integral >0 || item.pay_list.voucher > 0 ||item.pay_list.gold > 0">
+                        优惠类型：
+
+                        {{::benefit([item.pay_list.integral,item.pay_list.gold,item.pay_list.voucher])}}优惠
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-3">
+                    <img ng-src="{{item.order_goods[0].image}}" alt="" width="64" height="64">
+                    <div>{{item.order_goods[0].title}}</div>
+                    <div ng-if="item.selectedType != ''">规格：{{item.selectedType}}</div>
+
+                </td>
+                <td class="text-center col-md-2">{{item.order_goods[0].price|dyCurrency}}</td>
+                <td class="col-md-1 text-center">{{item.order_goods[0].quantity}}</td>
+                <td class="col-md-2 text-center">{{item.user_name}}
+                    <br>{{item.mobile}}
+                </td>
+                <td class="text-center col-md-2">
+                    <div>
+                        <span class="label"
+                              ng-class="{'label-warning':item.status==0,'label-primary':item.status==1,'label-info':item.status==2,'label-success':item.status==3,'bg-danger':item.status==4}">{{statusEmum[item.status]}}</span>
+                    </div>
+                    <div class="btn-group btn-group-xs">
+                        <div class="btn-group" ng-if="item.status==1">
+                            <a class="btn btn-primary" ui-sref="orders.detail({id:item.id})">发货</a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-primary" ui-sref="orders.detail({id:item.id})">详情</a>
+                        </div>
+                    </div>
+                </td>
+                <td class="col-md-2">
+                    <div ng-if="item.pay_list.integral > 0">颜值分：{{item.pay_list.integral}}</div>
+                    <div ng-if="item.pay_list.gold > 0">代言币：{{item.pay_list.gold/100}}</div>
+                    <div ng-if="item.pay_list.voucher > 0">红包：{{item.pay_list.voucher|dyCurrency}}</div>
+                    <div ng-if="item.goods_fee > 0">现金：{{(+item.goods_fee)|dyCurrency}}</div>
+                    <div ng-if="item.ship_fee > 0">快递：{{(+item.ship_fee)|dyCurrency}}</div>
+                    <div class="btn-group" ng-if="item.status==0 && item.pay_list_count == 0">
+                        <a class="btn btn-primary" ng-click="changePrice(item)">修改价格</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <div class="col-md-2 col-md-push-10">
+                        实际支付:{{item.pay_list.cash|dyCurrency}}
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row text-center">
+            <uib-pagination total-items="total" ng-model="pageNum" items-per-page="itemPerPage" ng-change="search()"
+                            max-size="maxPage" class="pagination-sm" boundary-links="true" rotate="false"
+                            first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页"></uib-pagination>
+        </div>
+    </div>
+    <script type="text/ng-template" id="change-price.html">
+        <div class="modal-header">
+            <button class="bootbox-close-button close" type="button" ng-click="cancel()">×</button>
+            <h5 class="modal-title">修改订单价格</h5>
+        </div>
+        <div class="modal-body" style="max-height: 400px; overflow: scroll;width: 100%;">
+            <table class="table table-vcenter table-bordered">
+                <tbody>
+                <tr>
+                    <td colspan="7">
+                        <div class="col-md-12">
+                            订单号: {{item.number}}&nbsp;&nbsp;&nbsp;&nbsp;创建时间: {{item.create_time*1000|date :
+                            "yyyy-MM-dd H:mm"}}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="block-title">
+                    <th class="text-center col-md-3">商品</th>
+                    <th class="text-center col-md-2">单价（元）</th>
+                    <th class="text-center col-md-1">数量</th>
+                    <th class="text-center col-md-2">买家</th>
+                    <th class="text-center col-md-2">商品总价调整</th>
+                    <th class="text-center col-md-2" ng-show="item.ship_type == '1'">快递费调整</th>
+                    <th class="text-center col-md-2">订单抵扣优惠</th>
+                </tr>
+                <tr>
+                    <td class="col-md-3">
+                        <img ng-src="{{item.order_goods[0].image}}" alt="" width="64" height="64">
+                        <div>{{item.order_goods[0].title}}</div>
+                        <div ng-if="item.selectedType != ''">规格：{{item.selectedType}}</div>
+
+                    </td>
+                    <td class="text-center col-md-2">{{item.order_goods[0].price|dyCurrency}}</td>
+                    <td class="col-md-1 text-center">{{item.order_goods[0].quantity}}</td>
+                    <td class="col-md-2 text-center">{{item.user_name}}
+                        <br>{{item.mobile}}
+                    </td>
+                    <td class="text-center col-md-2">
+                        <div>
+                            操作类型:
+                            <select class="form-control" ng-model="type" ng-change="viewPrice()">
+                                <option value="1">减少</option>
+                                <option value="2">增加</option>
+                            </select>
+                        </div>
+                        <div>
+                            金额: <input type="text" class="form-control" ng-model="price" ng-change="viewPrice()">
+                        </div>
+                    </td>
+                    <td class="col-md-2" ng-show="item.ship_type == '1'">
+                        快递费: <input type="text" class="form-control" ng-model="ship_fee" ng-change="viewPrice()">
+                    </td>
+                    <td class="col-md-2">
+                        <div ng-if="item.pay_list.integral > 0">颜值分：{{item.pay_list.integral}}</div>
+                        <div ng-if="item.pay_list.gold > 0">代言币：{{item.pay_list.gold/100}}</div>
+                        <div ng-if="item.pay_list.voucher > 0">红包：{{item.pay_list.voucher|dyCurrency}}</div>
+                        <div ng-if="item.goods_fee > 0">现金：{{(+item.goods_fee)|dyCurrency}}</div>
+                        <div ng-if="item.ship_fee > 0">快递：{{(+item.ship_fee)|dyCurrency}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <div class="col-md-12">
+                            订单实际支付金额&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品总价+快递费-抵扣优惠={{new_goods_fee|dyCurrency}} + {{new_ship_fee|dyCurrency}} - {{discount_fee|dyCurrency}} = {{pay_fee|dyCurrency}}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际支付:{{pay_fee|dyCurrency}}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-primary" type="button" ng-click="ok()">确定</button>
+        </div>
+    </script>
+</div>

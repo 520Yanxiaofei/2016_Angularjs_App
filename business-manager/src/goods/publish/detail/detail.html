@@ -1,0 +1,270 @@
+<div class="block full goods-publish" ng-controller="App.Goods.Publish.Controller">
+    <div class="block-title">
+        <h2>商品详情</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset>
+                <legend>商品基本信息</legend>
+                <div class="col-md-5 push" ng-if="all_data.goods.putaway_time!=0">
+                    <label class="control-label col-md-4">上架申请时间：</label>{{all_data.goods.putaway_time * 1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</div>
+                <div class="col-md-5 push" ng-if="all_data.goods.putaway_time==0">
+                    <label class="control-label col-md-4">上架申请时间：</label>
+                </div>
+                <div class="col-md-5 push">
+                    <label class="control-label col-md-4">状态：</label>{{help.status[all_data.goods.status]}}</div>
+                <div class="col-md-5 push">
+                    <label class="control-label col-md-4">商品短标题：</label>{{all_data.goods.title_short}}</div>
+                <div class="col-md-5 push">
+                    <label class="control-label col-md-4">商品长标题：</label>{{all_data.goods.title}}</div>
+                <div class="col-md-5 push">
+                    <label class="control-label col-md-4">商品市场原价：</label>{{all_data.goods.original_price | dyCurrency}}</div>
+                <div class="col-md-5 push">
+                    <label class="control-label col-md-4">商品售价：</label>{{all_data.goods.current_price | dyCurrency}}</div>
+                <div class="col-md-5 push">
+                    <label class="control-label col-md-4">兑换比例：</label>
+                    <div class="col-md-6 " style="padding:0px">
+                        1颜值分=￥{{all_data.goods.integral_val}}
+                    </div>
+                    <div class="col-md-10 col-md-push-4" style="padding:0px">
+                        1代言币=￥{{all_data.goods.gold_val}}
+                    </div>
+                    <div class="col-md-6 col-md-push-4" style="padding:0px">
+                        1元红包=￥1
+                    </div>
+                </div>
+                <div class="col-md-5 push">
+                    <label class="control-label col-md-4">抵扣信息：</label>
+                    <div class="col-md-8 " style="padding:0px">
+                        可抵扣颜值分{{all_data.goods.integral}}（￥{{all_data.goods.integral*all_data.goods.integral_val | currency:"":2}}）
+                    </div>
+                    <div class="col-md-8" style="padding:0px">
+                        可抵扣代言币{{all_data.goods.gold/100}}（{{all_data.goods.gold*all_data.goods.gold_val | dyCurrency}}）
+                    </div>
+                    <div class="col-md-8 col-md-push-4 " style="padding:0px">
+                        可抵扣红包{{all_data.goods.voucher/100}}（{{all_data.goods.voucher | dyCurrency}}）
+                    </div>
+                </div>
+                <!-- <div class="col-md-12 row">
+                    <div class="col-md-5 push">
+                        <label class="control-label col-md-4">商品佣金：</label>￥{{all_data.goods.commission/100 | currency:"":2}}</div>
+                </div> -->
+                <div class="col-md-12 row">
+                    <div class="col-md-5 push">
+                        <label class="control-label col-md-4">配送方式：</label>{{all_data.goods.ship_type | dyShipType}}</div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="col-md-5 push">
+                        <label class="control-label col-md-4">是否支持退货：</label>{{all_data.goods.is_refund | dyReturn}}</div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="col-md-5 push">
+                        <label class="control-label col-md-4">关联商品产品类型名称：</label>{{ selectedGoodsType.sel_name }}</div>
+                </div>
+                <div class="col-md-5 push">
+                    <label class="control-label col-md-4">规格参数：</label>
+                    <div class="col-md-6" style="padding:0px" >
+                        <div class="col-md-12" ng-repeat="attr in attrs" style="padding:0px">{{ attr.name }}：{{ attr.value }}</div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>分享奖励</legend>
+                <label class="control-label col-md-12 push" ng-if="commission_service.distribution[1]!=undefined || commission_service.distribution[2]!=undefined">B端净值分销奖励</label>
+                <div class="col-md-12 push">
+                    <div class="col-md-6 push" ng-if="commission_service.distribution[1]!=undefined">
+                        <div class="col-md-4 push">
+                            现金奖励基数
+                        </div>
+                        <div class="col-md-6 push">
+                            {{commission_service.distribution[1].commission/100||0}}元
+                        </div>
+                    </div>
+                    <div class="col-md-6 push" ng-if="commission_service.distribution[2]!=undefined">
+                        <div class="col-md-4">
+                            代言币奖励基数
+                        </div>
+                        <div class="col-md-6">
+                            {{commission_service.distribution[2]/100||0}}个
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-if="commission_service.distribution[1]!=undefined">
+                        <div class="col-md-2">
+                            分销奖励比例
+                        </div>
+                        <div class="col-md-8" style="padding:10px;">
+                            按照原有零售奖、代数奖、分销奖、分店奖、分红奖奖金比例制度进行分销
+                        </div>
+                    </div>
+                </div>
+                <label class="control-label col-md-12 push" ng-if="commission_service.distribution[3]!=undefined || commission_service.distribution[4]!=undefined">C端客户现金奖励设置<span class="text-danger"></span></label>
+                <div class="col-md-12 push">
+                    <div ng-if="commission_service.distribution[3]!=undefined">
+                        <div class="col-md-6 push">
+                            <div class="col-md-4">
+                                现金奖励基数
+                            </div>
+                            <div class="col-md-6">
+                                {{commission_service.distribution[3].price/100||0}}元
+                            </div>
+                        </div>
+                        <div class="col-md-12 push">
+                            <div class="col-md-2">
+                                现金分销奖励比例
+                            </div>
+                            <div class="col-md-9 row">
+                                <div class="col-md-4">
+                                    一级分销比例 {{commission_service.distribution[3].c1}}%
+                                </div>
+                                <div class="col-md-4">
+                                    二级分销比例 {{commission_service.distribution[3].c2}}%
+                                </div>
+                                <div class="col-md-4">
+                                    三级分销比例 {{commission_service.distribution[3].c3}}%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 push text-primary">
+                            <div class="col-md-12">
+                                提示：现金分销奖励默认三级分销比例为{{commission_service.distribution[3].default.c1}}%，{{commission_service.distribution[3].default.c2}}%，{{commission_service.distribution[3].default.c3}}%，商家可调整，要求调整总数不超过{{commission_service.distribution[3].default.c1+commission_service.distribution[3].default.c2+commission_service.distribution[3].default.c3}}%；
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 push">
+                    <div ng-if="commission_service.distribution[4]!=undefined">
+                        <div class="col-md-6 push">
+                            <div class="col-md-4">
+                                C端客户代言币奖励设置
+                            </div>
+                            <div class="col-md-6">
+                                {{commission_service.distribution[4].price/100||0}}个
+                            </div>
+                        </div>
+                        <div class="col-md-12 push">
+                            <div class="col-md-2">
+                                代言币分销奖励比例
+                            </div>
+                            <div class="col-md-9 row">
+                                <div class="col-md-4">
+                                    一级分销比例 {{commission_service.distribution[4].c1}}%
+                                </div>
+                                <div class="col-md-4">
+                                    二级分销比例 {{commission_service.distribution[4].c2}}%
+                                </div>
+                                <div class="col-md-4">
+                                    三级分销比例 {{commission_service.distribution[4].c3}}%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 push text-primary">
+                            <div class="col-md-12">
+                                提示：
+                                代言币销奖励默认三级分销比例为{{commission_service.distribution[4].default.c1}}%，{{commission_service.distribution[4].default.c2}}%，{{commission_service.distribution[4].default.c3}}%，商家可调整，要求调整总数不超过{{commission_service.distribution[4].default.c1+commission_service.distribution[4].default.c2+commission_service.distribution[4].default.c3}}%；
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <label class="control-label col-md-12 push" ng-if="commission_service.distribution[5]!=undefined || commission_service.distribution[6]!=undefined">B端商家现金奖励设置<span class="text-danger"></span></label>
+                <div class="col-md-12 push">
+                    <div ng-if="commission_service.distribution[5]!=undefined">
+                        <div class="col-md-6 push">
+                            <div class="col-md-4">
+                                现金奖励基数
+                            </div>
+                            <div class="col-md-6">
+                                {{commission_service.distribution[5].price/100||0}}元
+                            </div>
+                        </div>
+                        <div class="col-md-12 push">
+                            <div class="col-md-2">
+                                现金分销奖励比例
+                            </div>
+                            <div class="col-md-9 row">
+                                <div class="col-md-4">
+                                    一级分销比例 {{commission_service.distribution[5].c1}}%
+                                </div>
+                                <div class="col-md-4">
+                                    二级分销比例 {{commission_service.distribution[5].c2}}%
+                                </div>
+                                <div class="col-md-4">
+                                    三级分销比例 {{commission_service.distribution[5].c3}}%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 push text-primary">
+                            <div class="col-md-12">
+                                提示：现金分销奖励默认三级分销比例为{{commission_service.distribution[5].default.c1}}%，{{commission_service.distribution[5].default.c2}}%，{{commission_service.distribution[5].default.c3}}%，商家可调整，要求调整总数不超过{{commission_service.distribution[5].default.c1+commission_service.distribution[5].default.c2+commission_service.distribution[5].default.c3}}%；
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 push">
+                    <div ng-if="commission_service.distribution[6]!=undefined">
+                        <div class="col-md-6 push">
+                            <div class="col-md-4">
+                                代言币奖励基数
+                            </div>
+                            <div class="col-md-6">
+                                {{commission_service.distribution[6].price/100||0}}个
+                            </div>
+                        </div>
+                        <div class="col-md-12 push">
+                            <div class="col-md-2">
+                                代言币分销奖励比例
+                            </div>
+                            <div class="col-md-9 row">
+                                <div class="col-md-4">
+                                    一级分销比例 {{commission_service.distribution[6].c1}}%
+                                </div>
+                                <div class="col-md-4">
+                                    二级分销比例 {{commission_service.distribution[6].c2}}%
+                                </div>
+                                <div class="col-md-4">
+                                    三级分销比例 {{commission_service.distribution[6].c3}}%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 push text-primary">
+                            <div class="col-md-12">
+                                提示：代言币奖励基数将会从商家代言币中扣除，商家可通过充值或者其他途径进行获取；
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>商品图片</legend>
+                <div class="row">
+                    <div class="col-md-10">
+                        <img ng-repeat="image in all_data.image" ng-src="{{image.url}}" height="80" width="142" style="margin:5px;" alt="">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>商品介绍</legend>
+                <div class="row">
+                    <div class="col-md-10" dy-description description="all_data.description.description">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>商品管理费和佣金返现</legend>
+                <div class="row">
+                    <div class="col-md-10 push">
+                        <label class="control-label col-md-2">商品管理费</label> = <!-- {{all_data.goods.pay_price | dyCurrency}} * {{all_data.goods.manage_price}}%={{all_data.goods.pay_price*all_data.goods.manage_price/10000 | currency :'￥':4 }} -->
+                        （订单结算金额-快递费）*1%
+                        </div>
+                    <div class="col-md-10 push">
+                        <label class="control-label col-md-2">佣金返现金额</label> = {{all_data.goods.commission | dyCurrency}} * {{all_data.goods.commission_price}}%={{all_data.goods.commission*all_data.goods.commission_price/10000 | currency :'￥':4 }}</div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-md-8 col-md-offset-5">
+                    <!-- <button type="submit" class="btn btn-primary" ng-click="submitBasic()" ng-disabled="help.submiting">确定</button>&nbsp;&nbsp;&nbsp; -->
+                    <button ng-click="goBack()" class="btn btn-warning">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

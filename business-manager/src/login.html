@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>代颜网企业管理后台</title>
+        <meta name="author" content="代颜网">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+        <!-- build:css css/daiyanwangApp-login.css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="static/css/plugins.css">
+        <link rel="stylesheet" href="static/css/main.css">
+        <link rel="stylesheet" href="static/css/themes.css">
+        <link rel="stylesheet" href="login.css">
+        <!-- endbuild -->
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="login-container">
+                        <div class="login-title text-center">
+                            <h1><strong>代颜网企业管理后台</strong></h1>
+                        </div>
+                        <div class="block push-bit">
+                            <!-- 用户登录 -->
+                            <form id="form-login" class="form-horizontal" novalidate="novalidate">
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input type="text" id="account" name="account" class="form-control input-lg" placeholder="请输入帐号">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                                            <input type="password" id="password" name="password" class="form-control input-lg" placeholder="请输入密码">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-actions">
+                                    <div class="col-xs-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                            <input type="text" id="code" name="code" class="form-control input-lg" placeholder="验证码">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3"><img id="code-img" src="" width="100" height="30" alt="" style="margin-top:8px;cursor: pointer;" title="点击重新获取验证码"></div>
+                                </div>
+                                <div class="form-group form-actions">
+                                    <div class="col-xs-12">
+                                        <button id="sub" type="button" class="btn btn-block btn-primary">登录</button>
+                                    </div>
+                                </div>
+                                <div class="form-group form-actions set-psw">
+                                    <div class="col-xs-12">
+                                        <span class="setOrEdit">您还没有设置登录密码，请</span><i class="set-psw-to">设置</i>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- 填写手机号码接收验证码 -->
+                            <form id="bind-mobile" class="form-horizontal bind-mobile" novalidate="novalidate" style="display: none;">
+                                <div class="form-group mobile">
+                                    <div class="col-xs-12">
+                                        <p>您绑定的手机号：<span id="account-no"></span></p>
+                                    </div>
+                                </div>
+                                <div class="form-group mobile-vali">
+                                    <div class="col-xs-7 validate-no">
+                                        <input type="text" id="validate" name="validate" class="form-control input-lg">
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <button type="button" id="get-m-vali" class="btn btn-default get-m-vali">获取手机验证码</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input type="password" id="new-psw" name="new-psw" class="form-control input-lg" placeholder="请输入新密码">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input type="password" id="new-psw-again" name="new-psw-again" class="form-control input-lg" placeholder="请重复输入新密码">
+                                    </div>
+                                </div>
+                                <div class="form-group tips">
+                                    <div class="col-xs-12">
+                                        <p>密码一旦设置成功，若需修改，需要进入前端平台修改。</p>
+                                    </div>
+                                </div>
+                                <div class="form-group save-psw">
+                                    <div class="col-xs-12">
+                                        <button type="button" id="save" class="btn btn-lg btn-primary save">保存密码</button>
+                                    </div>
+                                </div>
+                                <div class="form-group back">
+                                    <a href="javascript:;" class="backTo">返回上一步</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- build:js js/daiyanwangApp-login-lib.js -->
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="config/config.js"></script>
+        <!-- endbuild -->
+        <script type="text/javascript">
+            function createCookie(name, value, days) {
+                if (days) {
+                  var date = new Date();
+                  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                  var expires = '; expires=' + date.toGMTString();
+                } else {
+                  var expires = '';
+                }
+                document.cookie = name + '=' + value + expires + '; path=/';
+            }
+
+            function readCookie(name) {
+                var nameEQ = name + '=';
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                  var c = ca[i];
+                  while (c.charAt(0) == ' ') {
+                    c = c.substring(1, c.length);
+                  }
+                  if (c.indexOf(nameEQ) == 0) {
+                    return c.substring(nameEQ.length, c.length);
+                  }
+                }
+                return null;
+            }
+
+
+            $(window).load(function() {
+                if(readCookie("is_login")){
+                    window.location.href = "index.html";
+                }
+
+                $("#code-img").attr("src", config.API_ROOT+"/seller/login/verify?key=login&" + new Date().getTime());
+                $("#code-img").click(function(){
+                    $("#code-img").attr("src", config.API_ROOT+"/seller/login/verify?key=login&" + new Date().getTime());
+                })
+                
+            })
+
+            
+            //回车提交
+            $(document).keyup(function(event){
+                var inp=$("#form-login input");
+                if(event.keyCode == 13){
+                    for(var i=0;i<inp.length;i++){
+                        if (inp[i].value == ""){
+                            inp.eq(i).focus();
+                            return false;
+                        }
+                    }
+                    $("#sub").trigger("click");
+                    return false
+                }
+            });
+
+            //用户名禁止输入空格
+            $("#account").keydown(function(event){
+                if( event.keyCode == 32 ){
+                    return false; 
+                }
+            });
+
+            $("#sub").click(function(){
+                var account = $("#account").val();
+                var password = $("#password").val();
+                var code = $("#code").val();
+                if(account.indexOf(" ") != -1){
+                    alert("用户名不合法！");
+                    return;
+                }
+                if(account == ""){
+                    alert("请输入账号");
+                    return;
+                }
+                if(password == ""){
+                    alert("请输入密码");
+                    return;
+                }
+                if(code == ""){
+                    alert("请输入验证码");
+                    return;
+                }
+                $.ajax({
+                    url:  config.API_ROOT+"/seller/login/check",
+                    type: "post",
+                    data: {
+                        account : account,
+                        password : password,
+                        code: code
+                    },
+                    dataType:'json',
+                    xhrFields: {withCredentials: true},//设置跨域发送
+                    crossDomain:true,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-Requested-With", "xmlhttprequest");
+                    },
+                    
+                    success: function(data){
+                        if(data.error == "0"){//登录成功
+                            createCookie("is_login", true, 30);
+                            window.location.href = "index.html";
+                        }else{
+                            alert(data.message);
+                            $("#code-img").attr("src", config.API_ROOT+"/seller/login/verify?key=login&" + new Date().getTime());
+                        }
+                    },
+                    error: function(respon){
+                        alert('验证码输入错误')
+                    }
+                })
+            })
+            //判断是否设置密码
+            $("#account").on("blur", function(){
+                var acc = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: config.API_ROOT+"/seller/login/check_set_password",
+                    data: {
+                        mobile: acc
+                    },
+                    dataType:'json',
+                    xhrFields: {withCredentials: true},//设置跨域发送
+                    crossDomain:true,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-Requested-With", "xmlhttprequest");
+                    },
+                    success: function(data){
+                        
+                        if( data.error == "0" ){
+                            if( data.data.status == "1" ){
+                            $(".setOrEdit").html('您已设置登录密码，点击重新');
+                            }else if( data.data.status == "0" ){
+                                $(".setOrEdit").html('您还没有设置登录密码，请');
+                            }
+                        }
+                        
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+            });
+
+            //点击进入填写手机号码接收验证码
+            $(".set-psw-to").on("click", function(){
+                var account = $("#account").val();
+                if( account == "" ){
+                    alert("请输入手机号码！");
+                    return;
+                }
+                if( !/^1[34578]\d{9}$/.test(account) ){
+                    alert("请输入正确的手机号码！");
+                    return;
+                }
+                $("#form-login").hide();
+                $("#bind-mobile").show();
+                $("#account-no").html($("#account").val());
+            });
+            //获取手机验证码
+            var num = 300;  //验证码失效时间
+            var timer = null;
+            $("#get-m-vali").on("click", function(){
+                var _this = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: config.API_ROOT+"/seller/login/send_mobile_code",
+                    data: {
+                        mobile: $("#account-no").html()
+                    },
+                    dataType:'json',
+                    xhrFields: {withCredentials: true},//设置跨域发送
+                    crossDomain:true,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-Requested-With", "xmlhttprequest");
+                    },
+                    success: function(data){
+                        if( data.error == "0" ){    //发送验证码成功
+                            alert("发送验证码成功！");
+                            valiTimeout(_this);
+                        }else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+            });
+            //保存密码
+            $("#save").on("click", function(){
+                var vali = $("#validate").val();
+                var newPsw = $("#new-psw").val();
+                var newPswAgain = $("#new-psw-again").val();
+                if( vali == "" ){
+                    alert("验证码不能为空！");
+                    return;
+                }
+                if( newPsw == "" || newPswAgain == "" ){
+                    alert("请输入新密码！");
+                    return;
+                }
+                if( newPsw != newPswAgain ){
+                    alert("两次输入的密码不一致！");
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: config.API_ROOT+"/seller/login/set_password",
+                    data: {
+                        mobile: $("#account-no").html(),
+                        password: newPsw,
+                        code: $("#validate").val()
+                    },
+                    dataType:'json',
+                    xhrFields: {withCredentials: true},//设置跨域发送
+                    crossDomain:true,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-Requested-With", "xmlhttprequest");
+                    },
+                    success: function(data){
+                        console.log(data);
+                        if( data.error == "0" ){    //发送验证码成功
+                            alert("密码修改成功！");
+                            $("#bind-mobile").hide();
+                            $("#form-login").show();
+                        }else {
+                            alert(data.message);
+                            return;
+                        }
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+            });
+
+            function valiTimeout(ele){
+                timer = setInterval(function(){
+                    num --;
+                    ele.attr("disabled", true);
+                    ele.css("color", "#999");
+                    ele.html(num+"秒后重新获取");
+                    if( num == 0 ){
+                        ele.html("获取手机验证码");
+                        ele.css("color", "#000");
+                        ele.attr("disabled", false);
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }
+
+            $(".backTo").on("click", function(){
+                $("#form-login").show();
+                $("#bind-mobile").hide();
+            });
+
+        </script>
+    </body>
+</html>

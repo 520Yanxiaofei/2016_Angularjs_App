@@ -1,0 +1,154 @@
+.mydata {
+    @headlin-bg: #F1F1F1;
+    .bar {
+        background-color: @header-bg-color;
+    }
+    .btn-bottom,
+    .btn-bottom.activated {
+        background: @btn_color;
+    }
+    .store-type {
+        .row {
+            margin-bottom: 10px;
+            .checkbox {
+                padding: 0;
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+                background: url(../../image/radio-yellow.png) no-repeat;
+                background-size: 102px 19px;
+                float: left;
+            }
+            .active {
+                background-position: -41px 0;
+            }
+        }
+    }
+    .list {
+        line-height: 30px;
+        .headline {
+            height: 40px;
+            line-height: 40px;
+            background-color: @headlin-bg;
+        }
+        label {
+            display: block;
+        }
+        input {
+            vertical-align: middle;
+            margin-top: -4px;
+            margin-right: 4px;
+        }
+        .item {
+            select {
+                border: none;
+                background-color: transparent;
+                color: @text-gray;
+                width: 100%;
+            }
+            .industry.row {
+                flex-wrap: wrap;
+                -ms-flex-wrap: wrap;
+                -webkit-flex-wrap: wrap;
+                .col-33 {
+                    margin-bottom: 10px;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .logo-upload-box {
+        border: none;
+        .logo-upload {
+            position: relative;
+            display: block;
+            width: 70px;
+            height: 70px;
+            z-index: 1;
+            background: #F1F1F1 url("../image/logo.png") no-repeat center;
+            background-size: 60px;
+            border-radius: 4px;
+            overflow: hidden;
+            input[type="file"] {
+                position: absolute;
+                display: block;
+                width: 70px;
+                width: 70px;
+                opacity: 0;
+                top: 0;
+            }
+            img {
+                width: 70px;
+                height: 70px;
+                position: relative;
+                top: 0;
+            }
+        }
+    }
+    select {
+        display: inline-block;
+        width: 100%;
+        border: none;
+        color: #7F7F7F;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: #FFF url(../image/select-arrow.png) no-repeat right center;
+        background-size: 16px 16px;
+        overflow: hidden;
+    }
+    .share-people{
+        display: inline-block;
+    }
+    .change-people{
+        float: right;
+        margin-right: 10px;
+        padding: 7px 10px 7px 0px;
+    }
+    .people-img{
+        width: 50px;
+        height: 50px;
+         margin-right: 20px;
+    }
+    .people-info{
+        display: inline-block;
+        vertical-align: top;
+    }
+    .people-num{
+        display: block;
+    }
+    .people-name{
+        display: block;
+    }
+    .share-text{
+        font-size: 13px;
+    }
+    .vertify-code{
+        display: inline-block;
+        width: 70%;
+    }
+    .recommend-people::-webkit-input-placeholder{
+        font-size: 12px;
+    }
+    .recommend-people::-moz-placeholder{
+        font-size: 12px;
+    }
+    .recommend-people:-ms-input-placeholder{
+        font-size: 12px;
+    }
+    .recommend-people:-moz-placeholder{
+        font-size: 12px;
+    }
+    .node-people::-webkit-input-placeholder{
+        font-size: 12px;
+    }
+    .node-people::-moz-placeholder{
+        font-size: 12px;
+    }
+    .node-people:-ms-input-placeholder{
+        font-size: 12px;
+    }
+    .node-people:-moz-placeholder{
+        font-size: 12px;
+    }
+}

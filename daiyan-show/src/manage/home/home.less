@@ -1,0 +1,180 @@
+.manage-home {
+    .face-box{
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content:flex-start;
+        padding:16px;
+    }
+
+    .face-box .face {
+        width: 33.3%;
+        text-align: center;
+    }
+
+    .face-box .face img,.face-box .face-add ,.face-box .face-remove{
+        width: 86px;
+        height: 86px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    
+    .face-box .face-add, .face-box .face-remove{
+       border:1px solid #dddddd;
+       line-height: 84px;
+       text-align: center;
+       position: relative;
+    }
+
+    .face-box .face-add:before, .face-box .face-remove:before{
+        content:"";
+        width: 50px;
+        height: 0px;
+        border:2px solid #ddd;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .face-box .face-add:after{
+        content:"";
+        width: 0px;
+        height: 50px;
+        border:2px solid #ddd;
+        display: inline-block;
+        position: absolute;
+        vertical-align: middle;
+        left:49%;
+        top:22%;
+    }
+
+    .face-box .face p{
+        line-height: 1.5em;
+        text-align: center;
+    }
+
+    .item .badge{
+        right: 5px;
+        top: 5px;
+    }
+
+    .datatime ,input[datetime-local]{
+        padding:0px;
+        height: 22px;
+        line-height: 22px;
+        text-align: right;
+        position: relative;
+        right: -1px;
+        color:#aaa;
+    }
+    .item-note{
+        overflow: hidden;
+    }
+
+    // slideInUp 动画
+    .animated {
+        -webkit-animation-duration: 1s;
+        animation-duration: .5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    @keyframes slideInUp {
+        from {
+            -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100%, 0);
+            visibility: visible;
+        }
+        to {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+    }
+    .slideInUp {
+        -webkit-animation-name: slideInUp;
+        animation-name: slideInUp;
+    }
+    // slideInUp 动画结束
+
+    // 投票弹窗
+    .layer-vote {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 9999;
+        background: rgba(0, 0, 0, .4);
+        .layer-content {
+            position: relative;
+            padding: 40px 10px 10px 10px;
+            width: 80%;
+            margin: 30% auto;
+            height: 150px;
+            background: #FFF;
+            border-radius: 4px;
+            text-align: center;
+            .close {
+                position: absolute;
+                display: block;
+                right: 6px;
+                top: 6px;
+                height: 26px;
+                width: 26px;
+                background: url(../image/close.png) no-repeat center;
+                background-size: 26px;
+            }
+            .btns {
+                margin-top: 30px;
+                height: 35px;
+                position: absolute;
+                bottom: 10px;
+                left: 0;
+                width: 100%;
+                button {
+                    margin: 0 1%;
+                    height: 36px;
+                    width: 46%;
+                    border: none;
+                    background: #FF8507;
+                    color: #FFF;
+                    border-radius: 4px;
+                }
+                .btn-gray {
+                    background: #C6C6C6;
+                }
+            }
+            .qrcode {
+                img,
+                canvas {
+                    margin: 0 auto;
+                    display: block;
+                    // width: 140px;
+                }
+            }
+        }
+    }
+
+    .item-icon-right .icon{
+        right: 5px;
+    }
+    .item-icon-right{
+        padding-right: 35px;
+    }
+    .layer_qrcode {
+        .layer-content {
+            height: auto;
+            
+            .qrcode {
+                margin-bottom: 10px;
+            }
+            .qrcode-text {
+                margin: 0;
+                line-height: 20px;
+            }
+        }
+    }
+    .toggle.toggle-positive input:checked + .track{
+        border-color: #FF8508;
+        background-color: #FF8508;
+    }
+}

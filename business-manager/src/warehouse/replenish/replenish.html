@@ -1,0 +1,83 @@
+<div class="replenish" ng-controller="ReplenishController">
+    <form action="" enctype="multipart/form-data" class="form-horizontal block" onsubmit="return false;">
+        <div class="row">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="col-md-4 control-label" for="example-select">申请人代言号：</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="number">
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-md-4 control-label" for="example-select">申请人昵称：</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="nickname">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="col-md-4 control-label" for="example-select">申请人姓名：</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="realname">
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-md-4 control-label" for="example-select">补货状态：</label>
+                    <div class="col-md-8">
+                        <select name="example-select" class="form-control" size="1" ng-model="status">
+                            <option value="-1">全部</option>
+                            <option value="0">等待发货</option>
+                            <option value="1">已发货</option>
+                            <option value="2">补货成功</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <button class="btn btn-primary" ng-click="search()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="block">
+        <table class="table table-bordered table-vcenter text-center">
+            <tr class="block-title">
+                <th class="text-center">序号</th>
+                <th class="text-center">申请人代言号</th>
+                <th class="text-center">申请人昵称</th>
+                <th class="text-center">申请人姓名</th>
+                <th class="text-center">申请时间</th>
+                <th class="text-center">补货状态</th>
+                <th class="text-center">操作</th>
+            </tr>
+            <tr ng-repeat="apply in apply_list.data.list" ng-hide="apply_list.data.total==0">
+                <!--<td>{{apply.id}}</td>-->
+                <td ng-bind="$index+1">1</td>
+                <td>{{apply.number}}</td>
+                <td>{{apply.nickname}}</td>
+                <td>{{apply.realname}}</td>
+                <td>{{(apply.create_time*1000 || good.create_time*1000) | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>
+                    <span>{{send_status[apply.status]}}</span>
+                </td>
+                <td>
+                    <a ui-sref="warehouse.detail({id:apply.id})">查看</a>&nbsp;&nbsp;
+                    <a ng-if="apply.status == 0" ng-click="send(apply)">发货</a>
+                </td>
+            </tr>
+            <tr ng-show="apply.data.total==0">
+                <td colspan="8">暂无数据</td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <div class="row text-center">
+                        <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+                                        items-per-page="itemsPerPage" boundary-link-numbers="true" boundary-links="true"
+                                        force-ellipses="true" max-size="maxSize" previous-text="上一页" next-text="下一页"
+                                        first-text="首页" last-text="尾页"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

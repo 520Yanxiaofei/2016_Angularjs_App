@@ -1,0 +1,52 @@
+<div ng-controller="App.Address.Controller" ng-init="search({limit:100,page:1})">
+    <div class="modal-header">
+        <button class="bootbox-close-button close" type="button" ng-click="cancel(data)">
+            ×
+        </button>
+        <h3 class="modal-title" style="text-align: center;">选择预约服务地址</h3>
+    </div>
+    <div class="address modal-body" style="margin-top:0px;">
+        <form action="" enctype="multipart/form-data" class="form-horizontal block" onsubmit="return false;">
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="example-select" style="padding-right: 5px;">服务区域：</label>
+                    <div dy-city class="col-md-8" areaid="form.area_id" position="help.position" itemclass="col-md-4" itemdefault="help.itemdefault" setdefault="help.setdefault">
+                    </div>
+                    <div class="col-md-2 form-actions">
+                        <button class="btn btn-primary" ng-click="search({limit:100,page:1})">搜 索</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="block" style="height: 400px;overflow: auto">
+            <table class="table table-bordered table-vcenter text-center allListInfo">
+                <tr class="block-title">
+                    <th class="text-center">
+                    </th>
+                    <th class="text-center">服务地址</th>
+                    <th class="text-center">联系人</th>
+                    <th class="text-center">联系电话</th>
+                    <th class="text-center">操作</th>
+                </tr>
+                <tr ng-repeat="item in data" ng-hide="data.length==0" ng-init="setChecked(item)">
+                    <th class="text-center">
+                        <input type="checkbox" ng-checked="item.checked" ng-click="change(item)">
+                    </th>
+                    <td>{{item.address}}</td>
+                    <td>{{item.contacts}}</td>
+                    <td>{{item.mobile}}</td>
+                    <td><a ng-click="edit(item)">编辑</a>&nbsp;&nbsp;<a ng-click="del(item.id)">删除</a></td>
+                </tr>
+                <tr ng-show="data.length==0">
+                    <td colspan="5">暂无数据</td>
+                </tr>
+                <tr class="text-left">
+                    <td colspan="5">
+                        <button class="btn btn-primary" ng-click="add()">新增服务地址</button>
+                        <button class="btn btn-primary" ng-click="getSelectedAddress(data)">保存</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

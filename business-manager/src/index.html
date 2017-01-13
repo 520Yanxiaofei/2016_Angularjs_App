@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html ng-app="businessManagerApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>代颜网-店铺后台</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+	<base href="/">
+
+    <!-- build:css css/daiyanwangApp-lib.css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/plugins.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/themes.css">
+    <!-- endbuild -->
+	
+	<!-- build:css css/daiyanwangApp.css -->
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<!-- endbuild -->
+</head>
+<body>
+    <!-- router div -->
+	<div id="page-container" class="sidebar-partial sidebar-visible-lg sidebar-no-animations">
+		<div id="sidebar" ng-include="'sidebar/sidebar.html'">
+		</div>
+		<div id="main-container">
+			<header class="header navbar navbar-default" ng-include="'header/header.html'">
+			</header>
+			<div id="page-content" ui-view>
+			</div>
+			<footer class="clearfix" ng-include="'footer/footer.html'">	
+			</footer>
+		</div>
+	</div>
+
+    <!-- <div class="right-main" ui-view></div> -->
+  	
+	<!-- build:js js/daiyanwangApp-lib.js -->
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="static/js/plugins.js"></script>
+	<script type="text/javascript" src="static/js/app.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+	<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+	<script type="text/javascript" src="widgets/angular-locale_zh-hans-cn.js"></script>
+    <!-- endbuild -->
+
+	<!-- build:js js/daiyanwangApp.js -->
+	<!-- config -->
+	<script type="text/javascript" src="config/config.js"></script>
+
+	<!-- header -->
+	<script type="text/javascript" src="header/header.js"></script>
+	
+	<!-- models -->
+	<script type="text/javascript" src="models/models.js"></script>
+	<script type="text/javascript" src="models/user.js"></script>
+  <script type="text/javascript" src="models/settlement.js"></script>
+	<script type="text/javascript" src="models/shop.js"></script>
+	<script type="text/javascript" src="models/goods.js"></script>
+	<script type="text/javascript" src="models/category.js"></script>
+	<script type="text/javascript" src="models/orders.js"></script>
+	<script type="text/javascript" src="models/album.js"></script>
+	<script type="text/javascript" src="models/financia.js"></script>
+	<script type="text/javascript" src="models/subshop.js"></script>
+
+	<!-- widgets -->
+	<script type="text/javascript" src="widgets/widgets.js"></script>
+	<script type="text/javascript" src="widgets/confirm-modal/confirm-modal.js"></script>
+	<script type="text/javascript" src="widgets/alert-modal/alert-modal.js"></script>
+	<script type="text/javascript" src="widgets/prompt-modal/prompt-modal.js"></script>
+	<script type="text/javascript" src="widgets/city/city.directive.js"></script>
+
+	<!-- sidebar -->
+	<script type="text/javascript" src="sidebar/sidebar.js"></script>
+	<!-- home -->
+	<script type="text/javascript" src="home/home.js"></script>
+	<script type="text/javascript" src="home/edit/edit.js"></script>
+	<script type="text/javascript" src="home/address/address.js"></script>
+	<script type="text/javascript" src="home/offline/offline.js"></script>
+
+	<!-- orders -->
+	<script type="text/javascript" src="orders/orders.js"></script>
+	<script type="text/javascript" src="orders/all/all.js"></script>
+	<script type="text/javascript" src="orders/detail/detail.js"></script>	
+
+   	<!-- goods -->
+   	<script type="text/javascript" src="goods/goods.js"></script>
+	<script type="text/javascript" src="goods/add/add.js"></script>
+	<script type="text/javascript" src="goods/publish/publish.js"></script>	
+   	<script type="text/javascript" src="goods/unshelves/unshelves.js"></script>
+	<script type="text/javascript" src="goods/classification-add/classification-add.js"></script>
+	<script type="text/javascript" src="goods/classification-edit/classification-edit.js"></script>
+	<script type="text/javascript" src="goods/classification/classification.js"></script>
+
+	<script type="text/javascript" src="goods/unreleased/unreleased.js"></script>
+	<script type="text/javascript" src="goods/shelves/shelves.js"></script>
+
+	<!-- financia -->
+	<script type="text/javascript" src="financia/settlement/settlement.js"></script>
+	<script type="text/javascript" src="warehouse/warehouse.js"></script>
+	<script type="text/javascript" src="warehouse/replenish/replenish.js"></script>
+	<script type="text/javascript" src="warehouse/replenish/detail/detail.js"></script>
+
+
+	<script type="text/javascript" src="app.js"></script>
+	
+	<!-- templates -->
+  	<script src="templates.js"></script>
+
+	<!-- endbuild -->
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<div class="order-appointment" ng-controller="App.Order.OrderAppointment.Controller">
+    <div class="appointment-text">
+        <p>支付订单后，客服将在1个工作日内联系您确定预约服务点具体时间，请留意店铺客服电话</p>
+        <!-- 服务区域 -->
+        <!-- <div class="bar list address-choose">
+            <label>服务区域</label>
+            <select>
+                <option>湖北省</option>
+            </select>
+            <select>
+                <option>武汉市</option>
+            </select>
+            <select>
+                <option>武昌区</option>
+            </select>
+        </div> -->
+        <div class="bar list address-choose">
+            <label>服务区域</label>
+            <div class="row text-left" dy-city areaid="area_id" position="position" col="3" itemclass="col-33" required="">
+            </div>
+        </div>
+    </div>
+    <ion-content class="address-content" scrollbar-y="true" overflow-scroll="false">
+        <!-- 下拉刷新 -->
+        <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher>
+        <!-- 自动定位地点 -->
+        <ul class="list">
+            <li class="item address-list" ng-repeat="add in list" ng-class="{active:isActive($index)}" ng-click="chooseAdd($index, add.id)">
+                <span class="now"></span>
+                <h2 class="serverArea">{{ add.position }}</h2>
+                <p class="contact-address">
+                    <span>{{ add.address }}</span>
+                </p>
+                <p class="contact-tel">
+                    联系电话：{{ add.mobile }}
+                </p>
+            </li>
+        </ul>
+        <!-- 上拉加载更多 -->
+        <ion-infinite-scroll ng-if="isLoadMore" on-infinite="loadMore()" distance="1%" ></ion-infinite-scroll>
+    </ion-content>
+    <ion-footer-bar align-title="left">
+        <button class="button button-full light address-confirm" ng-click="confirmAdd()">确认</button>
+    </ion-footer-bar>
+</div>

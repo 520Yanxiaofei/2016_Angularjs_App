@@ -1,0 +1,336 @@
+<div class="block detail" ng-controller="App.Orders.Detail.Controller">
+    <div class="block-title">
+        <h2>订单信息</h2>
+    </div>
+    <div class="block-content">
+        <h4>买家信息</h4>
+        <div class="row">
+            <div class="col-md-2">
+                <p>代言号：{{ detail.user_number }}</p>
+            </div>
+            <div class="col-md-2">
+                <p>买家昵称：{{ detail.nick_name }}</p>
+            </div>
+            <div class="col-md-3">
+                <p>联系电话：{{ detail.mobile }}</p>
+            </div>
+            <!-- <div class="col-md-7" ng-if="ship_type==1">
+                <p>详细地址：{{ detail.address }}</p>
+            </div> -->
+        </div>
+    </div>
+    <div class="block-content" ng-if="detail.share != ''">
+        <h4>分享人信息</h4>
+        <div class="row">
+            <div class="col-md-2">
+                <p>代言号：{{ detail.share.user_number }}</p>
+            </div>
+            <div class="col-md-2">
+                <p>姓名：{{ detail.share.realname }}</p>
+            </div>
+            <div class="col-md-3">
+                <p>联系电话：{{ detail.share.mobile }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="block-content" ng-if="detail.r != ''">
+        <h4>推荐人信息</h4>
+        <div class="row">
+            <div class="col-md-2">
+                <p>代言号：{{ detail.r.user_number }}</p>
+            </div>
+            <div class="col-md-2">
+                <p>姓名：{{ detail.r.realname }}</p>
+            </div>
+            <div class="col-md-3">
+                <p>联系电话：{{ detail.r.mobile }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="block goods-info">
+        <div class="tab-content">
+            <div class="tab-pane active" id="pt-table-based">
+                <div class="table-responsive">
+                    <table id="general-table" class="table table-striped table-vcenter">
+                        <thead>
+                            <tr>
+                                <th>宝贝</th>
+                                <th>订单状态</th>
+                                <th class="text-center">单价（元）</th>
+                                <th class="text-center">数量</th>
+                                <th class="text-center">商品总价（元）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img ng-src="{{detail.image}}" alt="avatar" class="img-circle">
+                                <span style="padding-left:10px;">
+                                    <h4>{{ detail.title }}</h4>
+                                    <div ng-if="detail.selectedType != ''">规格：{{ detail.selectedType }}</div>
+                                </span>
+                                </td>
+                                <td>{{ statusEmum[detail.status] }}</td>
+                                <td class="text-center">{{ detail.price|dyCurrency}}</td>
+                                <td class="text-center">{{ detail.quantity }}</td>
+                                <td class="text-center">{{ detail.price * detail.quantity | dyCurrency }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row sub-header actual">
+        <div class="col-xs-12 text-right h4">
+            <span>抵扣红包：</span><i>{{ pay_statusNo.redPacket | dyCurrency }}</i>
+        </div>
+        <div class="col-xs-12 text-right h4">
+            <span>抵扣代言币：</span><i>{{ pay_statusNo.faceMoney / 100 }}</i>
+        </div>
+        <div class="col-xs-12 text-right h4">
+            <span>抵扣颜值分：</span><i>{{ pay_statusNo.facePoint }}</i>
+        </div>
+        <div class="col-xs-12 text-right h4">
+            <span>快递费用：</span><i>{{ detail.ship_fee | dyCurrency }}</i>
+        </div>
+        <div class="col-xs-12 text-right h4">
+            <span>实收款：</span><i class="actual-fund">{{ detail.actual_fee | dyCurrency }}</i>
+        </div>
+        <div class="col-xs-12 text-right h4" ng-if="detail.status == '0' && detail.pay_list_count == 0">
+            <button type="button" ng-click="changePrice(detail)" class="btn btn-primary" style="margin-left:10px;">修改价格</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p>订单编号：{{ detail.number }}</p>
+        </div>
+        <div class="col-md-4">
+            <p>创建时间：{{ detail.create_time * 1000 | date:'yyyy-MM-dd HH:mm' }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" ng-if="detail.pay_time">
+            <p>付款时间：{{ detail.pay_time * 1000 | date:'yyyy-MM-dd HH:mm'}}</p>
+        </div>
+        <div class="col-md-4" ng-if="detail.ship_time">
+            <p>发货时间：{{ detail.ship_time * 1000 | date:'yyyy-MM-dd HH:mm' }}</p>
+        </div>
+        <div class="col-md-4" ng-if="detail.receipt_time">
+            <p>收货时间：{{ detail.receipt_time * 1000 | date:'yyyy-MM-dd HH:mm' }}</p>
+        </div>
+    </div>
+    <!--收货和物流信息-->
+    <div class="block" style="overflow: hidden;">
+        <div class="block-title">
+            <h2>收货信息</h2>
+        </div>
+        <div class="block-content ">
+            <div class="row push">
+                <div class="col-md-3">
+                    {{detail.ship_type == 4?'预约服务人':'收货人姓名'}}：{{detail.address.consignee||detail.nick_name}}
+                </div>
+                <!--<div class="col-md-3">-->
+                    <!--代言号： {{detail.user_number}}-->
+                <!--</div>-->
+                <div class="col-md-3">
+                    联系电话： {{detail.mobile}}
+                </div>
+            </div>
+            <div class="row col-md-12 push" ng-show="detail.ship_type != 2">
+                {{detail.ship_type == 4?'预约服务地址':'收货地址'}}：{{detail.service_address.address||detail.address.address||detail.pick_adress}}
+            </div>
+            <div class="row push" ng-if="detail.ship_type == 4">
+                <span class="col-md-1 control-label text-left" for="example-select">备注：</span>
+                <div class="col-md-10" ng-if="order_note.isEditing()">
+                    <div class="col-md-5" style="padding:0px;">
+                        <textarea ng-model="detail.remark" class="form-control" placeholder=""></textarea>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" ng-click="order_note.save({remark:detail.remark})" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+                <div class="col-md-10" ng-if="!order_note.isEditing()">
+                    <div class="col-md-5" style="padding:0px;word-break:break-all;">
+                        {{detail.remark}}
+                        <button type="button" ng-click="order_note.edit()" class="btn btn-primary" style="margin-left:10px;">编辑</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block" ng-if="detail.status >=1">
+        <div class="block-title">
+            <h2>配送信息</h2>
+        </div>
+        <div class="block-content ship-info" style="overflow:hidden">
+            <div class="row col-md-12" ng-if="detail.ship_type == 1">
+                <div class="row push">
+                    <span class="col-md-1 control-label" for="example-select">配送方式：</span>
+                    <div class="col-md-9">
+                        快递
+                    </div>
+                </div>
+                <div class="row push">
+                    <span class="col-md-1 control-label" for="example-select">选择快递：</span>
+                    <div class="col-md-4">
+                        <select id="example-select" ng-model="detail.ship_info.express_id" ng-change="chooseShip(selected)" name="example-select" class="form-control" size="1" ng-disabled="detail.status >=2">
+                            <option value="">请选择快递</option>
+                            <option ng-repeat="ship in ships" value="{{ship.id}}">{{ship.title}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row push">
+                    <span class="col-md-1 control-label" for="example-text-input">运单号：</span>
+                    <div class="col-md-4">
+                        <input type="text" ng-model="form.express_no" id="example-text-input" name="example-text-input" class="form-control" placeholder="" ng-show="detail.status <2">
+                        <span class="row col-md-12" ng-show="detail.status >=2">{{detail.ship_info.express_no}}</span>
+                        <span class="push" ng-show="detail.status ==1">
+                            <button type="button" ng-click="ship.deliverGoods(form.express_no)" class="btn btn-primary">发货</button>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+            <!--自提信息-->
+            <div class="row col-md-12" ng-if="detail.ship_type == 2">
+                <div class="row push">
+                    <span class="col-md-1 control-label" for="example-select">配送方式：</span>
+                    <div class="col-md-4">
+                        自提
+                    </div>
+                </div>
+                <div class="row push" ng-if="detail.pick_info.sub_dealer_shop_id == 0">
+                    <span class="col-md-1 control-label" for="example-select">自提码：</span>
+                    <div class="col-md-5">
+                        <input type="text" ng-model="form.number" id="example-text-input" name="example-text-input" class="form-control" placeholder="" ng-show="detail.status <2">
+                        <span class="row col-md-12" ng-show="detail.status >=2">{{detail.pick_info.number}}</span>
+                        <span class="push" ng-show="detail.status == 1">
+                            <button type="button" ng-click="ship.testingNo(form.number)" class="btn btn-primary">验证</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="row push">
+                    <div class="col-md-5">
+                        自提店联系人：{{detail.pick_shop.contact}}
+                    </div>
+                    <div class="col-md-5">
+                        自提店联系电话：{{detail.pick_shop.mobile}}
+                    </div>
+                </div>
+                <div class="row push">
+                    <div class="col-md-5">
+                        自提店名称：{{detail.pick_shop.title}}
+                    </div>
+                    <div class="col-md-5">
+                        自提店地址：{{detail.pick_shop.address}}
+                    </div>
+                </div>
+                
+            </div>
+            <!--预约服务-->
+            <div class="row col-md-12" ng-if="detail.ship_type == 4">
+                <div class="row push">
+                    <span class="col-md-1 control-label" for="example-select">配送方式：</span>
+                    <div class="col-md-9">
+                        预约服务
+                    </div>
+                </div>
+                <div class="row push">
+                    <span class="col-md-1 control-label" for="example-select">预约码：</span>
+                    <div class="col-md-4">
+                        <input type="text" ng-model="form.number"  class="form-control" placeholder="" ng-show="detail.status <2">
+                        <span class="row col-md-12" ng-show="detail.status >=2">{{detail.pick_info.number}}</span>
+                        <span class="push" ng-show="detail.status ==1">
+                            <button type="button" ng-click="ship.serverNo(form.number)" class="btn btn-primary">提交</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block is-close" ng-if="isClose">
+        <h4>交易已关闭</h4>
+    </div>
+    <div class="block is-close" ng-if="isFinish">
+        <h4>交易已完成</h4>
+    </div>
+    <div class="block is-close" ng-if="isShip">
+        <h4>卖家已发货</h4>
+    </div>
+
+    <script type="text/ng-template" id="change-price.html">
+        <div class="modal-header">
+            <button class="bootbox-close-button close" type="button" ng-click="cancel()">×</button>
+            <h5 class="modal-title">修改订单价格</h5>
+        </div>
+        <div class="modal-body" style="max-height: 400px; overflow: scroll;width: 100%;">
+            <table class="table table-vcenter table-bordered">
+                <tbody>
+                <tr>
+                    <td colspan="7">
+                        <div class="col-md-12">
+                            订单号: {{item.number}}&nbsp;&nbsp;&nbsp;&nbsp;创建时间: {{item.create_time*1000|date :
+                            "yyyy-MM-dd H:mm"}}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="block-title">
+                    <th class="text-center col-md-3">商品</th>
+                    <th class="text-center col-md-2">单价（元）</th>
+                    <th class="text-center col-md-1">数量</th>
+                    <th class="text-center col-md-2">买家</th>
+                    <th class="text-center col-md-2">商品总价调整</th>
+                    <th class="text-center col-md-2" ng-show="item.ship_type == '1'">快递费调整</th>
+                    <th class="text-center col-md-2">订单抵扣优惠</th>
+                </tr>
+                <tr>
+                    <td class="col-md-3">
+                        <img ng-src="{{item.image}}" alt="" width="64" height="64">
+                        <div>{{item.title}}</div>
+                        <div ng-if="item.selectedType != ''">规格：{{item.selectedType}}</div>
+
+                    </td>
+                    <td class="text-center col-md-2">{{item.price|dyCurrency}}</td>
+                    <td class="col-md-1 text-center">{{item.quantity}}</td>
+                    <td class="col-md-2 text-center">{{item.nick_name}}
+                        <br>{{item.mobile}}
+                    </td>
+                    <td class="text-center col-md-2">
+                        <div>
+                            操作类型:
+                            <select class="form-control" ng-model="type" ng-change="viewPrice()">
+                                <option value="1">减少</option>
+                                <option value="2">增加</option>
+                            </select>
+                        </div>
+                        <div>
+                            金额: <input type="text" class="form-control"  ng-model="price" ng-change="viewPrice()">
+                        </div>
+                    </td>
+                    <td class="col-md-2" ng-show="item.ship_type == '1'">
+                        快递费: <input type="text" class="form-control"  ng-model="ship_fee" ng-change="viewPrice()">
+                    </td>
+                    <td class="col-md-2">
+                        <div ng-if="item.pay_statusNo.facePoint > 0">颜值分：{{item.pay_statusNo.facePoint}}</div>
+                        <div ng-if="item.pay_statusNo.faceMoney > 0">代言币：{{item.pay_statusNo.faceMoney/100}}</div>
+                        <div ng-if="item.pay_statusNo.redPacket > 0">红包：{{item.pay_statusNo.redPacket|dyCurrency}}</div>
+                        <div ng-if="item.goods_fee > 0">现金：{{(+item.goods_fee)|dyCurrency}}</div>
+                        <div ng-if="item.ship_fee > 0">快递：{{(+item.ship_fee)|dyCurrency}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <div class="col-md-12">
+                            订单实际支付金额&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品总价+快递费-抵扣优惠={{new_goods_fee|dyCurrency}} + {{new_ship_fee|dyCurrency}} - {{discount_fee|dyCurrency}} = {{pay_fee|dyCurrency}}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际支付:{{pay_fee|dyCurrency}}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-primary" type="button" ng-click="ok()">确定</button>
+        </div>
+    </script>
+</div>

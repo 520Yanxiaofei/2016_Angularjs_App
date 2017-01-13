@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=tFWW2nGXHH3gO6LmTpeswpm9"></script>
+	<title>地图</title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+	//angular
+	var angular=window.parent.angular;
+    var scope=angular.element(window.frameElement).scope();
+
+    var point={
+    	lng: scope.form.lng,
+    	lat: scope.form.lat
+    };
+    var position=scope.help.position;
+    var deep=17;
+
+	var map = new BMap.Map("allmap");
+	var localSearch = new BMap.LocalSearch(map);
+	var marker;
+
+	map.addControl(new BMap.MapTypeControl());   
+	map.setCurrentCity(position[1]);        
+	
+	function searchByStationName(keyword,callback) {
+		var result={},that;
+	    map.clearOverlays();
+	    that=this;
+	    localSearch.setSearchCompleteCallback(function (searchResult) {
+	    	var poi;
+	        poi = searchResult.getPoi(0);
+	        map.centerAndZoom(poi.point, deep);
+	        marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));
+	        marker.enableDragging();
+	        map.addOverlay(marker);
+	        marker.addEventListener('mouseup',drapMaker.bind(that,callback));  
+	        result={
+	        	lng:poi.point.lng,
+	        	lat:poi.point.lat
+	        };
+	        callback(result);
+    	});
+    	localSearch.search(keyword);
+    }
+
+    function drapMaker(callback){
+    	var point,result;
+    	result={};
+		point=marker.getPosition();
+    	result.lng=point.lng;
+    	result.lat=point.lat;
+    	scope.$apply(function(){
+    		callback(result);
+    	});
+    }
+
+    //位置
+	if (point.lng&&point.lat){
+		map.centerAndZoom(new BMap.Point(point.lng,point.lat), deep);
+		marker = new BMap.Marker(new BMap.Point(point.lng, point.lat));
+        marker.enableDragging();
+        marker.addEventListener('mouseup',drapMaker.bind(this,function(data){
+        	scope.form.lng=data.lng;
+	    	scope.form.lat=data.lat;
+        }));
+        map.addOverlay(marker); 
+	}else{
+		map.centerAndZoom(scope.form.address,deep);
+	}
+
+	scope.$watch('help.position',function(newVal,oldVal){
+        var address="";
+		if (newVal!==oldVal){
+            address=scope.help.position.join('')||"";
+			map.centerAndZoom(address,deep);
+			searchByStationName(address,function(data){
+					scope.form.lng=data.lng;
+	    			scope.form.lat=data.lat;
+			});
+		}
+		
+	})
+
+
+	
+
+	
+
+</script>

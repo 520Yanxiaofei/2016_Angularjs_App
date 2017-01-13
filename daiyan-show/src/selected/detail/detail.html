@@ -1,0 +1,120 @@
+<div class="selected-detail" ng-controller="Selected.Detail.Controller">
+    <div ng-include="'app-download/app-download.html'"></div>
+    <ion-content on-scroll="contentScroll()" ng-class="{'has-nav-footer' : (showInfo.manageStatus == 0 && showInfo.sign_status == 1) || (showInfo.manageStatus !=0 && showInfo.status !=3),'has-header' : has_header }">
+        <div class="slide-box-contriner">
+            <div class="slider-box"  on-finish-render-filters>
+                <div class="img-box">
+                    <img ng-src="{{ showInfo.img }}" alt="">
+                </div>
+                <div class="active-title">{{ showInfo.name }}</div>
+            </div>
+        </div>
+        <div class="vote-list-line">
+            <div class="help">
+                <div class="row">
+                    <div class="col-50 ">
+                        <div class="vote-card padding-left border-right">
+                            <div class="card-container">
+                                <img src="image/file.png" alt="">
+                                <p class="line-text">累计投票</p>
+                                <p class="line-text"><span class="num">{{ showInfo.voteCount }}</span>票</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-50 ">
+                        <div class="vote-card padding-left">
+                            <div class="card-container">
+                                <img src="image/person.png" alt="">
+                                <p class="line-text">参与人数</p>
+                                <p class="line-text"><span class="num">{{ showInfo.personCount }}</span>人</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vote-info-text text-center">{{ showInfo.summary }}</div>
+        </div>
+        <div class="vote-list-users">
+            <div class="card-title text-center">
+                选秀排行
+            </div>
+            <div class="count-num-info text-center">
+                共 <span class="num">{{ showInfo.paricipantCount }}</span> 位梦想代言人和
+                <span class="num">{{ showInfo.votePersonCount }}</span> 位支持者
+            </div>
+                <div class="tsb-icons tab-top-bar" ui-sref="selected.draft({ id: show_id,
+                                                p:showInfo.paricipantCount,
+                                                vp:showInfo.votePersonCount })">
+                    <div class="tsb-ic-wrp">
+                        <ion-scroll direction="x" class="tsb-hscroll">
+                            <div class="vote-list-faces">
+                                <div class="row">
+                                    <div class="col-25" ng-repeat="person in person_list">
+                                        <div class="img-box">
+                                            <img ng-src="{{ person.avatar }}" alt="person.name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ion-scroll>
+                        <div class="btn-create-show">
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- 活动详情 -->
+        <div class="active-detail-box">
+            <div class="card-title text-center">
+                活动详情
+            </div>
+            <div class="padding">
+                <p><strong>活动名称：</strong>{{ showInfo.name }}</p>
+                <p><strong>开始时间：</strong>{{ showInfo.startTime*1000 | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+                <p><strong>结束时间：</strong>{{ showInfo.endTime*1000 | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+                <p>
+                    <strong>报名截止时间：</strong> {{ showInfo.joinEndTime*1000 | date:'yyyy-MM-dd HH:mm:ss' }}
+                </p>
+                <p class="active-code">活动二维码：<span class="codeImg" on-touch="showQrcode()"></span></p>
+                <p><strong>活动介绍：</strong></p>
+                <p>{{ showInfo.description }}</p>
+                <p><strong>奖品：</strong></p>
+                <p>{{ showInfo.prize }}</p>
+            </div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer btn-footer" ng-if="(showInfo.manageStatus == 0 && showInfo.sign_status == 1) || (showInfo.manageStatus !=0 && showInfo.status !=3)">
+        <button class="btn-sign-show" on-touch="goAddShow()" ng-class="{disabled : showInfo.sign_status == 0}" ng-if="showInfo.manageStatus == 0 && showInfo.isParticipated != 1 && showInfo.sign_status != 0">
+            加入选秀
+        </button>
+        <button class="btn-sign-show" on-touch="quitShow()" ng-class="{disabled : showInfo.sign_status == 0}" ng-if="showInfo.isParticipated == 1 && showInfo.sign_status != 0 && showInfo.manageStatus == 0">
+            退出选秀
+        </button>
+        <button class="btn-sign-show" on-touch="goManage()" ng-if="(showInfo.manageStatus == 1 || showInfo.manageStatus == 2)  && showInfo.status != 3">
+            管理选秀
+        </button>
+    </div>
+    <!-- 回到顶部 -->
+    <!-- <button class="go-up" on-touch="goTop()"></button> -->
+    <!-- 投票弹出层 -->
+    <div class="layer-vote" ng-show="is_show_layer">
+        <div class="layer-content">
+            <i class="close" on-touch="hideLayer()"></i>
+            <p class="layer-title text-left">代言人才能参加选秀活动，立即成为代言人？</p>
+            <div class="btns">
+                <button on-touch="hideLayer()">取消</button>
+                <button on-touch="becomeSpoker()">确定</button>
+            </div>
+        </div>
+    </div>
+    <div class="layer-vote layer_qrcode" ng-show="is_show_qrcode">
+        <div class="layer-content">
+            <i class="close" on-touch="hideQrcode()"></i>
+            <p class="layer-title">选秀：{{ showInfo.name }}</p>
+            <div class="qrcode">
+                <qrcode version="4" error-correction-level="M" size="140" data="{{show_code}}"></qrcode>
+            </div>
+            <p class="qrcode-text">扫一扫上面的二维码图案</p>
+            <p class="qrcode-text">加入选秀并进入群聊</p>
+        </div>
+    </div>
+</div>

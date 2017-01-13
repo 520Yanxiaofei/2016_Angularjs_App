@@ -1,0 +1,208 @@
+<div class="edit" ng-controller="App.Edit.Controller as ctrl">
+    <div class="block row">
+        <div class="block-title">
+            <h2><strong>店铺管理</strong></h2>
+        </div>
+        <!--tabs-->
+        <uib-tabset active="tabActive" type="pills">
+            <!--基本信息-->
+            <uib-tab index="0" heading="店铺信息">
+                <form class="form-horizontal form-bordered" name="ctrl.infoForm" novalidate dy-form-disabled="history.apply.status">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="example-text-input">店铺名称</label>
+                        <div class="col-md-6">
+                            <input type="text" ng-model="form.title" name="title" class="form-control" placeholder="" required>
+                            <span class="help-block text-danger" ng-show="infoForm.title.$invalid && infoForm.$submitted">店铺名称不能为空</span>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary" ng-click="history.show()">资料修改记录</button>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="example-text-input">店铺LOGO</label>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div style="width:72px;height:72px;background-image:url({{form.logo}});background-repeat: no-repeat;background-position: left top;background-size:72px 72px;" id="logoShow">
+                                        <input type="file" ngf-select="uploadLogo(help.logo)" ng-model="help.logo" name="file" accept="image/*" ngf-model-invalid="errorFile" style="opacity:0; filter:alpha(opacity=0); width: 100%;height:100%;cursor: pointer;" />
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <!-- <span class="help-block" style="margin-top:20px">最多修改3次，每次修改后一个月内无法再次修改</span>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="example-select">所在区域</label>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div dy-city class="col-md-6" areaid="form.area_id" position="help.position" itemclass="col-md-4">
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="help-block" ng-show="!form.area_id && infoForm.submitted">请选择所在区域！</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="example-text-input">地图定位</label>
+                        <div class="col-md-9">
+                            <iframe src="widgets/map/baidu_map.html" frameborder="0" width="100%" height="300"></iframe>
+                        </div>
+                        <div class="col-md-9 col-md-push-2">
+                            <div class="row">
+                                <label class="col-md-1 control-label">经度</label>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" ng-model="form.lng" readonly="">
+                                </div>
+                                <label class="col-md-1 control-label">纬度</label>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" ng-model="form.lat" readonly="">
+                                </div>
+                                <div class="col-md-3">
+                                    <span class="help-block">拖动红色锚点设置经纬度</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">详细地址</label>
+                        <div class="col-md-6">
+                            <input type="text" name="address" ng-model="form.address" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" class="form-control" placeholder="" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">行业分类</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">{{formatIndustry(form.industry)}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">申请人姓名</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">{{form.contact}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">申请人电话</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">{{form.mobile}}</p>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="col-md-2 control-label">店铺封面图</label>
+                        <div class="col-md-9">
+                            <div style="display: inline-block;position: relative;">
+                                <img ng-src="{{form.cover||'static/img/cover.png'}}" width="auto" height="200" >
+                                <input type="file"
+                                       ngf-select="uploadCover(help.cover)"
+                                       ng-model="help.cover" 
+                                       name="cover"    
+                                       accept="image/*"
+                                       ngf-model-invalid="errorFile" 
+                                       style="opacity:0; filter:alpha(opacity=0); width: 100%;height:100%;cursor: pointer;position:absolute;left:0px;top:0px;" 
+                                />
+                            </div>
+                            <div>建议宽度420px，高度170px，产品内容居中</div>
+                        </div>
+
+                    </div> -->
+                    <div class="form-group form-actions">
+                        <div class="col-md-9 col-md-offset-2">
+                            <button type="submit" class="btn btn-block btn-primary" ng-click="submit()" ng-disabled="help.submiting||history.apply.status<1">{{applyStatus(history.apply.status)}}</button>
+                        </div>
+                    </div>
+                </form>
+            </uib-tab>
+            <!--基本信息 end-->
+            <!--店铺相册-->
+            <uib-tab index="1" heading="店铺相册" ng-click="getImgList()">
+                <div class="row widget-simple ">
+                    <fieldset>
+                        <legend>店铺封面
+                        </legend>
+                    </fieldset>
+                    <div class="block-section">
+                        <div class="row col-md-12">
+                            <div style="display: inline-block;position: relative;">
+                                <img ng-src="{{form.cover||'static/img/cover.png'}}" width="auto" height="200" >
+                                <input type="file"
+                                       ngf-select="previewCover(help.cover)"
+                                       ng-model="help.cover" 
+                                       name="cover"    
+                                       accept="image/*"
+                                       ngf-model-invalid="errorFile" 
+                                       style="opacity:0; filter:alpha(opacity=0); width: 100%;height:100%;cursor: pointer;position:absolute;left:0px;top:0px;" 
+                                />
+                            </div>
+                            <div style="display: inline-block;vertical-align:bottom;padding-left:10px;">
+                                <button type="submit" class="btn  btn-primary" ng-click="uploadCover(help.cover)" >上传</button>
+                                <span style="padding-left:10px;">建议宽度420px，高度170px，产品内容居中</span>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row widget-simple ">
+                    
+                    <fieldset>
+                        <legend>上传店铺图片
+                        </legend>
+                    </fieldset>
+                    <div class="block-section">
+                        <div class="fileImgBtn">
+                            <button type="button" class="btn btn-success"><i class="fa fa-picture-o"></i>&nbsp;单图上传</button>
+                            <input type="file" ngf-select="uploadPhotos(help.image)" ng-model="help.image" name="file" ngf-model-invalid="errorFile">
+                        </div>
+                        <div class="fileImgBtn">
+                            <button type="button" class="btn btn-primary"><i class="fa fa-folder-open-o"></i>&nbsp;批量上传</button>
+                            <input type="file" name="fileUpload" multiple="multiple" ng-model="help.mutiImages" ngf-select="uploadPhotos(help.mutiImages)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-vcenter">
+                        <thead>
+                            <tr>
+                                <th style="width:200px;">商品缩略图</th>
+                                <th>上传进度</th>
+                                <th style="width:80px;" class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="img in images">
+                                <td>
+                                    <img width="114" height="114" ng-src="{{img.url}}" alt="avatar">
+                                </td>
+                                <td>
+                                    <div class="progress progress-striped" ng-class="{'active':img.per<100}">
+                                        <div class="progress-bar" ng-class="{'progress-bar-success':img.per>=100,'progress-bar-info':img.per<100}" role="progressbar" aria-valuenow="{{img.per}}" aria-valuemin="0" aria-valuemax="100" style="width: {{img.per}}%">{{img.per}}%</div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-xs">
+                                        <a ng-click="deleteImg(img.id)" title="删除" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="row text-center">
+                        <uib-pagination total-items="help.imgTotal" ng-model="help.imgPage" items-per-page="help.imgLimit" ng-change="getImgList()" max-size="help.maxPage" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页"></uib-pagination>
+                    </div> -->
+            </uib-tab>
+            <!--店铺相册 end-->
+            <!--预约地址-->
+            <uib-tab index="2" heading="预约服务地址" ng-if="shop_type == 2">
+                <div ng-include="address_template"></div>
+            </uib-tab>
+            <!--预约地址 end-->
+        </uib-tabset>
+        <!--tabs end-->
+    </div>
+</div>
+<!-- 店铺信息验证 -->

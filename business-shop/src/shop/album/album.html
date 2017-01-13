@@ -1,0 +1,29 @@
+<div class="album" ng-controller="App.Shop.Album.Controller">
+    <!-- <ion-header-bar align-title="center" class="bar">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-left light"></button>
+        </div>
+        <h1 class="title light">店铺相册</h1>
+    </ion-header-bar> -->
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+        <div class="list">
+            <div class="padding item-divider">
+                店铺相册
+            </div>
+            <div class="row">
+                <div class="col-50 img-box" ng-repeat="image in images" ng-click="showSliderImgs($index)"><img ng-src="{{image.url}}"></div>
+            </div>
+        </div>
+    </ion-content>
+    <div class="img-slider-box" ng-if="isShowSlide">
+        <div class="slider-innerBox" on-touch="handlEvent($event)">
+            <ion-slide-box active-slide="currentPic" auto-play="false" show-pager="false" does-continue="false" on-touch="hideSlider()">
+                <ion-slide ng-repeat="image in images">
+                    <div class="slide-pic" on-touch="handlEvent($event)">
+                        <img ng-src="{{image.url}}">
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+            <div class="number-tips text-center">{{currentPic+1}}/{{ images_length }}</div>
+        </div>
+    </div>

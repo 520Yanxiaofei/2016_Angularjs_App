@@ -1,0 +1,62 @@
+<div class="join-infor" ng-controller="App.User.JoinInfor.Controller as ctrl">
+    <!-- <ion-header-bar align-title="center" class="bar">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-left light" ui-sref="user.info"></button>
+        </div>
+        <h1 class="title light">商家入驻信息</h1>
+    </ion-header-bar> -->
+    <div class="bar bar-header">
+        <h1 class="title">店铺信息</h1>
+    </div>
+    <ion-content class="content">
+        <ul class="list store-infor">
+            <li class="item logo">
+                <label>店铺logo</label>
+                <img ng-src="{{infor.logo}}">
+            </li>
+            <li class="item">
+                <label>店铺名称</label>
+                <span>{{infor.title}}</span>
+            </li>
+            <li class="item">
+                <label>店铺地址</label>
+                <span>{{infor.address}}</span>
+            </li>
+            <li class="item">
+                <label>联系电话</label>
+                <span>{{infor.mobile}}</span>
+            </li>
+            <li class="item">
+                <label>联&nbsp;系&nbsp;人</label>
+                <span>{{infor.contact}}</span>
+            </li>
+        </ul>
+
+        <ul class="list store-content">
+            <li class="item industry">
+                所属行业
+            </li>
+            <li class="item industry-types">
+                <span ng-repeat="ind in infor.industry">{{ ind.title }}</span>
+                <!-- <span>美容</span>
+                <span>美甲</span>
+                <span>美发</span> -->
+            </li><!-- 
+            <li class="item industry">
+                店铺类型
+            </li>
+            <li class="item story-text">
+                {{infor.shop_type}}
+            </li> -->
+        </ul>
+
+        <div class="to-edit">
+            <span class="pay-promt">您还未支付入驻申请费哦~</span>
+            <p class="edit">
+                <button on-touch="toEdit()">编辑资料</button>
+                <button on-touch="toPay()">去支付</button>
+            </p>
+        </div>
+
+    </ion-content>
+</div>

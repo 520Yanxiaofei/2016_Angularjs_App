@@ -1,0 +1,221 @@
+.seller-home {
+    .slider {
+        z-index: -10;
+    }
+    .itemListTip {
+        border: none;
+        color: #666;
+    }
+    a {
+        text-decoration: none;
+    }
+    // 顶部幻灯
+    .top-banner-box{
+        position: relative;
+       .slider {
+           .slider-slide {
+               .slide-pic {
+                   div{
+                       height: 100%;
+                       width: 100%;
+                   }
+                   min-height: 110px;
+                   text-align: center;
+                   img {
+                       display: block;
+                       height: 100%;
+                       width: 100%;
+                   }
+               }
+           }
+       }
+       .seller-num {
+            position: absolute;
+            right: 0;
+            bottom: 10px;
+            background: #f99755;
+            color: #fff;
+            font-size: 10px;
+            padding-left: 10px;
+            border-radius: 10px 0% 0% 10px;
+        }
+    }
+    
+    .graybox {
+        background: #000;
+        opacity: 0.5;
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: 5px;
+    }
+    .item h2 {
+        white-space: normal;
+        font-size: 14px;
+        color: #666;
+        line-height: 140%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        padding-top: 5px;
+    }
+    .item p{
+        margin-top:5px;
+    }
+    .item p span{
+        font-size:10px;
+        color:#999;
+        float: right
+    }
+    .item .old-price{
+         font-size:12px;
+        color:#999;
+        position: absolute;
+        bottom:28px;
+    }
+    .item p span{
+        float: right;
+    }
+    .home-price {
+        color: #f00;
+        position: absolute;
+        bottom:5px;
+    }
+    
+    .seller-info {
+        padding: 10px;
+        position: relative;
+        .seller-name {
+            font-size: 15px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .seller-distance {
+            font-size: 12px;
+            color: #f99b15;
+            padding-left: 14px;
+        }
+        .seller-tel {
+            background: url(../image/tel.png) no-repeat right center;
+            width: 26px;
+            height: 21px;
+            background-size: auto 20px;
+            display: block;
+            position: absolute;
+            right: 10px;
+            top: 50px;
+        }
+        .address {
+            padding-left:15px;
+            padding-right:25px;
+            position: relative; 
+            font-size: 12px;
+        }
+        .seller-address {
+            position: absolute;
+            top:4px;
+            left:0;
+            background: url(../image/address.png) no-repeat center;
+            background-size: auto 12px;
+            width: 9px;
+            height: 12px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+    .seller-goods-list {
+        font-size: 14px;
+        color: #222;
+        padding-left: 10px;
+        margin-bottom: 10px;
+    }
+    .bar-header {
+        background-color: @header-bg-color;
+    }
+    /*底部固定tab导航*/
+    .tabs {
+        background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
+    }
+    .shoptab .icon {
+        font-size: 24px;
+        height: 25px;
+        margin-top: 3px;
+    }
+    .bar {
+        padding: 0;
+    }
+    /*延时加载样式*/
+    .image-loader-container {
+        margin: 9px;
+        max-width: 100px;
+        max-height: 100px;
+        width: 100%;
+        height: 100%;
+        top: 1px;
+        left: 1px;
+        position: absolute;
+        background-color: #e5e5e5;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+    }
+    .bar-header-operate {
+        position: fixed;
+        top: 2px;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        .goods-shop {
+            a {
+                border: 1px solid #FC853B;
+                color: #000;
+                font-size: 14px;
+                text-decoration: none;
+                background: #F2E5C4;
+                border-radius: 5px;
+                padding: 5px 10px;
+                margin-top: 2px;
+                margin-right: 5px;
+                display: inline-block;
+                .heart {
+                    margin-top: -2px;
+                    margin-right: 5px;
+                    display: inline-block;
+                    height: 14px;
+                    width: 20px;
+                    background: url(../image/heart.png) no-repeat center;
+                    background-size: auto 14px;
+                    vertical-align: middle;
+                }
+                .heart.favorite {
+                    // 收藏后的图标
+                    // background: url(../image/dyw-home.png) no-repeat center;
+                    background-size: auto 14px;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+    .item-thumbnail-left {
+        padding-left: 120px;
+        min-height: 120px;
+        img:first-child {
+            max-height: none;
+            max-width: none;
+            height: 100px;
+            width: 100px;
+            border-radius: 4px;
+        }
+    }
+    .divider-bar {
+        height: 10px;
+        background: #F1F1F1;
+    }
+}

@@ -1,0 +1,85 @@
+<div class="merchant-information" ng-controller="App.User.MerchantInformation.Controller as ctrl">
+    <!-- <ion-header-bar align-title="center" class="bar">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-left light" ui-sref="user.info"></button>
+        </div>
+        <h1 class="title light">填写商家入驻信息</h1>
+    </ion-header-bar> -->
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+    <form novalidate="" name="applyForm" enctype="multipart/form-data">
+        <div class="list">
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>店家名称</span>
+                <input type="text" placeholder="请输入店家名称" ng-model="form.title" required="">
+            </div>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>店家地址</span>
+                <div class="row padding text-left" 
+                     dy-city
+                     areaid="form.area_id"
+                     position="position"
+                     col="3" 
+                     itemclass="col-33" 
+                     required="">
+                </div>
+                
+            </div>
+            <label class="item item-input">
+                <span class="input-label"><i class="assertive">*</i>详细地址</span>
+                <input type="text" placeholder="请输入详细地址" ng-model="form.address" required="">
+            </label>
+            <label class="item item-input">
+                <span class="input-label"><i class="assertive">*</i>联系电话</span>
+                <input type="tel" placeholder="请输入联系电话" ng-model="form.mobile" required="">
+            </label>
+            <label class="item item-input">
+                <span class="input-label"><i class="assertive">*</i>联系人姓名</span>
+                <input type="text" placeholder="请输入联系人姓名" ng-model="form.contact" required="" inputmode="text">
+            </label>
+            <div class="item">
+                <span class="input-label"><i class="assertive">*</i>所属行业</span>
+                <div class="row industry">
+                    <div class="col-33" ng-repeat="industry in industries">
+                        <label>
+                            <input type="checkbox" class="checkbox-orange" ng-model="mutiIndustry[industry.id]">{{industry.title}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="item store-type" ng-if="false">
+                <span class="input-label"><i class="assertive">*</i>选择店铺类型</span>
+                <div class="row industry">
+                    <div class="row">
+                        <label ng-click="storeType(1)">
+                            <i class="checkbox" ng-class="{active:isActive==1}"></i>
+                            O2O线下服务店
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label ng-click="storeType(2)">
+                            <i class="checkbox" ng-class="{active:isActive==2}"></i>
+                            品牌店
+                        </label>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="item logo-upload-box padding-horizontal">
+            <span class="input-label">上传LOGO</span>
+            <div class="padding">
+                <div class="logo-upload">
+                    <img ng-src="{{form.newLogo}}" ng-if="haveLogo">
+                    <input type="file" onchange="angular.element(this).scope().uploadLogo(this)">
+                </div>
+            </div>
+        </div>
+        <div class="padding">
+            <button ng-if="isSavePay" class="button button-block button-positive btn-bottom" on-touch="submit()">
+                保存并支付入驻费用
+            </button>
+            <button ng-if="isSave" class="button button-block button-positive btn-bottom" on-touch="submit()">提交</button>
+            <button ng-if="notPassSave" class="button button-block button-positive btn-bottom" on-touch="submit()">提交</button>
+        </div>
+    </form>
+    </ion-content>
+</div>

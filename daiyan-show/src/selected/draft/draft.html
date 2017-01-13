@@ -1,0 +1,31 @@
+<div class="Draft" ng-controller="App.Selected.Draft.Controller">
+    <div class="bar bar-header">
+        <div class="welareText">
+            <img src="image/welfare-icon01.png" />共<span class="color01">
+            <strong>{{ person.p }}</strong>位</span>梦想代言人和<span class="color01">
+            <strong>{{ person.votePerson }}</strong>位</span>支持者
+        </div>
+    </div>
+    <ion-content class="has-header padding">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefreshse()"></ion-refresher>
+        <div class="header-count">
+            <input type="text" class="search-input-box disable-user-behavior" placeholder="搜索选手" ui-sref="search.user({ids:ids,type:0})" readonly>
+        </div>
+        <ul class="list">
+            <li ng-repeat="item in peopleList" ui-sref="selected.competition({id:item.uid,ids:ids})">
+                <div class="itemlist" ng-class="{active01 : $index == 0,active02 : $index == 1,active03 : $index == 2}">
+                    <i class="itemIcon" ng-bind="$index+1">1</i>
+                    <img ng-src="{{item.avatar}}" image-lazy-loader="ios">
+                    <h2>{{item.name}}</h2>
+                    <label class="color01 itemPiao">{{item.voteCount}}票</label>
+                    <div class="line"></div>
+                </div>
+                <div class="itemText">
+                    {{item.slogan}}
+                </div>
+            </li>
+        </ul>
+        <ion-infinite-scroll pulling-text="加载更多" ng-if="moreData" on-infinite="loadMorese()" distance="0%"></ion-infinite-scroll>
+        <div class="padding text-center text-gray" ng-hide="moreDataed">没有更多数据了</div>
+    </ion-content>
+</div>

@@ -1,0 +1,31 @@
+<div class="myseniorityGoods" ng-controller="App.User.MyseniorityGoods.Controller">
+    <ion-content>
+        <ion-list can-swipe="true">
+            <div ng-show="goods_list.length != 0">
+                <div ng-repeat="goods in goods_list">
+                    <ion-item class="item-thumbnail-left item-remove-animate" ui-sref="goods.detail({id: goods.id})">
+                        <img ng-src="{{goods.image}}">
+                        <h2>{{goods.title}}</h2>
+                        <p class="">
+                            <span>{{goods.current_price | dyCurrency}}</span>
+                        </p>
+                        <div class="shop-name">
+                            <img class="shop-logo" ng-src="{{goods.logo}}">
+                            <span class="shop-name-txt ng-binding">{{goods.shop}}</span>
+                        </div>
+                    </ion-item>
+                    <div class="buy-date">购买日期：{{ goods.pay_time*1000 | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+                    <div class="divider-box"></div>
+                </div>
+                
+            </div>
+        </ion-list>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+        <div class="padding text-center text-gray marinTop" ng-show="goods_list.length == 0">
+            <i class="icon ion-ios-filing-outline"></i> 暂时没有任何代言人商品
+            <br/>
+            <br/>
+            <a ui-sref="seniority()" class="button button-positive">去逛一逛，更多商品等着您购买~</a>
+        </div>
+    </ion-content>
+</div>

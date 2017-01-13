@@ -1,0 +1,39 @@
+<div class="another-balance-pay" ng-controller="App.User.AnotherBalancePay.Controller">
+    <!-- <ion-header-bar align-title="center" class="bar">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button>
+        </div>
+        <h1 class="title light">余额支付</h1>
+    </ion-header-bar> -->
+    
+        <div class="pay-title">请输入余额支付密码</div>
+        <div class="text-center">
+            <div class="pay-box">
+                <form id="password">
+                    <input readonly class="pass pass_left" type="password" maxlength="1" ng-model="nums.num1"><input readonly class="pass" type="password" maxlength="1" value="" ng-model="nums.num2"><input readonly class="pass" type="password" maxlength="1" ng-model="nums.num3"><input readonly class="pass" type="password" maxlength="1" ng-model="nums.num4"><input readonly class="pass" type="password" maxlength="1" ng-model="nums.num5"><input readonly class="pass pass_right" type="password" maxlength="1" ng-model="nums.num6">
+                </form>
+                <p class="padding-top text-right">
+                    <a href="http://m.cellmyth.cn/wechat/member/safepassword">设置/忘记支付密码？</a>
+                </p>            
+            </div>
+        </div>
+        <div class="keyboardDIV">
+            <div id="key" style="">
+                <ul class="keyboard">
+                    <li class="symbol" on-touch="keydown(1)"><span class="off">1</span></li>
+                    <li class="symbol" on-touch="keydown(2)"><span class="off">2</span></li>
+                    <li class="symbol" on-touch="keydown(3)"><span class="off" >3</span></li>
+                    <li class="symbol" on-touch="keydown(4)"><span class="off">4</span></li>
+                    <li class="symbol" on-touch="keydown(5)"><span class="off">5</span></li>
+                    <li class="symbol" on-touch="keydown(6)"><span class="off">6</span></li>
+                    <li class="symbol" on-touch="keydown(7)"><span class="off">7</span></li>
+                    <li class="symbol" on-touch="keydown(8)"><span class="off">8</span></li>
+                    <li class="symbol" on-touch="keydown(9)"><span class="off">9</span></li>
+                    <li class="cancle"></li>
+                    <li class="symbol" on-touch="keydown(0)"><span class="off">0</span></li>
+                    <li class="delete lastitem" on-touch="keydown('back')">删除</li>
+                </ul>
+            </div>
+        </div>
+
+</div>

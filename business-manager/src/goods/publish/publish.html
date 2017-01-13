@@ -1,0 +1,735 @@
+<div class="block full goods-publish" ng-controller="App.Goods.Publish.Controller">
+    <div class="block-title">
+        <h2>发布商品</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Default Tabs -->
+            <ul class="nav nav-pills" data-toggle="tabs">
+                <li ng-class="{ active: isSet('baseInfo') }">
+                    <a href ng-click="setTab('baseInfo')">基础信息</a>
+                </li>
+                <li ng-class="{ active: isSet('goodsCommission') }">
+                    <a href ng-click="setTab('goodsCommission');">分销奖励信息</a>
+                </li>
+                <li ng-class="{ active: isSet('goodsPics') }">
+                    <a href ng-click="setTab('goodsPics')">商品相册</a>
+                </li>
+                <li ng-class="{ active: isSet('goodsDesc') }">
+                    <a href ng-click="setTab('goodsDesc')">商品介绍</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane widget-simple" ng-class="{ active: isSet('baseInfo')}" onsubmit="return false;">
+                    <div class="row">
+                        <form name="basicForm" class="form-horizontal" novalidate>
+                            <fieldset>
+                                <legend>基本信息<span class="text-danger">（必填项）</span>
+                                </legend>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_ShortTitle">类目名牌
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="help-block">
+                                            <!-- <span>{{cats[0].brand_name}}&nbsp;<i class="fa fa-angle-right"></i>&nbsp;{{cats[1].category_pname}}&nbsp;<i class="fa fa-angle-right"></i>&nbsp;{{cats[1].category_name}}&nbsp;<i class="fa fa-angle-right"></i>&nbsp;{{cats[2].shop_category_name}}</span> -->
+                                            <span>{{cats}}</span>
+                                        </div>
+                                        <a ui-sref="goods.edit({id:form.id})" class="btn btn-alt btn-sm btn-primary">修改</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_ShortTitle">商品短标题 <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="text" name="title_short" ng-model="form.title_short" class="form-control" placeholder="商品名称" ng-minlength="3" required>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger text-left " ng-show="basicForm.title_short.$invalid &&basicForm.$submitted">
+                                        <div class=" text-left ">标题长度必须大于3</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_LongTitle">商品长标题 <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="text" name="title" class="form-control" ng-model="form.title" placeholder="商品长标题" ng-ng-minlength="3" required>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger" ng-show="basicForm.title.$invalid &&basicForm.$submitted">
+                                        <div class=" text-left ">标题长度必须大于3</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_LongTitle">商品类型 <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select name="example-select" class="zige-type form-control" size="1" ng-change="changeZigeType()" ng-model="form.qualified_type" ng-show="zige_type_show">
+                                            <option value="0">普通商品</option>
+                                            <option ng-repeat="root in root_list" value="{{root.key}}">{{root.value}}</option>
+                                        </select>
+                                        <div class="help-block" ng-show="!zige_type_show">
+                                            <span>{{zige_type_text}}</span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group" ng-show="zige_flag_show">
+                                    <label class="col-md-2 control-label" for="val_digits">选择是否参与代言大赛
+                                    </label>
+                                    <div class="col-md-6">
+                                        <label class="radio-inline" for="val_termsd">
+                                            <input type="radio" id="val_termsd" name="vote" value="1" ng-model="form.set_dasai">是
+                                        </label>
+                                        <label class="radio-inline" for="val_termsd01">
+                                            <input type="radio" id="val_termsd01" name="vote" value="0" ng-model="form.set_dasai">否
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-if="goods_detail.attrbute.length != 0">
+                                    <label class="col-md-2 control-label" for="val_LongTitle">关联商品产品类型名称<span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <span class="lh30">{{ selectedGoodsType.sel_name }}</span>
+                                    </div>
+                                    <div class="col-md-2 control-label" ng-click="setGoodsType()">
+                                        <div class=" text-left"><button class="btn btn-xs btn-primary">设置</button></div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="specification-size">
+                                <legend ng-if="goods_detail.attrbute.length != 0">
+                                    <div class="row clearfix">
+                                        <div class="col-md-2">规格参数<span class="text-danger">（必填项）</span></div>
+                                        <div class="col-md-10">
+                                            <button class="btn btn-xs btn-primary" ng-click="setGoodsAttrDetail()">设置</button>
+                                        </div>
+                                    </div>
+                                </legend>
+                                <div class="form-group" ng-repeat="attr in attrs">
+                                    <label class="col-md-2 control-label">{{ attr.name }}<span class="text-danger"></span></label>
+                                    <div class="col-md-8 lh30">
+                                        <span>{{ attr.value }}</span>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger">
+                                        <div class=" text-left "></div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>价格信息<span class="text-danger">（必填项）</span>
+                                </legend>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_number">商品市场价格 <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="number" min="1/10" name="original_price" class="form-control" ng-model="form.original_price" placeholder="市场价格" required="" dy-currency>
+                                            <span class="input-group-addon"><i class="fa fa-jpy"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger" ng-show="basicForm.original_price.$invalid &&basicForm.$submitted">
+                                        <div class=" text-left ">商品市场价格必须大于0！</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_numberd">商品销售价格 <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="number" min="1/10" name="current_price" class="form-control" ng-model="form.current_price" placeholder="销售价格" required="" dy-currency>
+                                            <span class="input-group-addon"><i class="fa fa-jpy"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger" ng-show="basicForm.current_price.$invalid &&basicForm.$submitted">
+                                        <div class=" text-left ">商品销售价格必须大于0！</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>折扣信息<span class="text-danger">（非必填项）</span>
+                                </legend>
+                                <div class="form-group">
+                                    <div class="col-md-12 notify">
+                                        温馨提示：目前商家获得的颜值分、代言币与平台兑换的比例是：颜值分：兑换现金=1 ：{{all_data.goods.integral_val}} 代言币：兑换现金=1 ：{{all_data.goods.gold_val}}
+                                    </div>
+                                    <label class="col-md-2 control-label" for="val_digits">此商品可折扣颜值分
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" min="0" ng-model="form.integral" name="integral" class="form-control" placeholder="颜值分(单位个)" ng-pattern="/^\d+$/">
+                                    </div>
+                                    <div class="col-md-2 control-label">
+                                        <div class=" text-left ">1颜值分 = ￥{{all_data.goods.integral_val}}</div>
+                                    </div>
+                                    <div class="col-md-2 ">
+                                        <button type="button" class="btn btn-primary" ng-show="all_data.shop.goods_rule_id == -1" ng-click="discount.show({id:form.id,integral:all_data.goods.integral_val,gold:all_data.goods.gold_val,data:all_data.goods})">修改抵扣比例</button>
+                                    </div>
+                                    <div class="col-md-2 col-md-push-2 control-label text-danger" ng-show="basicForm.integral.$invalid &&basicForm.$submitted">
+                                        <div class=" text-left ">颜值分必须是整数且大于或等于0！</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_digits">此商品可折扣代言币
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" min="0" ng-model="form.gold" name="gold" class="form-control" dy-currency placeholder="代言币(单位个)">
+                                    </div>
+                                    <div class="col-md-2 control-label">
+                                        <div class=" text-left ">1代言币 = ￥{{all_data.goods.gold_val}}</div>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger" ng-show="basicForm.gold.$invalid &&basicForm.$submitted">
+                                        <div class=" text-left ">代言币必须大于或等于0！</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_digits">此商品可折扣红包
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" min="0" ng-model="form.voucher" name="voucher" class="form-control" dy-currency placeholder="折扣红包(单位元)">
+                                    </div>
+                                    <div class="col-md-2 control-label">
+                                        <div class=" text-left ">1元红包 = ￥1.00</div>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger" ng-show="basicForm.voucher.$invalid &&basicForm.$submitted">
+                                        <div class=" text-left ">红包必须大于或等于0！</div>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_digits">此商品佣金
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" min="0" ng-model="form.commission" name="commission" class="form-control" placeholder="商品佣金(单位元)" dy-currency>
+                                    </div>
+                                    <div class="col-md-2 control-label">
+                                        <div class=" text-left ">商品佣金用于奖金结算</div>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger" ng-show="basicForm.commission.$invalid &&basicForm.$submitted">
+                                        <div class=" text-left ">佣金必须大于或等于0！</div>
+                                    </div>
+                                </div> -->
+                            </fieldset>
+                            <fieldset>
+                                <legend>业务信息<span class="text-danger">（必填项）</span>
+                                </legend>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_digits">配送方式
+                                    </label>
+                                    <div class="col-md-6">
+                                        <label class="checkbox-inline" for="val_terms01">
+                                            <input type="checkbox" value="2" ng-model="help.ship_type_2" ng-change="setShipType()">自提
+                                        </label>
+                                        <label class="checkbox-inline" for="val_terms">
+                                            <input type="checkbox" value="1" ng-model="help.ship_type_1" ng-change="setShipType()">快递
+                                        </label>
+                                        <label class="checkbox-inline" for="val_terms" ng-if="shop_type==2">
+                                            <input type="checkbox" value="4" ng-model="help.ship_type_3" ng-change="setShipType('ship_type_3')">预约服务
+                                            <button type="button" class="btn btn-primary btn-xs" ng-click="setServiceAddress()" ng-show="help.ship_type_3">编辑</button>
+                                            <!-- <i class="fa fa-angle-down sidebar-nav-indicator" ng-click="setServiceAddress()" ng-show="help.ship_type_3"></i> -->
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger" ng-show="!+form.ship_type &&basicForm.$submitted">
+                                        <div class=" text-left ">请选择配送方式！</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="form.ship_type%2==1">
+                                    <label class="col-md-2 control-label" for="val_yuefei">运费
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="number" min="0" name="ship_price" ng-model="form.ship_price" class="form-control" dy-currency placeholder="">
+                                            <span class="input-group-addon"><i class="fa fa-jpy"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 control-label text-danger" ng-show="basicForm.ship_price.$invalid &&basicForm.$submitted">
+                                        运费必须大于或等于0！
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="help.ship_type_3 && server_address_list.length>0 && shop_type==2">
+                                    <label class="col-md-2 control-label">服务地址
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div style="line-height:31px;" ng-repeat="address in server_address_list">
+                                            <span>{{address.address}}</span>
+                                            <span>{{address.mobile}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="val_digits">是否退换货
+                                    </label>
+                                    <div class="col-md-6">
+                                        <label class="radio-inline" for="val_termsd">
+                                            <input type="radio" id="val_termsd" name="val_termsd" value="1" ng-model="form.is_refund">是
+                                        </label>
+                                        <label class="radio-inline" for="val_termsd01">
+                                            <input type="radio" id="val_termsd01" name="val_termsd" value="0" ng-model="form.is_refund">否
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary" ng-click="submitBasic()" ng-disabled="help.submiting">确定</button>&nbsp;&nbsp;&nbsp;
+                                    <button ng-click="goBack()" class="btn btn-warning">返回</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- 商品佣金 -->
+                <div class="tab-pane widget-simple" ng-class="{ active: isSet('goodsCommission')}">
+                    <form name="commissionForm" class="form-horizontal" novalidate>
+                        <div class="row text-center" ng-if="!commission_service.distribution">
+                            没有设置权限
+                        </div>
+                        <div class="row" ng-if="commission_service.distribution">
+                            <fieldset ng-if="commission_service.distribution[1]!=undefined || commission_service.distribution[2]!=undefined">
+                                <legend>B端净值分销奖励</legend>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-label">现金分销奖励比例
+                                    </label>
+                                    <div class="col-md-6 notify" style="padding-top:7px;">
+                                        (一级经销商向上三级，分销比例分别为9%，8%，7%)
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12" ng-if="commission_service.distribution[1]!=undefined">
+                                    <label class="col-md-2 control-label">现金奖励比例(%)
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" min="0" ng-model="commission_service.distribution[1].pv" class="form-control" placeholder="百分比，0-100的整数" onkeyup="if(!/(^0$)|(^100$)|(^\d{1,2}$)/.test(value)){value='';}" >
+                                    </div>
+                                   <!--  <div class="col-md-12 push">
+                                    </div>
+                                    <label class="col-md-2 control-label">零售利润率(%)
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" min="0" ng-model="commission_service.distribution[1].retail_margins" class="form-control" placeholder="百分比">
+                                    </div>
+                                    <div class="col-md-3  control-label">
+                                        <div class="text-left text-danger">
+                                            (一级经销商分销比例)
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-label">现金奖励金额
+                                    </label>
+                                    <div class="col-md-6 notify" style="padding-top:7px;padding-left: 20px;">
+                                        {{commission_service.distribution[1].current_price * commission_service.distribution[1].pv *0.0001 || 0 }}元
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group col-md-12" ng-if="commission_service.distribution[2]!=undefined">
+                                    <label class="col-md-2 control-label">代言币奖励基数
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" min="0" ng-model="commission_service.distribution[2]" class="form-control" placeholder="单位个" dy-currency>
+                                    </div>
+                                </div> -->
+                            </fieldset>
+                            <fieldset ng-if="commission_service.distribution[3] || commission_service.distribution[4]">
+                                <legend>C端客户奖励设置<span class="text-danger"></span><span class="notify">奖励总数 = 现金奖励 + 代言币兑换奖励 =</span><span class="text-danger">{{(commission_service.distribution[3].price/100||0)+(commission_service.distribution[4].price*commission_service.distribution.exchange_rule/100||0) | currency :'':2}}元</span></legend>
+                                <div ng-if="commission_service.distribution[3]" class="push" style="border-bottom:1px solid #eaedf1;overflow: hidden;">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">C端客户现金奖励设置
+                                        </label>
+                                        <div class="col-md-6 notify">
+                                            现金分销奖励默认三级分销比例为{{commission_service.distribution[3].default.c1}}%，{{commission_service.distribution[3].default.c2}}%，{{commission_service.distribution[3].default.c3}}%，可调整，要求调整总数不超过{{commission_service.distribution[3].default.c1+commission_service.distribution[3].default.c2+commission_service.distribution[3].default.c3}}%；
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金奖励比例(%)
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[3].pv" class="form-control" placeholder="百分比"  >
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金奖励金额
+                                        </label>
+                                        <div class="col-md-6 notify" style="padding-top:7px;padding-left: 20px;">
+                                            {{(commission_service.distribution[1].current_price * commission_service.distribution[3].pv /10000).toFixed(2) || 0}}元
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金一级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[3].c1" class="form-control" placeholder="百分比" >
+                                        </div>
+                                    </div>
+                                    <div ng-if="commission_service.distribution[3].default.c2" class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金二级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[3].c2" class="form-control" placeholder="百分比" >
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="commission_service.distribution[3].default.c3"  class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金三级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[3].c3" class="form-control" placeholder="百分比，0-100的整数" >
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div ng-if="commission_service.distribution[4]">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">C端客户代言币奖励设置
+                                        </label>
+                                        <div class="col-md-6 notify">
+                                            代言币分销奖励默认三级分销比例为{{commission_service.distribution[4].default.c1}}%，{{commission_service.distribution[4].default.c2}}%，{{commission_service.distribution[4].default.c3}}%，可调整，要求调整总数不超过{{commission_service.distribution[4].default.c1+commission_service.distribution[4].default.c2+commission_service.distribution[4].default.c3}}%；
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币奖励
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[4].price" class="form-control" placeholder="单位个" dy-currency>
+                                        </div>
+                                        <div class="col-md-3  control-label">
+                                            <div class="text-left text-danger">
+                                                (兑换比例1币：{{commission_service.distribution.exchange_rule}}元)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币一级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[4].c1" class="form-control" placeholder="百分比，0-100的整数" >
+                                        </div>
+                                    </div>
+                                    <div ng-if="commission_service.distribution[4].default.c2" class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币二级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[4].c2" class="form-control" placeholder="百分比，0-100的整数" >
+                                        </div>
+                                    </div>
+                                    <div ng-if="commission_service.distribution[4].default.c3" class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币三级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[4].c3" class="form-control" placeholder="百分比，0-100的整数" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset ng-if="commission_service.distribution[5] || commission_service.distribution[6]">
+                                <legend>B端商家现金奖励设置</legend>
+                                <div ng-if="commission_service.distribution[5]">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">分享奖励比例
+                                        </label>
+                                        <div class="col-md-6 notify">
+                                            现金分销奖励默认三级分销比例为{{commission_service.distribution[5].default.c1}}%，{{commission_service.distribution[5].default.c2}}%，{{commission_service.distribution[5].default.c3}}%，可调整，要求调整总数不超过{{commission_service.distribution[5].default.c1+commission_service.distribution[5].default.c2+commission_service.distribution[5].default.c3}}%；
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金奖励比例(%)
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[5].pv" class="form-control" placeholder="百分比，0-100的整数"  >
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金奖励金额
+                                        </label>
+                                        <div class="col-md-6 notify" style="padding-top:7px;padding-left: 20px;">
+                                            {{(commission_service.distribution[1].current_price * commission_service.distribution[5].pv /10000).toFixed(2) || 0}}元
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金一级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[5].c1" class="form-control" placeholder="百分比，0-100的整数" >
+                                        </div>
+                                    </div>
+                                    <div ng-if="commission_service.distribution[5].default.c2" class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金二级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[5].c2" class="form-control" placeholder="百分比，0-100的整数" >
+                                        </div>
+                                    </div>
+                                    <div ng-if="commission_service.distribution[5].default.c3" class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">现金三级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[5].c3" class="form-control" placeholder="百分比" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="commission_service.distribution[6]">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币分销奖励比例
+                                        </label>
+                                        <div class="col-md-6 notify">
+                                            代言币奖励基数将会从商家代言币中扣除，商家可通过充值或者其他途径进行获取；
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币奖励基数
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[6].price" class="form-control" placeholder="单位个" dy-currency>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币一级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[6].c1" class="form-control" placeholder="百分比" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币二级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[6].c2" class="form-control" placeholder="百分比，0-100的整数" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-2 control-label">代言币三级分销比例(%)</label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="0" ng-model="commission_service.distribution[6].c3" class="form-control" placeholder="百分比" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary" ng-click="commission_service.save({goods_id:form.id})" ng-disabled="">确定保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 商品佣金 end -->
+                <div class="tab-pane" ng-class="{ active: isSet('goodsPics')}">
+                    <div class="row widget-simple ">
+                        <fieldset>
+                            <legend>上传商品图片
+                            </legend>
+                        </fieldset>
+                        <div class="block-section">
+                            <div class="fileImgBtn">
+                                <button type="button" class="btn btn-success"><i class="fa fa-picture-o"></i>&nbsp;单图上传</button>
+                                <input type="file" ngf-select="uploadPic(imgForm.image)" ng-model="imgForm.image" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
+                            </div>
+                            <div class="fileImgBtn">
+                                <button type="button" class="btn btn-primary"><i class="fa fa-folder-open-o"></i>&nbsp;批量上传</button>
+                                <input type="file" name="fileUpload" id="fileUpload" multiple="multiple" ng-model="imgForm.mutiImages" ngf-select="uploadPic(imgForm.mutiImages)" />
+                            </div>
+                            <!--<div class="fileImgBtn">
+                                <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i>&nbsp;删除图片</button>
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-vcenter">
+                            <thead>
+                                <tr>
+                                    <!--<th style="width:40px;" class="text-center">
+                                        <input type="checkbox">
+                                    </th>-->
+                                    <th style="width:200px;">商品缩略图</th>
+                                    <th>上传进度</th>
+                                    <!--<th style="width:150px;" class="text-center">顺序</th>-->
+                                    <th style="width:80px;" class="text-center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="img in images">
+                                    <!--<td class="text-center">
+                                        <input type="checkbox" id="checkbox1-2" name="checkbox1-2">
+                                    </td>-->
+                                    <td>
+                                        <img width="114" height="114" ng-src="{{img.url}}" alt="avatar">
+                                    </td>
+                                    <td>
+                                        <!-- <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-sucess" role="progressbar" aria-valuenow="{{img.per}}" aria-valuemin="0" aria-valuemax="100" style="width: {{img.per}}%">{{img.per}}%</div>
+                                        </div> -->
+                                        <div class="progress progress-striped" ng-class="{'active':img.per<100}">
+                                            <div class="progress-bar" ng-class="{'progress-bar-success':img.per>=100,'progress-bar-info':img.per<100}" role="progressbar" aria-valuenow="{{img.per}}" aria-valuemin="0" aria-valuemax="100" style="width: {{img.per}}%">{{img.per}}%</div>
+                                        </div>
+                                    </td>
+                                    <!--
+                                    <td class="text-center">
+                                        <div class="btn-group-vertical btn-group-xs">
+                                            <button class="btn btn-alt btn-default">上移</button>
+                                            <button class="btn btn-alt btn-default">下移</button>
+                                        </div>
+                                    </td>-->
+                                    <td class="text-center">
+                                        <div class="btn-group btn-group-xs">
+                                            <a ng-click="deleteImg(img.id)" title="删除" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane widget-simple" ng-class="{ active: isSet('goodsDesc')}">
+                    <div class="row">
+                        <fieldset>
+                            <legend>商品介绍
+                            </legend>
+                        </fieldset>
+                    </div>
+                    <!-- Simple Editor Content -->
+                    <form class="form-horizontal form-bordered">
+                        <!-- Bootstrap WYSIWYG5 (class is initialized in js/app.js -> uiInit()) -->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <!--<textarea id="textarea-wysiwyg" name="textarea-wysiwyg" ng-model="infoForm.description" rows="10" class="form-control textarea-editor"></textarea>-->
+                                    <iframe src="widgets/summernote/examples/textarea.html" width="100%" height="500px" frameBorder="0"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-primary" ng-click="submitDescription()" ng-disabled="help.submiting_info">确定保存</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END Simple Editor Content -->
+                </div>
+                <div class="tab-pane widget-simple" ng-class="{ active: isSet('goodsAttr')}">
+                    <div class="row">
+                        <fieldset>
+                            <legend>商品属性</legend>
+                        </fieldset>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label text-right">请添加商品属性</label>
+                            <div class="col-md-8">
+                                <input type="text" id="example-tags" name="example-tags" class="input-tags" value="女性, 保养品, 化妆品">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Default Tabs -->
+        </div>
+    </div>
+    <!-- END Working Tabs Content -->
+    
+
+    <!-- 选择商品类型属性 -->
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <button class="bootbox-close-button close" type="button" ng-click="cancel()">×</button>
+            <h5 class="modal-title">选择产品类型名称</h5>
+        </div>
+        <div class="modal-body" style="max-height: 400px; overflow: scroll;">
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-md-3 control-label text-right lh30" style="line-height: 30px;">产品类型名称</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" ng-model="group_name">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-sm btn-primary" ng-click="search_groups_bykeyword()">查询</button>
+                        <button class="btn btn-sm btn-primary" ng-click="addGroupName()">添加</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered" style="margin-top:20px;">
+                <tr class="text-center">
+                    <td>编号</td>
+                    <td>产品类型名称</td>
+                    <td>创建时间</td>
+                    <td>操作</td>
+                </tr>
+                <tr ng-repeat="item in groups" class="text-center">
+                    <td width="60" >{{ $index+1 }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.create_time*1000 | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    <td class="text-center">
+                        <span class="btn btn-xs btn-primary" ng-click="goodTypeSelected(item)">选择</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- <div class="modal-footer">
+            <span style="float:left; line-height: 30px;">您选择的类别: <b class="text-danger">{{ selected.sel_name }}</b></span>
+            <button class="btn btn-sm btn-primary" type="button" ng-click="ok()">确定</button>
+        </div> -->
+    </script>
+
+    <!-- 规格参数，商品属性设置 -->
+    <script type="text/ng-template" id="myModelSetGoodsAttrs.html">
+        <div class="modal-header">
+            <button class="bootbox-close-button close" type="button" ng-click="cancel()">×</button>
+            <h5 class="modal-title">销售属性</h5>
+        </div>
+        <div class="modal-body" style="max-height: 400px; overflow: scroll;">
+            <div class="attr-box">
+                <div class="attr-items clearfix" ng-repeat="(key,attr) in attr_list" style="margin-bottom:10px;">
+                    <div class="attr-detail clearfix">
+                        <span class="pull-left">{{ attr.name }}</span>
+                        <span class="pull-right">
+                            <button class="btn btn-xs btn-primary" ng-click="manageAttr(attr)">管理属性</button>
+                        </span>
+                    </div>
+                    <div class="attr-detail-choice clearfix">
+                        <span class="btn btn-sm btn-default" ng-class="{ 'btn-success': attr_val.isSelected}" style="margin-right: 10px;" ng-repeat="attr_val in attr.values" ng-click="selAttr(attr_val)">
+                            {{ attr_val.value }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <!-- <span style="float:left; line-height: 30px;">
+                您的选择: <b class="text-danger" ng-repeat="sel in selected">{{ sel.value }}</b>
+            </span> -->
+            <button class="btn btn-sm btn-primary" type="button" ng-click="ok()">确定</button>
+        </div>
+    </script>
+    
+    <!-- 属性内容添加 -->
+    <script type="text/ng-template" id="myModelAttrList.html">
+        <div class="modal-header">
+            <button class="bootbox-close-button close" type="button" ng-click="cancel()">×</button>
+            <h5 class="modal-title">{{ attr_name }}</h5>
+        </div>
+        <div class="modal-body">
+            <table class="table table-condensed">
+                <tr ng-repeat="attr in attr_list_detail" style="border-bottom:1px solid #EEE;">
+                    <td class="col-md-8">
+                        <span class="pull-left" style="line-height: 26px;margin-right: 10px;">{{ attr.value }}
+                        </span>
+                        <span class="pull-left">
+                        <input type="text" ng-show="attr.isEditing" ng-model="attr.newAttr" class="form-control input-xs" style="width:100px; height: 24px; ">
+                        </span>
+                    </td>
+                    <td class="col-md-4 text-right">
+                        <button class="btn btn-xs btn-primary" ng-show="!attr.isEditing" ng-click="modifyAttrVal(attr)">修改</button>
+                        <button class="btn btn-xs btn-primary" ng-show="attr.isEditing" ng-click="modifyDone(attr)">确定修改</button>
+                    </td>
+                </tr>
+            </table>
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" class="form-control input-sm" ng-model="add_new_attr">
+                </div>
+                <div class="col md-4 text-center">
+                    <button class="btn btn-sm btn-primary" ng-click="addAttrDetail()">添加</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-primary" type="button" ng-click="ok()">确定</button>
+        </div>
+    </script>
+
+    <!-- 属性内容添加 -->
+    <script type="text/ng-template" id="myModelAddGroup.html">
+        <div class="modal-header">
+            <button class="bootbox-close-button close" type="button" ng-click="cancel()">×</button>
+            <h5 class="modal-title">添加产品类型名称</h5>
+        </div>
+        <div class="modal-body">
+            <input type="text" ng-model="add_text" class="form-control input-xs">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-primary" type="button" ng-click="ok()">确定</button>
+        </div>
+    </script>
+</div>

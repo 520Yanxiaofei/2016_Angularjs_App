@@ -1,0 +1,83 @@
+<div class="block" ng-controller="DetailController">
+    <div class="block-title">
+        <h2>补货详情</h2>
+    </div>
+    <div class="block-content">
+        <h4>申请信息</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <p>申请人代言号：{{ data.sub.sub_number }}</p>
+            </div>
+            <div class="col-md-4">
+                <p>申请人昵称：{{ data.sub.nickname }}</p>
+            </div>
+            <div class="col-md-4">
+                <p>申请日期：{{(data.replenish.create_time*1000 || good.create_time*1000) | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p>申请人：{{ data.sub.realname }}</p>
+            </div>
+            <div class="col-md-4">
+                <p>发货电话：{{ data.sub.tel_phone }}</p>
+            </div>
+            <div class="col-md-4">
+                <p>状态：{{ send_status[data.replenish.status] }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p>收货地址：{{ data.sub.address_detail }}</p>
+            </div>
+            <div class="col-md-4" ng-if="data.replenish.status == 0">
+                <button class="btn btn-primary" ng-click="send(data)">发货</button>
+            </div>
+        </div>
+    </div>
+    <div class="block-content">
+        <h4>发货信息</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <p>此次总共发货{{count}}件</p>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <table class="table table-bordered table-vcenter text-center">
+            <thead>
+                <tr class="block-title">
+                    <th class="text-center">序号</th>
+                    <th class="text-center">买家昵称</th>
+                    <th class="text-center">买家代言号</th>
+                    <th class="text-center">订单号</th>
+                    <th class="text-center">商品名称</th>
+                    <th class="text-center">商品数量</th>
+                    <th class="text-center">订单金额</th>
+                    <th class="text-center">补货状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pick in data.pick">
+                    <td>{{ pick.id}}</td>
+                    <td>{{pick.nickname}}</td>
+                    <td>{{pick.number}}</td>
+                    <td>{{pick.order.number}}</td>
+                    <td>
+                        {{pick.goods[0]['title']}}
+                    </td>
+                    <td>
+                        {{pick.goods[0]['quantity']}}
+                    </td>
+                    <td>
+                        {{pick.order.total_fee|dyCurrency}}
+                    </td>
+                    <td>
+                        {{ replenish_status[pick.replenish_status] }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

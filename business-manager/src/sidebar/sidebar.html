@@ -1,0 +1,94 @@
+<div class="sidebar-scroll" ng-controller="App.Sidebar.Controller">
+    <div class="sidebar-content">
+        <a href="index.html" class="sidebar-brand">
+            <strong>代颜网管理后台</strong>
+        </a>
+
+        <div class="sidebar-section sidebar-user clearfix">
+            <div class="sidebar-user-avatar">
+                <img ng-src="{{user.data.avatar}}" alt="头像">
+            </div>
+            <div class="sidebar-user-name">{{user.data.nickname}}</div>
+            <div class="sidebar-user-links">
+                <a href="" ng-click= "logout()" tooltip-placement="right" uib-tooltip="退出"><i class="gi gi-exit"></i> 退出</a>
+            </div>
+        </div>
+        <ul class="sidebar-nav">
+            <li>
+                <a ui-sref="home()" ui-sref-opts="{reload: true}"  ng-class="{ active: $state.includes('home')}"><i class="fa fa-cny sidebar-nav-icon"></i>我的店铺</a>
+            </li>
+
+           <li>
+                <a ui-sref="offline()" ui-sref-opts="{reload: true}"  ng-class="{ active: $state.includes('offline')}"><i class="fa fa-cny sidebar-nav-icon"></i>线下店管理</a>
+            </li>
+            <li>
+                <a ui-sref="goods.add()" class="sidebar-nav-menu" ng-class="{open:goods.status}" ng-click="change('goods')"><i class="fa fa-angle-left sidebar-nav-indicator"></i><i class="gi gi-table sidebar-nav-icon"></i>商品管理</a>
+                <ul ng-show="goods.status">
+                    <li>
+                        <a ui-sref="goods.add()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('goods.add')}">新品发布</a>
+                    </li>
+                    <li>
+                        <a ui-sref="goods.unreleased()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('goods.unreleased')}">未发布商品</a>
+                    </li>
+                    <li>
+                        <a ui-sref="goods.unshelves()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('goods.unshelves')}">未上架商品</a>
+                    </li>
+                    <li>
+                        <a ui-sref="goods.shelves()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('goods.shelves')}">已上架商品</a>
+                    </li>
+                    <li>
+                        <a ui-sref="goods.classification()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('goods.classification')}">自定义商品分类</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a ui-sref="orders.all()" ui-sref-opts="{reload: true}" class="sidebar-nav-menu" ng-class="{open:orders.status}" ng-click="change('orders')"><i class="fa fa-angle-left sidebar-nav-indicator"></i><i class="gi gi-table sidebar-nav-icon"></i>订单管理</a>
+                <ul ng-show="orders.status">
+                    <li>
+                        <a ui-sref="orders.all()" ui-sref-opts="{reload: true}" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('orders.all')}">全部订单</a>
+                    </li>
+                    <li>
+                        <a ui-sref="orders.undelivered()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('orders.undelivered')}">待发货订单</a>
+                    </li>
+                    <li>
+                        <a ui-sref="orders.unsigned()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('orders.unsigned')}">待签收订单</a>
+                    </li>
+                    <li>
+                        <a ui-sref="orders.completed()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('orders.completed')}">已完成订单</a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li>
+                <a ui-sref="financia.settlement()" ui-sref-opts="{reload: true}" class="sidebar-nav-menu" ng-class="{open:financia.status}" ng-click="change('financia')"><i class="fa fa-angle-left sidebar-nav-indicator"></i><i class="gi gi-table sidebar-nav-icon"></i>财务管理</a>
+                <ul ng-show="financia.status">
+                    <li>
+                        <a ui-sref="financia.settlement()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('financia.settlement')}">销售结算</a>
+                    </li>
+                    <li>
+                        <a ui-sref="financia.integral()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('financia.integral')}">颜值分结算</a>
+                    </li>
+                    <li>
+                        <a ui-sref="financia.gold()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('financia.gold')}">代言币结算</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a ui-sref="customer.return()" ui-sref-opts="{reload: true}" class="sidebar-nav-menu" ng-class="{open:customer.status}" ng-click="change('customer')"><i class="fa fa-angle-left sidebar-nav-indicator"></i><i class="gi gi-table sidebar-nav-icon"></i>售后管理</a>
+                <ul ng-show="customer.status">
+                    <li>
+                        <a ui-sref="customer.return()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('customer.return')}">退货订单</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a ui-sref="warehouse.replenish()" ui-sref-opts="{reload: true}" class="sidebar-nav-menu" ng-class="{open:warehouse.status}" ng-click="change('warehouse')"><i class="fa fa-angle-left sidebar-nav-indicator"></i><i class="gi gi-table sidebar-nav-icon"></i>仓储管理</a>
+                <ul ng-show="warehouse.status">
+                    <li>
+                        <a ui-sref="warehouse.replenish()" ui-sref-opts="{reload: true}" ng-class="{active: $state.includes('warehouse.replenish')}">补货管理</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

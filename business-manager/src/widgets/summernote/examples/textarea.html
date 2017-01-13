@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+  <title>summernote</title>
+  <script type="text/javascript" src="../dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="../dist/bootstrap.min.css" />
+  <script type="text/javascript" src="../dist/bootstrap.min.js"></script>
+  <link href="../dist/font-awesome.min.css" rel="stylesheet">
+
+  
+  <!-- include summernote -->
+  <link rel="stylesheet" href="../dist/summernote.css">
+  <script type="text/javascript" src="../dist/summernote.js"></script>
+  <script src="../lang/summernote-zh-CN.js"></script>
+  <script type="text/javascript">
+  
+   
+      $(function(){
+          
+          $('.summernote').summernote({
+            height: 400,
+            lang:'zh-CN',
+            onImageUpload: function(files, editor, welEditable) {
+                //sendFile(files[0], this, welEditable);
+            }
+          });
+          $('.summernote').on('summernote.image.upload', function(we, files) {window.parent.xx=this;
+              sendFile(files[0], $(this), true);
+          });
+          var angular=window.parent.angular;
+          var scope=angular.element(window.frameElement).scope();
+          scope.descriptionCallBack=function(){
+              $('.summernote').code(scope.infoForm.description); 
+          }
+
+          function sendFile(file, editor, welEditable) {
+            data = new FormData();
+            data.append("image", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: scope.descriptionUploadUrl,
+                cache: false,
+                contentType: false,
+                processData: false,
+                xhrFields: {
+                  withCredentials: true
+                },
+                success: function(response) {
+                    var url;
+                    if (response.error=="0"){
+                        url=response.data.url;
+                        editor.summernote('insertImage', url);
+                    }else{
+                      alert(response.message);
+                    }
+                    //editor.summernote('insertImage', 'http://img.520dyw.cn/image/20160413/570db77fcd3fd.jpg');
+                    
+                }
+            });
+          }
+          
+          $('.summernote').on('summernote.change', function(we, contents, $editable) {
+              scope.infoForm.description=contents;
+          });
+          
+          $('.summernote').code(scope.infoForm.description); 
+      })
+
+  
+  </script>
+
+  <style>
+  .note-editable:before,.note-editable:after{
+    display: none;
+  }
+
+  </style>
+</head>
+<body>
+    
+    <textarea name="text" class="summernote" id="contents" required="required" title="Contents"></textarea>
+    <script>
+      
+      
+      
+    
+    </script>
+
+</body>
+</html>

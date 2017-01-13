@@ -1,0 +1,24 @@
+<div class="action-sheet-backdrop">
+    <div class="action-sheet-wrapper" style="max-width: none;">
+        <div class="Userupdate" ng-controller="App.Manage.Identity.Controller">
+            <ul class="list">
+                <li class="item">
+                    <div class="title">修改加入人身份限制</div>
+                    <div class="row">
+                        <div class="col-25" ng-repeat="item in info.allowedRoles">
+                            <ion-checkbox ng-init="item.selected = item.selected ==1 ? true :false" ng-model="item.selected" value="item.role">{{item.name}}</ion-checkbox>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="textse">
+                注：修改后，未勾选的身份将不能加入选秀，请慎重修改！
+            </div>
+            <div>
+                <button class="button button-block button-energized" ng-click="ok()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

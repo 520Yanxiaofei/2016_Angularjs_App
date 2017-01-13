@@ -1,0 +1,79 @@
+<div class="user-pick-detail" ng-controller="App.User.OrderPickDetail.Controller">
+    <ion-content scrollbar-y="true" overflow-scroll="false" ng-class="{'has-footer' : (data.order.status==2)}">
+        <div class="list">
+            <div class="item">
+                订单编号：{{data.order.number}}
+                <span class="item-note">
+                  {{orderStatus[data.status]}}
+                </span>
+            </div>
+            <div class="item order-steps" ng-if="data.status!=4">
+                <div class="row row-center text-center">
+                    <div ng-class="{col:1,active:1}">
+                        <a class="tab-item font12">
+                            <i class="icon ion-ios-paper-outline"></i>提交订单
+                        </a>
+                    </div>
+                    <div ng-class="{col:1,active:data.status>=0}">
+                        <a class="tab-item font12">
+                            <i class="icon ion-card"></i>等待支付
+                        </a>
+                    </div>
+                    <div ng-class="{col:1,active:data.status>=1}">
+                        <a class="tab-item font12">
+                            <i class="icon ion-ios-cart-outline"></i>等待发货
+                        </a>
+                    </div>
+                    <div ng-class="{col:1,active:data.status==3}">
+                        <a class="tab-item font12">
+                            <i class="icon ion-android-cloud-done"></i>交易完成
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                配送方式：自提
+            </div>
+            <div class="item item-text detaile-info-box">
+                <h2><span>代言号：</span>{{data.number}}</h2>
+                <h2><span>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</span>{{data.realname }}</h2>
+                <h2><span>手机号：</span>{{data.mobile}}</h2>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item item-divider">商品详情</div>
+            <div class="item item-thumbnail-left item-text-wrap" ng-repeat="item in data.goods" ui-sref="goods.detail({id: item.goods_id})">
+                <img ng-src="{{item.image}}">
+                <h2>{{item.title}}</h2>
+                <h4 ng-if="item.attrbute_value.length != 0">规格：{{detail.selectedType}}</h4>
+                <div class="assertive">
+                    <div class="row">
+                        <span class="col text-left price">{{ item.price | dyCurrency}}</span>
+                        <span class="col text-right number">x{{item.quantity}}</span>
+                    </div>
+                </div>
+                <ul class="row listTabs" ng-hide="item.voucher == 0 && item.integral == 0 && item.gold == 0">
+                    <li class="redvol" ng-hide="item.voucher == 0"><span class="boxs">红包{{ item.voucher / 100 || 0}}</span></li>
+                    <li class="redvol" ng-hide="item.integral == 0"><span class="boxs">颜值分{{ item.integral || 0}}</span></li>
+                    <li class="redvol" ng-hide="item.gold == 0"><span class="boxs">代言币{{ item.gold / 100 || 0}}</span></li>
+                    <li class="redvol boxsd" class="priceColor"><span>{{item.price - ((item.integral * item.integral_val) + (item.gold / 100 * item.gold_val) + (item.voucher / 100)) * 100  || 0 | dyCurrency}}</span></li>
+                </ul>
+            </div>
+            <div class="item item-divider">核算信息</div>
+            <div class="item item-text-wrap">
+                <h2 class="border-bottomLine" style="padding-bottom:10px;">{{data.quantity}}件商品，商品总金额{{ data.goods_and_ship_fee || 0 | dyCurrency }}
+                </h2>
+                <h2 class="text-right" ng-hide="data.voucher == 0">红包：<span class="assertive">{{ data.voucher  || 0 | dyCurrency}}</span></h2>
+                <h2 class="text-right" ng-hide="data.integral == 0">颜值分：<span class="assertive">{{ data.integral || 0}}</span></h2>
+                <h2 class="text-right" ng-hide="data.gold == 0">代言币：<span class="assertive">{{ data.gold / 100 || 0}}</span></h2>
+                <h2 class="text-right" class="priceColor">现金：<span class="assertive">{{ data.order.goods_fee | dyCurrency}}</span></h2>
+                <h2 class="text-right" style="font-size:16px">实际支付金额：<span class="assertive">{{ data.pay_fee | dyCurrency}}</span></h2>
+            </div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer" ng-if="data.order.status==2">
+        <button class="button button-block button-energized disable-user-behavior" on-touch="showPopup(data)">
+            发货
+        </button>
+    </div>
+</div>

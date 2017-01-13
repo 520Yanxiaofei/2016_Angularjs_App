@@ -1,0 +1,94 @@
+<div class="Change" ng-controller="App.Goods.Change.Controller">
+    <!--主体-->
+    <ion-content scrollbar-y="true" overflow-scroll="false" lazy-scroll>
+        <!-- 搜索 -->
+        <div class="bar bar-header item-input-inset">
+            <!-- <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button> -->
+            <div class="item-input-wrapper">
+                <div class="select-box">
+                    <select class="select-bar" ng-model="seachType" ng-change="getSearchType(seachType)">
+                        <option value="shop">店铺</option>
+                        <option value="goods">商品</option>
+                    </select>
+                    <i class="icon ion-ios-arrow-down"></i>
+                </div>
+                <input type="text" placeholder="请输入关键词" ng-model="form.key" focus="isFocus" id="myselector" ng-click="$event.stopPropagation();" ng-keyup="keyUpSearch($event)">
+                <i class="icon ion-ios-search placeholder-icon" on-touch="searchValue(form.key)"></i>
+            </div>
+        </div>
+        <!-- <div class="bar bar-header item-input-inset border-bottomLine ">
+            <div class="item-input-wrapper ">
+                <input type="text" placeholder="请输入店铺或商品关键词" ng-model="searchKey" on-touch="searchUrl()" readonly="readonly">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+            </div>
+        </div> -->
+        <!--筛选-->
+        <div class="row choose">
+            <div class="col-33">
+                <label class="item item-input item-select selectHideBox">
+                    <span class="showSelect">{{brand_title}}</span>
+                    <select class="selectBar" ng-model="form.shop_type" ng-change="search(form.shop_type)">
+                        <option value="0">全部类型</option>
+                        <option ng-repeat="list in shop_list" value="{{ list.value }}">{{list.text}}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-33">
+                <label class="item item-input item-select selectHideBox">
+                    <span class="showSelect">{{order_title}}</span>
+                    <select class="selectBar" ng-model="form.order" ng-change="orderSd(form.order)">
+                        <option value="0">默认排序</option>
+                        <option ng-repeat="list in order_list" value="{{ list.value }}">{{list.text}}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-33">
+                <label class="item item-input item-select selectHideBox">
+                    <span class="showSelect showSelect-right">{{vocher_title}}</span>
+                    <select class="selectBar" ng-model="form.price_range_type" ng-change="vocherSd(form.price_range_type)">
+                        <option value="0" ng-if="statusTitle == '3'">所有红包范围</option>
+                        <option value="0" ng-if="statusTitle == '2'">所有代言币范围</option>
+                        <option value="0" ng-if="statusTitle == '1'">所有颜值分范围</option>
+                        <option ng-repeat="list in vocher_list" value="{{ list.value }}">{{list.text}}</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="graybox"></div>
+        <div class="padding text-center text-gary" ng-show="noData">暂无搜索结果</div>
+        <div class="list">
+            <div class="list-data" ng-repeat="listd in Voucherlist">
+                <div class="borderText border-bottomLine" ui-sref="shop.seller-home({ id: listd.shop.id })">
+                    <h4 class="listH4"><strong>{{listd.shop.title}}</strong>&nbsp;<span class="shop_isBrand" ng-if="listd.shop.shop_type == '2'">品牌店</span><span class="shop_isBrand" ng-if="listd.shop.shop_type == '1'">O2O线下服务店</span><span class="shop_isBrand" ng-if="listd.shop.is_own == '1'">自营店</span></h4>
+                    <span class="listH5">已销售:{{listd.sales_all || 0}}</span>
+                </div>
+                <a class="item item-thumbnail-left border-bottomLine" ui-sref="goods.detail({id: listd.id})">
+                    <img image-lazy-src="{{listd.image}}" image-lazy-loader="ios">
+                    <h2>{{listd.title}}</h2>
+                    <div class="listNr">
+                        <p>
+                            <s class="old-price">原价：{{listd.original_price || 0 | dyCurrency}}</s>
+                        </p>
+                        <p>售价：<span>{{listd.current_price || 0 | dyCurrency}}</span></p>
+                    </div>
+                    <ul class="listTabs">
+                        <li class="redvol" ng-hide="listd.voucher == 0"><span class="boxs">红包&nbsp;{{listd.voucher / 100 || 0 }}</span></li>
+                        <li class="redvol" ng-hide="listd.integral == 0"><span class="boxs">颜值分{{listd.integral || 0}}</span></li>
+                        <li class="redvol" ng-hide="listd.gold == 0"><span class="boxs">代言币{{listd.gold / 100 || 0}}</span></li>
+                        <li class="redvol boxsd"><span>{{listd.current_price - ((listd.integral * listd.integral_val) + (listd.gold / 100 * listd.gold_val) + (listd.voucher / 100)) * 100  || 0 | dyCurrency}}</span></li>
+                    </ul>
+                </a>
+                <button ng-if="listd.stock > 0" class="button voclurBtn" ui-sref="goods.detail({id: listd.id, is_show: 1})">
+                    立即兑换
+                </button>
+                <div ng-if="listd.stock == 0">
+                    <button class="button voclurBtn actives">
+                        立即兑换
+                    </button><span class="buttonAce">库存不足</span></div>
+                <div class="graybox"></div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+        <div class="padding text-center text-gary" ng-show="moreData">没有更多数据了</div>
+    </ion-content>
+</div>

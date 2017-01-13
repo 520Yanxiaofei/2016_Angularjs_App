@@ -1,0 +1,160 @@
+<div class="Orderfill" ng-controller="App.Order.Orderfill.Controller">
+    <!-- <ion-header-bar class="bar bar-header bar-positive">
+        <button class="button button-icon icon ion-ios-arrow-left" on-touch="back()"></button>
+        <div class="h1 title">填写订单</div>
+    </ion-header-bar> -->
+    <form action="order-fill_submit" method="get" accept-charset="utf-8">
+        <div class="bar bar-subheader">
+            <h2 class="title ps">
+            <i class="icon ion-ios-location-outline"></i>&nbsp;&nbsp;配送方式：
+        <span class="button button-small" ng-class="{active:tab=='kuaidi'}" on-touch="setTabStatus('kuaidi')" ng-if="goods_detail.ship_type == '1' || goods_detail.ship_type == '3' || goods_detail.ship_type == '5' || goods_detail.ship_type == '7'" >快递</span>
+        <span class="button button-small" ng-class="{active:tab=='ziti'}" on-touch="setTabStatus('ziti')" ng-if="goods_detail.ship_type == '2' || goods_detail.ship_type == '3' || goods_detail.ship_type == '6' || goods_detail.ship_type == '7'">自提</span>
+        <span class="button button-small" ng-class="{active:tab=='yuyue'}" on-touch="setTabStatus('yuyue')" ng-if="goods_detail.ship_type == '4' || goods_detail.ship_type == '5' || goods_detail.ship_type == '6' || goods_detail.ship_type == '7' && shop.shop_type == 2">预约服务</span>
+        </h2>
+        </div>
+        <ion-content class="has-header" scrollbar-y="true" overflow-scroll="false" lazy-scroll>
+            <div class="list listsele border-bottomLine" ng-class="{active : tab =='kuaidi'}">
+                <div ng-if="user_local.id">
+                    <a class="item item-icon-right" ui-sref="user.address">
+                        <i class="icon ion-ios-arrow-right"></i>
+                        <p><span>收货人：</span>{{user_local.consignee}}&nbsp;&nbsp;&nbsp;&nbsp;{{user_local.mobile}}</p>
+                        <p><span>收货地址：</span>{{addresdSh}}</p>
+                    </a>
+                </div>
+                <div ng-if="!user_local.id">
+                    <a class="item item-icon-right" ui-sref="user.address">
+                        <i class="icon ion-ios-arrow-right"></i> 请设置默认收货地址
+                    </a>
+                </div>
+            </div>
+            <div class="list listsele border-bottomLine" ng-class="{active : tab =='ziti'}">
+                <div ng-hide="Dataids">
+                    <a class="item item-icon-right" on-touch="gotoPickList()">
+                        <i class="icon ion-ios-arrow-right"></i>请您选择自提点
+                    </a>
+                </div>
+                <div ng-hide="Dataifalse">
+                    <a class="item item-icon-right" on-touch="openModal()">
+                        <i class="icon ion-ios-arrow-right" ng-show="shop_list.length != 0"></i>
+                        <p><span>自提地址：</span>{{shop.address_name}}</p>
+                        <p><span>自提店家：</span>{{shop.title}}</p>
+                        <p><span>联系电话：</span>{{shop.mobile}}</p>
+                    </a>
+                </div>
+                <div ng-hide="Dataslect">
+                    <a class="item item-icon-right" ui-sref="order.order-address" >
+                        <i class="icon ion-ios-arrow-right"></i>
+                        <p><span>自提地址：</span>{{addresdZt + select.address}}</p>
+                        <p><span>自提店家：</span>{{select.title}}</p>
+                        <p><span>联系电话：</span>{{select.tel}}</p>
+                    </a>
+                </div>
+            </div>
+            <!-- 预约服务 -->
+            <div class="list listsele border-bottomLine" ng-class="{active : tab =='yuyue'}" ng-if="shop.shop_type == 2">
+                <div ng-hide="Makeids">
+                    <a class="item item-icon-right" on-touch="DetPickList()">
+                        <i class="icon ion-ios-arrow-right"></i>请您选择预约服务地点
+                    </a>
+                </div>
+                <div ng-hide="Makeslect">
+                    <a class="item item-icon-right" on-touch="DetPickList()">
+                        <i class="icon ion-ios-arrow-right"></i>
+                        <p><span>服务区域：</span>{{addresd}}</p>
+                        <p><span>详细地址：</span>{{seletDetai.address}}</p>
+                        <p><span>联系电话：</span>{{seletDetai.mobile}}</p>{{province.text}}
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 商品 -->
+            <div class="list border-bottomLine" style="margin-bottom:10px;" ng-show="loadingText">
+                <a class="item item-thumbnail-left" ui-sref="goods.detail({id: goods_detail.id})">
+                    <img image-lazy-src="{{goodsImage[0].url}}" image-lazy-loader="ios">
+                    <h2>{{goods_detail.title}}</h2>
+                    <p ng-if="selectedType != ''"><span class="" >规格：{{selectedType}}</span></p>
+                    <p><s class="price_ass">原价：{{goods_detail.original_price|| 0 | dyCurrency}}</s><span class="price_all">{{goods_detail.current_price || 0 | dyCurrency}}</span></p>
+                    <ul class="row listTabs" ng-hide="goods_detail.voucher == 0 && goods_detail.integral == 0 && goods_detail.gold == 0">
+                        <li class="redvol" ng-hide="goods_detail.voucher == 0"><span class="boxs">红包{{ goods_detail.voucher}}</span></li>
+                        <li class="redvol" ng-hide="goods_detail.integral == 0"><span class="boxs">颜值分{{ goods_detail.integral}}</span></li>
+                        <li class="redvol" ng-hide="goods_detail.gold == 0"><span class="boxs">代言币{{ goods_detail.gold}}</span></li>
+                        <li class="redvol boxsd" class="priceColor"><span>{{goods_detail.current_price - ((goods_detail.integral * goods_detail.integral_val) + (goods_detail.gold * goods_detail.gold_val) + (goods_detail.voucher)) * 100  || 0 | dyCurrency}}</span></li>
+                    </ul>
+                </a>
+            </div>
+            <div class="fillcontent ">
+                <div class="row filltab">
+                    <div class="col col-33">颜值分:{{user_money.integral}}</div>
+                    <div class="col col-33">代言币:{{user_money.gold}}</div>
+                    <div class="col col-33">红包:{{user_money.voucher | currency:'￥'}}</div>
+                </div>
+                <h4>选择折扣</h4>
+                <div class="loadingText" ng-hide="loadingText">
+                    <ion-spinner icon="dots" class="spinner-dark"></ion-spinner>
+                    请稍后，正在为您加载...
+                </div>
+                <div class="checkList" ng-hide="interhide" ng-class="{'goods-disabled' : isInteDisabled}">
+                    <div class="col iteckd">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="amount.integral.checked"> 单个商品可使用{{goods_detail.integral}}颜值分抵扣{{goods_detail.integral * goods_detail.integral_val}}元
+                        </label>
+                    </div>
+                    <div class="col iteckem">
+                        <div class="font12 color03"></div>
+                        <div>使用颜值分抵扣的商品数量
+                            <span class="itemBtnnum itemRiht" on-touch="buy.subtract()"><i class="icon ion-ios-minus-empty" ></i></span>
+                            <input type="text" ng-focus="integralfocus(amount)" ng-model="amount.integral.amount" readonly="readonly" /><span class="itemBtnnum" on-touch="buy.plus($event)"><i class="icon ion-ios-plus-empty"></i></span>&nbsp;个</div>
+                    </div>
+                </div>
+                <div class="checkList" ng-hide="goldhide" ng-class="{'goods-disabled' : isGoldDisabled}">
+                    <div class="col iteckd">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="amount.gold.checked">单个商品可使用{{goods_detail.gold }}个代言币抵扣{{goods_detail.gold * goods_detail.gold_val}}元
+                        </label>
+                    </div>
+                    <div class="col iteckem">
+                        <div class="font12 color03"></div>
+                        <div>使用代言币抵扣的商品数量
+                            <span class="itemBtnnum itemRiht" on-touch="bis.subtract()"><i class="icon ion-ios-minus-empty" ></i></span>
+                            <input type="text" ng-focus="goldfocus(amount)" ng-model="amount.gold.amount" readonly="readonly" /><span class="itemBtnnum" on-touch="bis.plus($event)"><i class="icon ion-ios-plus-empty"></i></span>&nbsp;个</div>
+                    </div>
+                </div>
+                <div class="checkList" ng-hide="voucherhide" ng-class="{'goods-disabled' : isVocherDisabled}">
+                    <div class="col iteckd">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="amount.voucher.checked"> 单个商品可使用{{goods_detail.voucher}}元红包折扣
+                        </label>
+                    </div>
+                    <div class="col iteckem">
+                        <div class="font12 color03"></div>
+                        <div>使用红包抵扣的商品数量
+                            <span class="itemBtnnum itemRiht" on-touch="kous.subtract()"><i class="icon ion-ios-minus-empty" ></i></span>
+                            <input type="text" ng-focus="voucherfocus(amount)" ng-model="amount.voucher.amount" readonly="readonly" /><span class="itemBtnnum" on-touch="kous.plus($event)"><i class="icon ion-ios-plus-empty"></i></span>&nbsp;个</div>
+                    </div>
+                </div>
+                <div class="checkList checkFill padding" ng-hide="Zhekouhide">
+                    <i class="icon ion-ios-pricetags-outline"></i> 该商品暂时不支持商品抵扣
+                </div>
+            </div>
+            <div class="fillnum" ng-show="loadingText">
+                <span class=" border-bottomLine" style="padding-bottom:5px;margin-bottom:5px">{{orderData.quantity}}件商品，商品总金额：<strong>{{orderData.quantity * current_price | currency:'￥'}}</strong></span>
+                <span ng-hide="goods_detail.integral == 0" ng-if="amount.integral.checked">颜值分：<strong>{{ goods_detail.integral * amount.integral.amount}}</strong></span>
+                <span ng-hide="goods_detail.gold == 0" ng-if="amount.gold.checked">代言币：<strong>{{ goods_detail.gold * amount.gold.amount}}</strong></span>
+                <span ng-hide="goods_detail.voucher == 0" ng-if="amount.voucher.checked">红包：<strong>{{ (goods_detail.voucher * amount.voucher.amount) || 0 | currency:'￥'}}</strong></span>
+                <span class="priceColor">现金：<strong>
+                {{(goods_detail.current_price * orderData.quantity) - ((goods_detail.integral * goods_detail.integral_val) * amount.integral.amount * amount.integral.checked + (goods_detail.gold * goods_detail.gold_val) * amount.gold.amount * amount.gold.checked + (goods_detail.voucher) * amount.voucher.amount * amount.voucher.checked) * 100  || 0 | dyCurrency}}
+                </strong></span>
+                <span ng-if="!shipRiceture">运费：<strong ng-if="ship_price">{{ ship_price | currency:'￥'}}</strong><strong ng-if="ship_price==0" style="font-size:13px">包邮</strong></span>
+                <!--<span>优惠：<strong>--{{ youhui | dyCurrency}}</strong></span>-->
+            </div>
+        </ion-content>
+        <ion-footer-bar align-title="left">
+            <div class="numText">
+                实付金额：<strong>{{totalMoney() | currency:'￥'}}</strong>
+            </div>
+            <div class="numrighg">
+                <a class="numTijiao" on-touch="mackeOrder()">{{submitTxt}}</a>
+            </div>
+        </ion-footer-bar>
+    </form>
+</div>

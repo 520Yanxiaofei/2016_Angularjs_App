@@ -1,0 +1,40 @@
+<div class="show-info" ng-controller="App.Create.Info.Controller">
+
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+        <div class="row steps">
+            
+            <div class="col col-20">
+                <i class="active" ng-click="goto(1)">1</i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(2)"></i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(3)"></i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(4)"></i>
+            </div>
+
+        </div>
+        <h2>填写活动图片和奖品</h2>
+        <p>请慎重填写，审核后不能修改，无论是否通过， 审核费用不退</p>
+        <div class="pic">
+            <img ng-src="{{helper.image}}" alt="" width="103" height="92" >
+            <input type="file" fileread="form.image" fileview="helper.image" filechange="uploadLogo">
+            <div>添加选秀宣传图( 可为空 )，尺寸:480*250</div>
+            <div>注:代颜网有权 美化/制作 您的选秀宣传图</div>
+        </div>
+        <div class="input">
+             <input type="text" placeholder="请输入活动名称，不超过20个字" ng-model="form.name">
+             <textarea rows="5" placeholder="请输入活动奖品，吸引代言人加入您的活动" ng-model="form.prize"></textarea>
+        </div>
+        <div class="next">
+            <button class="button button-block button-energized" ng-click="next()">
+                下一步
+            </button>
+            <button class="button button-block button-light" ng-click="cancel()">上一步</button>
+        </div>
+        
+    </ion-content>
+</div>

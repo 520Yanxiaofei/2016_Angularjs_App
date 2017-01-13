@@ -1,0 +1,123 @@
+<div class="manage-home" ng-controller="App.Manage.Home.Controller">
+
+    <ion-content >
+        <div class="face-box">
+            <div class="face" ng-repeat="item in info.participants track by $index" ng-if="$index<8">
+                <img ng-src="{{::item.avatar}}">
+                <p>{{::item.name}}</p>
+            </div>
+            
+            <div class="face" ng-click="toggleModal('inviteQrcode')">
+                <div class="face-add"> </div>
+                <p>添加成员</p>
+            </div>
+            <!-- <div class="face">
+                <div class="face-remove"> </div>
+                <p>删除成员</p>
+            </div> -->
+        </div>
+
+        <div class="list">
+            <div class="item item-icon-right" ng-click="showMember()">
+                全部选秀成员 ( {{info.count}} )
+            </div>
+            <div class="item item-divider">
+            
+            </div>
+            <div class="item item-icon-right" ng-click="showMsg()">
+                我的消息
+                <span class="badge badge-assertive">{{info.deal_num}}</span>
+                <i class="icon ion-ios-bell-outline"></i>
+                
+            </div>
+            <div class="item">
+                选秀名称
+                <span class="item-note">
+                    {{info.title}}
+                </span>
+
+            </div>
+            <div class="item item-icon-right" ng-click="toggleModal('qrcode')">
+                选秀代言码
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+
+            <div class="item item-divider">
+            
+            </div>
+
+            <div class="item">
+                人数上限
+                <span class="item-note">
+                    {{info.limit}}
+                </span>
+            </div>
+            <div class="item item-icon-right" ng-click="showRoles()">
+                加入人身份
+                <span class="item-note">
+                    {{formatRoles()}}
+                </span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+            <div class="item item-icon-right">
+                <span style="position: absolute;">报名截止时间</span>
+                <span class="item-note">
+                    <input type="datetime-local" min="1990-12-31T23:59Z" class="datatime" style="padding-top: 0px;" ng-model="info.datetime" ng-model-options="{ debounce: 500 }" ng-change="setEndTime()" placeholder=""><!-- {{info.datetime*1000 | date:'yyyy-M2009-06-23T13:44M-dd HH:mm'}} -->
+                </span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+
+            <div class="item item-divider">
+            
+            </div>
+            <div class="item item-toggle">
+                自己是否参与活动
+                <label class="toggle toggle-positive">
+                    <input type="checkbox" ng-model="info.isParticipated" ng-change="setParticipate()" ng-disabled="lock.participate_lock" >
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+            <div class="item item-toggle">
+                加入选秀是否需要审核
+                <label class="toggle toggle-positive">
+                    <input type="checkbox" ng-model="info.is_verify"  ng-change="setVerify()" ng-disabled="lock.verify_lock">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+            
+
+            <div class="item item-divider">
+            
+            </div>
+            
+
+            
+
+        </div>
+        <div class="layer-vote layer_qrcode" ng-show="helper.inviteQrcode">
+            <div class="layer-content">
+                <i class="close" ng-click="toggleModal('inviteQrcode')"></i>
+                <p class="layer-title">加入选秀：{{info.title}}</p>
+                <div class="qrcode">
+                    <qrcode version="4" error-correction-level="M" size="140" data="{{info.inviteQrcode}}"></qrcode>
+                </div>
+                <p class="qrcode-text">扫一扫上面的二维码图案,直接加入选秀活动</p>
+                <p class="qrcode-text">有效期截止{{info.invite_endtime * 1000 | date : 'yyyy-MM-dd'}}</p>
+            </div>
+        </div>
+        <div class="layer-vote layer_qrcode" ng-show="helper.qrcode">
+            <div class="layer-content">
+                <i class="close" ng-click="toggleModal('qrcode')"></i>
+                <p class="layer-title">选秀：{{info.title}}</p>
+                <div class="qrcode">
+                    <qrcode version="4" error-correction-level="M" size="140" data="{{info.qrcode}}"></qrcode>
+                </div>
+                <p class="qrcode-text">扫一扫上面的二维码图案，查看选秀活动</p> 
+            </div>
+        </div>
+    </ion-content>
+</div>

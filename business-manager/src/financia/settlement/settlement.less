@@ -1,0 +1,53 @@
+.settlement {
+    background: #FFF;
+    .popover {
+        width: 100%;
+    }
+    .contrl-label {
+        line-height: 35px;
+    }
+    .table.table-sized tbody > tr > td {
+        line-height: 30px;
+        height: 30px;
+    }
+    .control-label {
+        padding-top: 10px;
+    }
+    .order-search-box {
+        margin-bottom: 20px;
+        display: block;
+    }
+    .search-box {
+        border-bottom: 1px solid #F2F2F2;
+        margin-bottom: 20px;
+    }
+
+    // animation
+    @-webkit-keyframes rotate {
+        0%,
+        100% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(-360deg);
+        }
+    }
+    @keyframes rotate {
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(-360deg);
+        }
+    }
+    .rotateing {
+        font-size: 18px;
+        //为了尽可能兼容各个浏览器
+        -moz-animation: rotate .8s linear infinite;
+        -webkit-animation: rotate .8s linear infinite;
+        -o-animation: rotate .8s linear infinite;
+        -ms-animation: rotate .8s linear infinite;
+        animation: rotate .8s linear infinite;
+    }
+}

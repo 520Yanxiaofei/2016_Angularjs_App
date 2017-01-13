@@ -1,0 +1,64 @@
+<div class="search-main" ng-controller="App.Search.Main.Controller">
+	<!-- 活动搜索 -->
+    <ion-header-bar class="bar bar-header search-input" ng-class="{isfocus:isFocus}">
+    	<div class="list list-inset" ng-class="{isfocus:isFocus}">
+			<label class="item item-input" ng-class="{isfocus:isFocus}">
+				<i class="icon ion-ios-search-strong placeholder-icon" ng-class="{isfocus:isFocus}"></i>
+				<form action="javascript:return true;">
+          <input type="search" class="search-text" ng-class="{focus:getfocus}" placeholder="搜索内容" get-focus="getfocus" ng-model="searchVal" ng-focus="focus()" ng-blur="blur()" ng-keyup="toSearch($event)">    
+        </form>
+			</label>
+			<i class="ion-android-cancel" ng-show="ishaveVal()" ng-click="clearVal()"></i>
+		</div>
+		<button class="button button-small light" ng-show="isFocus" ng-click="isCancel()">取消</button>
+    </ion-header-bar>
+   	<ion-content class="search-content">
+   		<!-- 搜索记录 -->
+   		<div class="search-record" ng-show="isRecord">
+   			<ul class="list">
+   			    <li class="item">国服第一提莫<i class="close-record" ng-click="clearThis()"></i></li>
+   			    <li class="item">怒火怒火<i class="close-record"></i></li>
+   			    <li class="item">飞天🐷<i class="close-record"></i></li>
+   			</ul>
+   			<p class="delete-all-record" ng-click="clearAll()">清除全部搜索记录</p>
+   		</div>
+         <!-- 下拉刷新 -->
+         <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher>
+   		<!-- 活动列表 -->
+         <div ng-if="isEmpty" class="empty">搜索结果为空</div>
+<!--           <div class="activity-list">
+          	<ul>
+                 <li class="activity-item clearfix" ng-repeat="list in lists" ng-click="toDetail(list.id)" on-finish-render-filters>
+                    <div class="logo img-box">
+                       <img ng-src="{{list.img}}">
+                    </div>
+                    <div class="act-box">
+                       <h3>{{ list.title }}</h3>
+                       <p class="act-text">{{ list.subTitle }}</p>
+                       <p class="act-ticket"><i></i>共<span>{{ list.voteCount }}</span>票</p>
+                    </div>
+                 </li>
+          	</ul>
+          </div>
+ -->          <div class="active-box">
+                <div class="active-content padding clearfix" ng-click="toDetail(list.id,list.isCharity)" ng-repeat="list in lists" on-finish-render-filters>
+                    <div class="border-bottomLine">
+                        <div class="main-search" style="float:left; width:40%; padding:0; overflow:hidden;">
+                            <div class="img-box" ng-class="{'has-finished' : show.isExpired=='1'}">
+                                <img ng-src="{{list.img}}">
+                            </div>
+                        </div>
+                        <div style="float:left; width:60%; padding:0; overflow:hidden;">
+                            <div class="active-description">
+                                <h3 class="active-title">{{ list.title }}</h3>
+                                <p class="description-info">{{ list.subTitle }}</p>
+                                <p class="more black"><img src="image/heart.png" alt=""> 共 <span class="num">{{ list.voteCount }}</span> 票</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         <!-- 上拉加载更多 -->
+        <ion-infinite-scroll ng-if="isLoadMore" ng-show="!isLoadMore" on-infinite="loadMore()" distance="1%" ></ion-infinite-scroll>
+   	</ion-content>
+</div>

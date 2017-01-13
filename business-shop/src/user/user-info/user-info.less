@@ -1,0 +1,126 @@
+.user-info {
+    background: #F5F5F5;
+    .head {
+        height: 88px;
+        background: #fc853b;
+    }
+    .item-avatar {
+        padding-left: 90px;
+        min-height: 90px;
+    }
+    .item-avatar > img:first-child {
+        max-width: 60px;
+        max-height: 60px;
+    }
+    .item {
+        font-size: 14px;
+        padding-top: 15px;
+        padding-bottom: 10px;
+    }
+    .level-tips {
+        margin-top: 15px;
+        padding: 0;
+        height: 20px;
+        line-height: 20px;
+        display: block;
+        span {
+            float: left;
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
+        }
+        i[class^="lev-"] {
+            float: left;
+            height: 20px;
+            width: 16px;
+            display: inline-block;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 14px 14px;
+        }
+        .lev-star {
+            background-image: url(../image/lev-star.png);
+        }
+        .lev-moon {
+            background-image: url(../image/lev-moon.png);
+        }
+        .lev-sun {
+            background-image: url(../image/lev-sun.png);
+        }
+    }
+    .face-box {
+        .item {
+            border: none;
+            background: @header-bg-color;
+            img:first-child {
+                border-radius: 4px;
+            }
+            p {
+                color: #FDDAC5;
+            }
+        }
+        .edit-box {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            z-index: 9999;
+            .ion-ios-gear-outline:before {
+                .font(26px);
+            }
+        }
+        .nav-box {
+            background: #f77728;
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .list {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        .my-orders {
+            background: #fff;
+            .tab-item {
+                .icon {
+                    background: url(../image/user-nav1.png) no-repeat center;
+                    background-size: auto 26px;
+                    height: 40px;
+                    width: 40px;
+                }
+                .nav2 {
+                    background: url(../image/user-nav2.png) no-repeat center;
+                    background-size: auto 26px;
+                    height: 40px;
+                    width: 40px;
+                }
+                .nav3 {
+                    background: url(../image/user-nav3.png) no-repeat center;
+                    background-size: auto 26px;
+                    height: 40px;
+                    width: 40px;
+                }
+                .nav4 {
+                    background: url(../image/user-nav4.png) no-repeat center;
+                    background-size: auto 26px;
+                    height: 40px;
+                    width: 40px;
+                }
+            }
+        }
+        .ion-ios-arrow-right {
+            color: #B2B2B2;
+            .font(20px);
+        }
+    }
+    .divider-box {
+        height: 20px;
+        background: #F5F5F5;
+    }
+    .face-box {
+        .item {
+            background: none;
+        }
+    }
+}

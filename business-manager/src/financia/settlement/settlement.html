@@ -1,0 +1,183 @@
+<!-- Working Tabs Block -->
+<div ng-controller="settlementCtrl">
+<div class="block full settlement" >
+    <div class="row">
+        <div class="col-md-3">
+            <span>预计收益{{::title}}：</span>
+            <h3 class="animation-stretchRight"><strong>{{amount.expert}}</strong></h3>
+            
+        </div>
+        <div class="col-md-3">
+            <span>已结算{{::title}}：</span>
+            <h3 class="animation-stretchRight"><strong>{{amount.settled}}</strong></h3>
+            
+        </div>
+        <div class="col-md-3">
+            <span>可提取{{::title}}：</span>
+            <h3 class="animation-stretchRight"><strong>{{amount.extractable}}</strong></h3>
+            
+        </div>
+        <div class="col-md-3">
+            <span>已提取{{::title}}：</span>
+            <h3 class="animation-stretchRight"><strong>{{amount.extracted}}</strong></h3>
+            
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary" ng-click="extract()">一键提现</button>
+        </div>
+    </div>
+    
+</div>
+<div class="block full settlement">
+    <div class="row search-box">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">订单号：</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="order_number" placeholder="请输入查询的订单号" require>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-primary" ng-click="serch({page:1,limit:1,order_number:order_number})">查询</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-md-12">            
+            <uib-tabset active="status" type="pills">
+                <!--已结算-->
+                <uib-tab index="1" heading="预收益" ng-click="list({status:1})">
+                    <div class="tab-pane widget-simple">
+                        <div class="row">
+                            <table class="table table-sized">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>订单号</th>
+                                        <th>{{::title}}</th>
+                                        <th>日期</th>
+                                        <th>用户ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in info.list" ng-show="!noData">
+                                        <td ng-bind="$index+1"></td>
+                                        <td>{{item.order_number}}</td>
+                                        <td>{{item.amount/100 || item.integral || item.gold/100 || 0 }}</td>
+                                        <td>{{item.create_time*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{item.uid}}</td>
+                                    </tr>
+                                    <tr ng-if="noData">
+                                        <td colspan="5" class="text-center"><i class="gi gi-restart rotateing"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </uib-tab>
+                <!--已结算-->
+                <uib-tab index="2" heading="已结算" ng-click="list({status:2})">
+                    <div class="tab-pane widget-simple">
+                        <div class="row">
+                            <table class="table table-sized">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>订单号</th>
+                                        <th>{{::title}}</th>
+                                        
+                                        <th>日期</th>
+                                        <th>用户ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in info.list" ng-show="!noData">
+                                        <td ng-bind="$index+1"></td>
+                                        <td>{{item.order_number}}</td>
+                                        <td>{{item.amount/100 || item.integral || item.gold/100 || 0 }}</td>
+                                        
+                                        <td>{{item.update_time*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{item.uid}}</td>
+                                    </tr>
+                                    <tr ng-if="noData">
+                                        <td colspan="5" class="text-center"><i class="gi gi-restart rotateing"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </uib-tab>
+                <!--可提取-->
+                <uib-tab index="3" heading="可提取" ng-click="list({status:3})">
+                    <div class="tab-pane widget-simple">
+                        <div class="row">
+                            <table class="table table-sized">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>订单号</th>
+                                        <th>{{::title}}</th>
+                                        
+                                        <th>日期</th>
+                                        <th>用户ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in info.list" ng-show="!noData">
+                                        <td ng-bind="$index+1"></td>
+                                        <td>{{item.order_number}}</td>
+                                        <td>{{item.amount/100 || item.integral || item.gold/100 || 0 }}</td>
+                                        
+                                        <td>{{(item.update_time || create_time) *1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{item.uid}}</td>
+                                    </tr>
+                                    <tr ng-if="noData">
+                                        <td colspan="5" class="text-center"><i class="gi gi-restart rotateing"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </uib-tab>
+                <!--已提取-->
+                <uib-tab index="4" heading="已提取" ng-click="list({status:4})">
+                    <div class="tab-pane widget-simple">
+                        <div class="row">
+                            <table class="table table-sized">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>订单号</th>
+                                        <th>{{::title}}</th>
+                                        
+                                        <th>日期</th>
+                                        <th>用户ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in info.list" ng-show="!noData">
+                                        <td ng-bind="$index+1"></td>
+                                        <td>{{item.order_number}}</td>
+                                        <td>{{item.amount/100 || item.integral || item.gold/100 || 0 }}</td>
+                                       
+                                        <td>{{item.update_time*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{item.uid}}</td>
+                                    </tr>
+                                    <tr ng-if="noData">
+                                        <td colspan="5" class="text-center"><i class="gi gi-restart rotateing"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+            <div class="clearfix">
+                <div class="row text-center">
+                    <uib-pagination total-items="page.totalItems" ng-model="page.currentPage" ng-change="list({status : status})" items-per-page="page.itemsPerPage" boundary-link-numbers="false" boundary-links="true" force-ellipses="true" max-size="page.maxSize" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

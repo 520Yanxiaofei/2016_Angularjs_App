@@ -1,0 +1,29 @@
+<div class="show" ng-controller="Show.Controller">
+    <ion-content scroll="false" class="slidingTabs-container">
+        <tab-slide-box tab="0">
+            <div class="tsb-icons tab-top-bar">
+                <div class="tsb-ic-wrp">
+                    <ion-scroll direction="x" class="tsb-hscroll">
+                        <a href="javascript:;" ng-repeat="list in showTypes" on-finish-render>{{ list.title }}</a>
+                    </ion-scroll>
+                    <div class="btn-create-show" on-touch="goCreate()"></div>
+                </div>
+            </div>
+            <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+                <ion-slide ng-repeat="show in showTypes">
+                    <div ng-include="show.template">{{ show }}</div>
+                </ion-slide>
+            </ion-slide-box>
+        </tab-slide-box>
+    </ion-content>
+    <div class="layer-vote-entery" ng-show="showEnter">
+        <div class="layer-content">
+            <i class="close" on-touch="hideLayer()"></i>
+            <p class="layer-title text-left">代言人才能参加选秀活动，立即成为代言人？</p>
+            <div class="btns">
+                <button on-touch="hideLayer()">取 消</button>
+                <button on-touch="goBecomeSpoker()">确 定</button>
+            </div>
+        </div>
+    </div>
+</div>

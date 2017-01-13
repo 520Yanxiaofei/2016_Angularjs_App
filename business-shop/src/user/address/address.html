@@ -1,0 +1,42 @@
+<div class="address" ng-controller="App.User.Address.Controller">
+    <!-- <ion-header-bar align-title="center" class="bar">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button>
+        </div>
+        <h1 class="title light">收货地址</h1>
+        <div class="buttons">
+            <i class="button button-icon ion-ios-plus-outline light" on-touch="addNewAddress()"></i>
+        </div>
+    </ion-header-bar> -->
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+        <div ng-repeat="address in address_list">
+            <div class="list-box padding">
+                <div class="list-item">
+                    <div class="top-line">
+                        <span class="pull-left">收货人：{{address.consignee}}</span>
+                        <span class="pull-right">{{address.mobile}}</span>
+                    </div>
+                    <div class="devider-line clearfix"></div>
+                    <div class="middle-content padding-top">
+                        <span class="field-text">收货地址：</span>
+                        <div>{{address.address}}</div>
+                    </div>
+                    <div class="list-footer">
+                        <div class="text-right padding">
+                            <div class="address-default pull-left">
+                                <label on-touch="setDefault(address.id)">
+                                    <input type="radio" ng-model="address.id" name="default-address" class="radio-orange" ng-checked="address.is_default == 1" />默认地址</label>
+                            </div>
+                            <button class="padding-horizontal button button-small button-energized btn-bottom" on-touch="edit(address.id)">编辑 <i class="ion-ios-compose-outline"></i></button>
+                            <button class="padding-horizontal button button-small button-energized btn-bottom" on-touch="delete(address.id)">删除 <i class="ion-ios-trash-outline"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="devider-box"></div>
+        </div>
+        <div class="padding">
+            <button class="button button-block button-add-address"  on-touch="addNewAddress()">添加收货地址</button>
+        </div>        
+    </ion-content>
+</div>

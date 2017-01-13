@@ -1,0 +1,19 @@
+<div class="footer" ng-controller="App.Footer.Controller">
+    <!--底部固定导航-->
+    <ion-footer-bar class="bar bar-footer" ng-if="tab!='none'">
+        <div class="shoptab tabs tabs-icon-top">
+            <a class="tab-item" ng-class="{active: tab=='home'}" >
+                <i class="icon i-home"></i> 代言秀
+            </a>
+            <a ng-href="http://m.cellmyth.cn/wechat/rank/index" class="tab-item" ng-class="{active: tab=='shop'}" >
+                <i class="icon i-shop"></i> 代言榜
+            </a>
+            <a ng-href="http://m.cellmyth.cn/wechat/spree/explain" class="tab-item" ng-class="{active: tab=='find'}" >
+                <i class="icon i-find"></i> 代言人
+            </a>
+            <a ng-href="http://m.cellmyth.cn/wechat/user" class="tab-item" ng-class="{active: tab=='me'}" >
+                <i class="icon i-me"></i> 我
+            </a>
+        </div>
+    </ion-footer-bar>
+</div>

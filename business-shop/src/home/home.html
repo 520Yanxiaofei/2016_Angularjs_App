@@ -1,0 +1,147 @@
+<div class="home" ng-controller="App.Home.Controller">
+    <a class="search-fixed" ng-show="miniSearch.search" ui-sref="goods.search">
+        <i class="icon ion-ios-search"></i>
+    </a>
+    <ion-content on-scroll="contentScroll()" class="has-tabs" scrollbar-y="true" overflow-scroll="false" lazy-scroll>
+        <ion-refresher pulling-text="数据刷新中..." on-refresh="doRefresh()"></ion-refresher>
+        <!--幻灯图-->
+        <ion-slide-box auto-play="true" show-pager="false" slide-interval="2000">
+            <ion-slide ng-repeat="advert in adverts">
+                <a href="{{advert.link}}">
+                    <div class="slide-pic">
+                        <img ng-src="{{advert.image}}" alt="">
+                    </div>
+                </a>
+            </ion-slide>
+        </ion-slide-box>
+        <div class="divider-bar"></div>
+        <!--搜索-->
+        <div class="home-serachbg">
+            <div class="home-searchbg-input">
+                <div class="inner-bg">
+                    <span class="search-home"></span>
+                    <input type="text" class="home-serachbgInput" placeholder="搜索内容" ui-sref="goods.search" readonly>
+                </div>
+            </div>
+        </div>
+        <!--导航-->
+        <div class="nav-box">
+            <div class="row">
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="goods.search-goods({category_id:1})">
+                        <i class="icon home-nav1"></i> 面部
+                    </a>
+                </div>
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="goods.search-goods({category_id:2})">
+                        <i class="icon home-nav2"></i> 身体
+                    </a>
+                </div>
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="goods.search-goods({category_id:3})">
+                        <i class="icon home-nav3"></i> 美妆
+                    </a>
+                </div>
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="goods.search-goods({category_id:4})">
+                        <i class="icon home-nav4"></i> 仪器
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="goods.search-goods({category_id:5})">
+                        <i class="icon home-nav5"></i> 消费券
+                    </a>
+                </div>
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="goods.search-goods({category_id:19})">
+                        <i class="icon home-nav6"></i> 美体
+                    </a>
+                </div>
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="goods.search-goods({category_id:24})">
+                        <i class="icon home-nav7"></i> 香氛
+                    </a>
+                </div>
+                <div class="col col-25">
+                    <a class="tab-item" ui-sref="goods.search-goods({category_id:11})">
+                        <i class="icon home-nav8"></i> 套盒
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--兑换专区-->
+        <div class="exchange-box">
+            <div class="home-header">
+                <i class="home-headerIcon"></i>兑换专区
+            </div>
+            <div class="row">
+                <div class="col col-50 home-dyds border-rightLine" ui-sref="goods.change({type_status:1})">
+                    <a href="#"><img src="image/home-dyds.png" alt=""></a>
+                </div>
+                <div class="col col-50">
+                    <div class="border-bottomLine">
+                        <a ui-sref="goods.change({type_status:2})">
+                            <div class="row">
+                                <div class="col col-60">
+                                    <p class="text-center font14 home-new">代言币兑换</p>
+                                    <p class="text-center font10 home-gray">多种商品任你拿</p>
+                                </div>
+                                <div class="col col-40 home-icon1">
+                                    <img src="image/home-icon4.png" alt="">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col col-50 border-rightLine">
+                            <a ui-sref="seniority()">
+                                <div class="text-center pinpai">资格</div>
+                                <div class="text-center home-gray font12">资格专区</div>
+                                <div class="home-icon2 text-center"><img src="image/zige.png" alt=""></div>
+                            </a>
+                        </div>
+
+                        <div class="col col-50">
+                            <a ui-sref="goods.change({type_status:3})">
+                                <div class="text-center gongxiao">红包兑换</div>
+                                <div class="text-center home-gray font12">红包任你换</div>
+                                <div class="home-icon3 text-center"><img src="image/home-icon7.jpg" alt=""></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--精品小店-->
+        <div class="home-header">
+            <i class="home-headerIcon"></i>精品小店
+        </div>
+        <div class="row home-shop home-shop-list">
+            <div class="col col-50" ng-repeat="recommend_shop in recommend_shops">
+                <a class="tab-item home-shop  adjust-size" ui-sref="shop.seller-home({id: recommend_shop.id})" on-finish-render-filters size='420*170'>
+                    <div class="graybox"></div>
+                    <div class="home-shop-font">{{recommend_shop.title}}</div>
+                    <img ng-src="{{recommend_shop.cover}}" alt="">
+                </a>
+            </div>
+        </div>
+        <!--代言精品-->
+        <div class="home-header">
+            <i class="home-headerIcon"></i>代言精品
+        </div>
+        <div class="list goods-pro-lists">
+            <div class="padding text-center text-gary" ng-show="noData">暂无商品</div>
+            <a class="item item-thumbnail-left" ui-sref="goods.detail({id: goods.id})" ng-repeat="goods in goods_list">
+                <img ng-src="{{goods.images[0].url}}">
+                <h2>{{goods.title}}</h2>
+                <p class="home-price" style="bottom:28px;right:10px"><span>已销售：{{goods.sales_all || 0}}</span></p>
+                    <p class="home-price">{{goods.current_price || 0 | dyCurrency}}</p>
+                    <s class="old-price">原价：{{goods.original_price || 0 | dyCurrency}}</s>
+            </a>
+            <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+            <div class="padding text-center text-gary" ng-show="noMoreData">没有更多数据了</div>
+        </div>
+    </ion-content>
+</div>

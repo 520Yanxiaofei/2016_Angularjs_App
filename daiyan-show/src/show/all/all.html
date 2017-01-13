@@ -1,0 +1,39 @@
+<div class="show-all" ng-controller="Show.all.Controller">
+    <ion-header-bar class="bar bar-header search-input" ng-class="{isfocus:isFocus}">
+        <div class="list list-inset" ng-class="{isfocus:isFocus}">
+            <label class="item item-input" ng-class="{isfocus:isFocus}">
+                <i class="icon ion-ios-search-strong placeholder-icon" ng-class="{isfocus:isFocus}"></i>
+                <form action="javascript:return true;">
+          <input type="search" class="search-text" ng-class="{focus:getfocus}" placeholder="搜索内容" on-touch="goSearch()">
+        </form>
+            </label>
+            <i class="ion-android-cancel" ng-show="ishaveVal()" ng-click="clearVal()"></i>
+        </div>
+    </ion-header-bar>
+    <ion-content class="">
+        <ion-refresher pulling-text="数据更新中..." on-refresh="doRefresh()"></ion-refresher>
+        <!-- 活动详情 -->
+        <div class="active-box">
+            <div class="active-content padding clearfix" ng-repeat="show in historyList" on-finish-render-filters>
+                <a ui-sref="{{ showLink(show.isCharity, show.id) }}">
+                    <div class="">
+                        <div style="float:left; width:40%; padding:0; overflow:hidden;">
+                            <div class="img-box" ng-class="{'has-finished' : show.isExpired=='1'}">
+                                <img ng-src="{{ show.img }}" alt="">
+                            </div>
+                        </div>
+                        <div style="float:left; width:60%; padding:0; overflow:hidden;">
+                            <div class="active-description">
+                                <h3 class="active-title">{{ show.title }}</h3>
+                                <p class="description-info">{{ show.subTitle }}</p>
+                                <p class="more black"><img src="image/heart.png" alt=""> 共 <span class="num">{{ show.voteCount }}</span> 票</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="getShowALL()" distance="1%"></ion-infinite-scroll>
+        <div class="padding text-center text-orange" ng-show="!moreDataCanBeLoaded">没有更多数据了</div>
+    </ion-content>
+</div>

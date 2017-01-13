@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html ng-app="shopManagerApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="format-detection" content="telephone=no" />
+	<title>代颜街</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+	<base href="/">
+
+    <!-- build:css css/shopApp-lib.css -->
+    <link rel="stylesheet" type="text/css" href="bower_components/ionic/release/css/ionic.css">
+    <!-- endbuild -->
+
+	<!-- build:css css/shopApp.css -->
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<!-- endbuild -->
+</head>
+<body>
+	<!-- router div -->
+    <ion-nav-view cache-view="false"></ion-nav-view>
+    <div ng-include="'footer/footer.html'"></div>
+
+    <!-- <div class="right-main" ui-view></div> -->
+	<!-- build:js js/shopApp-lib.js -->
+	<script type="text/javascript" src="bower_components/ionic/release/js/ionic.bundle.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="bower_components/ionic-image-lazy-load/ionic-image-lazy-load.js"></script>
+    <!-- endbuild -->
+
+	<!-- build:js js/shopApp.js -->
+
+	<!-- config -->
+	<script type="text/javascript" src="config/config.js"></script>
+
+
+	<!-- models -->
+	<script type="text/javascript" src="models/models.js"></script>
+	<script type="text/javascript" src="models/member.js"></script>
+	<script type="text/javascript" src="models/goods.js"></script>
+	<script type="text/javascript" src="models/shop.js"></script>
+	<script type="text/javascript" src="models/order.js"></script>
+	<script type="text/javascript" src="models/home.js"></script>
+	<script type="text/javascript" src="models/system.js"></script>
+	<script type="text/javascript" src="models/spokes.js"></script>
+	<script type="text/javascript" src="models/dealer.js"></script>
+	<script type="text/javascript" src="models/helpbuy.js"></script>
+	<script type="text/javascript" src="models/setting.js"></script>
+
+	<!-- footer -->
+	<script type="text/javascript" src="footer/footer.js"></script>
+
+	<!-- home -->
+	<script type="text/javascript" src="home/home.js"></script>
+
+	<!-- seniority -->
+	<script type="text/javascript" src="seniority/seniority.js"></script>
+
+	<!-- goods-->
+	<script type="text/javascript" src="goods/goods.js"></script>
+	<script type="text/javascript" src="goods/search/search.js"></script>
+	<script type="text/javascript" src="goods/detail/detail.js"></script>
+	<script type="text/javascript" src="goods/seller/seller.js"></script>
+	<script type="text/javascript" src="goods/search-result/search-result.js"></script>
+	<script type="text/javascript" src="goods/search-goods/search-goods.js"></script>
+	<script type="text/javascript" src="goods/change/change.js"></script>
+	<script type="text/javascript" src="goods/reward/index.js"></script>
+
+
+	<!-- order -->
+	<script type="text/javascript" src="order/order.js"></script>
+	<script type="text/javascript" src="order/order-fill/order-fill.js"></script>
+	<script type="text/javascript" src="order/order-address/order-address.js"></script>
+	<script type="text/javascript" src="order/order-appointment/order-appointment.js"></script>
+	<script type="text/javascript" src="order/pay/pay.js"></script>
+	<script type="text/javascript" src="order/another-pay/another-pay.js"></script>
+	<script type="text/javascript" src="order/another-pay-info/another-pay-info.js"></script>
+
+	<!-- shop-->
+	<script type="text/javascript" src="shop/shop.js"></script>
+	<script type="text/javascript" src="shop/album/album.js"></script>
+	<script type="text/javascript" src="shop/seller-home/seller-home.js"></script>
+	<script type="text/javascript" src="shop/share/share.js"></script>
+
+	<!-- user -->
+	<script type="text/javascript" src="user/user.js"></script>
+	<script type="text/javascript" src="user/address/address.js"></script>
+	<script type="text/javascript" src="user/address-edit/address-edit.js"></script>
+	<script type="text/javascript" src="user/information-check/information-check.js"></script>
+	<script type="text/javascript" src="user/merchant-information/merchant-information.js"></script>
+	<script type="text/javascript" src="user/merchant-notes/merchant-notes.js"></script>
+	<script type="text/javascript" src="user/mycollection/mycollection.js"></script>
+	<script type="text/javascript" src="user/myseniority/myseniority.js"></script>
+	<script type="text/javascript" src="user/myseniorityMegagame/myseniorityMegagame.js"></script>
+	<script type="text/javascript" src="user/myseniorityGoods/myseniorityGoods.js"></script>
+	<script type="text/javascript" src="user/myseniorityBusiGoods/myseniorityBusiGoods.js"></script>
+	<script type="text/javascript" src="user/mydata/mydata.js"></script>
+	<script type="text/javascript" src="user/buy-success/buy-success.js"></script>
+	<script type="text/javascript" src="user/user-info/user-info.js"></script>
+	<script type="text/javascript" src="user/join-infor/join-infor.js"></script>
+	<script type="text/javascript" src="user/join-pay/join-pay.js"></script>
+	<script type="text/javascript" src="user/order-detail/order-detail.js"></script>
+	<script type="text/javascript" src="user/orderList/orderList.js"></script>
+	<script type="text/javascript" src="user/order-pick/order-pick.js"></script>
+	<script type="text/javascript" src="user/order-pick/detail/detail.js"></script>
+	<script type="text/javascript" src="user/order-replenish/order-replenish.js"></script>
+	<script type="text/javascript" src="user/order-replenish/detail/detail.js"></script>
+
+
+
+	<script type="text/javascript" src="user/another-pay/another-pay.js"></script>
+	<script type="text/javascript" src="user/balance-pay/balance-pay.js"></script>
+	<script type="text/javascript" src="user/another-balance-pay/another-balance-pay.js"></script>
+
+	<!-- back -->
+	<script type="text/javascript" src="back/back.js"></script>
+	<script type="text/javascript" src="back/back-tip/back-tip.js"></script>
+	<script type="text/javascript" src="back/return-progress/return-progress.js"></script>
+	<script type="text/javascript" src="back/orderReturned/orderReturned.js"></script>
+	<script type="text/javascript" src="back/application-services/application-services.js"></script>
+
+    <!-- widgets -->
+    <script type="text/javascript" src="widgets/widgets.js"></script>
+    <script type="text/javascript" src="widgets/loading/loading.js"></script>
+	<script type="text/javascript" src="widgets/city/city.directive.js"></script>
+
+	<script type="text/javascript" src="app.js"></script>
+
+	<!-- templates -->
+  	<script src="templates.js"></script>
+
+	<!-- endbuild -->
+	<script>
+		+ function(document){
+			var token = document.location.search.match(/^\?auto_login_token=(.*?)&app_common=(.*?)$/);
+		    if(token){
+		    	var host = document.location.host;
+		        document.cookie = 'auto_login_token=' + token[1] + ';app_common=' + token[2] + ';domain=' + host.substr(host.indexOf('.'));
+		    } else if (document.location.search.match(/^\?uid=(.*?)&app_name=(.*?)&sign=(.*?)$/)) {
+		    	window.DYW_AUTHENTICATION = document.location.search.substr(1);
+		    }
+		}(document);
+	</script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</body>
+</html>

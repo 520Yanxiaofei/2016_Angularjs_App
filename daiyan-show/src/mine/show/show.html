@@ -1,0 +1,88 @@
+<div class="mine-show" ng-controller="App.Mine.Show.Controller">
+    <!-- 我参加/管理的的选秀、往期选秀、申请记录 -->
+    <div class="bar my-show-tab">
+        <ul class="my-show-tabs">
+            <li ng-repeat="tab in tabs">
+                <a href="javascript:;" ng-class="{active:isActive($index)}" ng-click="changeTab($index)">{{ tab }}</a>
+            </li>
+        </ul>
+    </div>
+
+    <ion-content class="my-show-content has-header">
+        <!-- <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher> -->
+    	<ion-slide-box active-slide="myActiveSlide" on-slide-changed="slideHasChanged($index)">
+            <!-- 我参加的 -->
+			<ion-slide> 
+                <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher>
+				<div ng-repeat="item in mineShow" class="my-join-show" ng-click="toDetail(item.id)">
+                    <img ng-src="{{item.img}}">
+                    <div class="my-show-main">
+                        <div class="my-show-info">
+                            <span>{{ item.name }}</span>
+                        </div>
+                        <p class="my-show-date">
+                            <span><i></i>{{ item.voteCount }}</span>票
+                            <span>{{ item.datetime * 1000 | date:'yyyy-MM-dd HH:mm' }}</span>
+                        </p>  
+                    </div>
+                </div>
+                <ion-infinite-scroll ng-if="isLoadMoreMine" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+			</ion-slide>
+            <!-- 我管理的 -->
+			<ion-slide>
+                <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher>
+				<div ng-repeat="item in manageShow" class="my-manage-show" ng-click="toDetail(item.id)">
+                    <img ng-src="{{item.img}}">
+                    <div class="my-show-main">
+                        <div class="my-show-info">
+                            <span>{{ item.name }}</span><br>
+                        </div>
+                        <p class="my-show-date">
+                            <span><i></i>{{ item.voteCount }}</span>票
+                            <span>{{ item.datetime * 1000 | date:'yyyy-MM-dd HH:mm' }}</span>
+                        </p>
+                    </div>
+                </div>
+                <ion-infinite-scroll ng-if="isLoadMoreManage" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+			</ion-slide>
+            <!-- 申请记录 -->
+			<ion-slide>
+                <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher>
+				<div ng-repeat="item in applyList" class="my-apply-record">
+                    <img ng-src="{{item.img}}">
+                    <div class="my-apply-info">
+                        <span>{{ item.name }}</span><br>
+                        <span class="record-time">申请时间:{{ item.create_time * 1000 | date:'yyyy-MM-dd' }}</span>
+                    </div>
+                    <p class="my-apply-status">
+                        <i class="pass" ng-if="isPass(item.status)"></i>
+                        <i class="wait-examine" ng-if="isWait(item.status)"></i>
+                        <i class="not-pass" ng-if="isNotPass(item.status)"></i>
+                        <span ng-if="isPass(item.status)">审核通过</span>
+                        <span ng-if="isWait(item.status)">待审核</span>
+                        <span ng-if="isNotPass(item.status)">未通过</span>
+                    </p>
+                </div>
+                <ion-infinite-scroll ng-if="isLoadMoreApply" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+			</ion-slide>
+            <!-- 往期选秀 -->
+			<ion-slide>
+                <ion-refresher pulling-text="下拉并松开后刷新" on-refresh="doRefresh()"></ion-refresher>
+				<div ng-repeat="item in historyShow" class="my-provious-show" ng-click="toDetail(item.id)">
+                    <img ng-src="{{item.img}}">
+                    <div class="my-show-main">
+                        <div class="my-show-info">
+                            <span>{{ item.name }}</span><br>
+                        </div>
+                        <p class="my-show-date">
+                            <span><i></i>{{ item.voteCount }}</span>票
+                            <span>{{ item.datetime * 1000 | date:'yyyy-MM-dd HH:mm' }}</span>
+                        </p>
+                    </div>
+                </div>
+                <ion-infinite-scroll ng-if="isLoadMoreHistory" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+			</ion-slide>
+            <!-- <ion-infinite-scroll ng-if="isLoadMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll> -->
+		</ion-slide-box>
+    </ion-content>
+</div>

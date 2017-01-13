@@ -1,0 +1,29 @@
+<div class="examine-show" ng-controller="App.Manage.Examine.Controller">
+    <!-- 审核选秀加入/退出申请 -->
+    <ion-content class="examine-show-content">
+        <div class="item item-avatar">
+            <!-- <img src="../../image/bird.jpg""> -->
+            <img ng-src="{{detail.imgSrc}}">
+            <h2>{{ detail.title }}</h2>
+        </div>
+        <ul class="list">
+            <li class="item">
+                <span ng-if="detail.isJoin==1">申请加入选秀时间</span>
+                <span ng-if="detail.isJoin==2">申请退出选秀时间</span>
+                <span class="text-r">{{ detail.time * 1000 | date:'yyyy-MM-dd' }}</span>
+            </li>
+            <li class="item">
+                <span>申请人</span>
+                <span class="text-r">{{ detail.name }}</span>
+            </li>
+            <li class="item">
+                <span>验证消息：{{ detail.message }}</span>
+            </li>
+        </ul>
+
+        <div class="examine-btn">
+            <button ng-click="refuse()">拒绝</button>
+            <button ng-click="consent()">同意</button>
+        </div>
+    </ion-content>
+</div>

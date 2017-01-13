@@ -1,0 +1,132 @@
+<div class="competition" ng-controller="App.Selected.Competition.Controller">
+    <div ng-include="'app-download/app-download.html'"></div>
+    <ion-content on-scroll="contentScroll()" class="has-tabs" ng-class="{'has-header' : has_header }">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefreshse()"></ion-refresher>
+        <div class="header-box padding">
+            <div class="face-box border-bottomLine">
+                <div class="face">
+                    <div class="image-box">
+                        <img ng-src="{{rankUser.avatar}}">
+                    </div>
+                    <div class="face-user-info">
+                        {{rankUser.name}} 我为梦想代言
+                    </div>
+                </div>
+                <div class="face-text text-center">
+                    “{{rankUser.slogan}}”
+                </div>
+            </div>
+            <div class="vote-list">
+                <div class="help">
+                    <div class="row">
+                        <div class="col-33">
+                            <div class="vote-card padding-top padding-bottom padding-left">
+                                <img src="image/file.png" alt="">
+                                <p class="line-text"><span class="num">{{rankUser.voteCount}}</span>票</p>
+                                <p class="line-text">投票总数</p>
+                            </div>
+                        </div>
+                        <div class="col-33">
+                            <div class="vote-center text-center">
+                                为TA助力
+                            </div>
+                        </div>
+                        <div class="col-33">
+                            <div class="vote-card padding-top padding-bottom">
+                                <img src="image/person.png" alt="">
+                                <p class="line-text"><span class="num">{{rankUser.friendCount}}</span>人</p>
+                                <p class="line-text">参与人数</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vote-list-faces padding">
+                    <div class="row text-center">
+                        <div class="col-25" ng-repeat="item in rankSup">
+                            <a href="javascript:;">
+                                <div class="img-box"><img ng-src="{{item.avatar}}"></div>
+                            </a>
+                        </div>
+                        <div class="text-centerHidden" ng-show="rankSup.length==0">
+                            暂时没有支持者
+                        </div>
+                    </div>
+                    <p class="line-text text-center">共有<span class="num">{{rankUser.friendCount}}位</span>支持者</p>
+                </div>
+            </div>
+        </div>
+        <!-- 活动详情 -->
+        <div class="active-box">
+            <h3 class="active-title border-bottomLine">活动详情</h3>
+            <div class="active-content padding">
+                <div class="row border-bottomLine">
+                    <div class="col-33">
+                        <div class="img-box">
+                            <img ng-src="{{rankInfo.img}}">
+                        </div>
+                    </div>
+                    <div class="col-67">
+                        <div class="active-description">
+                            <h3 class="active-title">{{rankInfo.name}}</h3>
+                            <p class="description-info">{{rankInfo.description}}</p>
+                            <p class="text-right more"><a ui-sref="selected.detail({id:ids})">项目详情&gt;&gt;</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="count-tickets clearfix">
+                    <div class="ticket"><img src="image/file.png" alt="">累计投票：<span class="num">{{rankInfo.voteCount}}</span>票</div>
+                    <div class="ticket"><img src="image/person.png" alt=""><span class="num">{{rankInfo.personCount}}</span>人参与</div>
+                </div>
+            </div>
+        </div>
+        <!-- 投票列表 -->
+        <div class="show-list">
+            <div class="show-list-item border-bottomLine" ng-repeat="list in recordList">
+                <div class="avatart-box border-orange">
+                    <img ng-src="{{list.avatar}}">
+                </div>
+                <div class="list-content">
+                    {{list.name}}
+                </div>
+                <div class="sup-info">
+                    <p class="main-text" ng-if="list.type==1">投<span class="num">{{list.voteCount}}</span> 票</p>
+                    <p class="main-text" ng-if="list.type==2">支持<span class="num">{{list.money}}</span>元， 投<span class="num">{{list.voteCount}}</span>票</p>
+                    <p class="main-text" ng-if="list.type==3">推荐代言人，投 <span class="num">{{list.voteCount}}</span> 票</p>
+                    <p class="main-text" ng-if="list.type==4">消费<span class="num">{{list.money}}</span>元，投 <span class="num">{{list.voteCount}}</span>票</p>
+                    <p class="date text-date">{{list.timestamp | Datediff}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="recording" ng-if="recordData">
+            暂时没有投票记录
+        </div>
+        <ion-infinite-scroll pulling-text="加载更多" ng-if="moreData" on-infinite="loadMorese()" distance="0%"></ion-infinite-scroll>
+        <div class="padding text-center text-gray" ng-hide="moreDataed">没有更多数据了</div>
+    </ion-content>
+    <!-- 回到顶部 -->
+    <button class="go-up" on-touch="goTop()"></button>
+    <!-- 投票弹出层 -->
+    <script id="my-modal.html" type="text/ng-template">
+        <ion-modal-view>
+            <div class="compeBacenter">
+                <h3>请选择投票方式<span class="closeBtn" on-touch="modal.hide()"><img src="image/close.png"/></span></h3>
+                <div class="competi">
+                    <button class="button button-positive" on-touch="touBtns()" ng-hide="rankUserok">
+                        免费投1票
+                    </button>
+                    <button class="button button-positive button-defacolor" ng-hide="rankUserIs" ng-disabled="expression">
+                        已免费投票
+                    </button>
+                    <button class="button button-positive rights" on-touch="weixinPay()" style="padding:0 10%">
+                        1元投9票
+                    </button>
+                </div>
+            </div>
+        </ion-modal-view>
+    </script>
+    <div class="tabs">
+        <button class="btn btn-l" on-touch="Slectshow()" ng-if = "is_vote">为他助力</button>
+        <button class="btn btn-l button-defacolor" ng-if = "!is_vote">为他助力</button>
+        <button class="btn btn-r" on-touch="Addsele()">加入选秀</button>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">填写退货快递信息</h1>
+    </ion-header-bar>
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+        <div class="list card">
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">快递公司</span>
+            <input type="text" placeholder="请输入快递公司名称" ng-model="express.name">
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">快递单号</span>
+            <input type="text" placeholder="请输入快递单号" ng-model="express.number">
+          </label>
+        </div>
+        <p ng-show="!express.name || !express.number" class="padding assertive">请确认填写快递信息，再提交！</p>
+        <div class="row">
+            <div class="col-50 padding">
+                <button class="button button-block button-clear button-positive" on-touch="ConfirmExpressInfo()">
+                    确定
+                </button>
+            </div>
+            <div class="col-50 padding">
+                <button class="button button-block button-clear" on-touch="closeModal()">
+                    取消
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

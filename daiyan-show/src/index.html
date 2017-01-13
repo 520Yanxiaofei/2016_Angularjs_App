@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html ng-app="shopManagerApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="format-detection" content="telephone=no" /> 
+	<title>代言秀</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+	<base href="/">
+
+    <!-- build:css css/shopApp-lib.css -->
+    <link rel="stylesheet" type="text/css" href="bower_components/ionic/release/css/ionic.css">
+    <!-- endbuild -->
+	
+	<!-- build:css css/shopApp.css -->
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<!-- endbuild -->
+</head>
+<body>
+	<!-- router div -->
+    <ion-nav-view cache-view="false"></ion-nav-view>
+    <div ng-include="'footer/footer.html'"></div>
+
+    <!-- <div class="right-main" ui-view></div> -->
+
+	<!-- build:js js/shopApp-lib.js -->
+	<script type="text/javascript" src="bower_components/ionic/release/js/ionic.bundle.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="bower_components/ionic-image-lazy-load/ionic-image-lazy-load.js"></script>
+    <script type="text/javascript" src="bower_components/angular-qrcode/angular-qrcode.js"></script>
+    <script type="text/javascript" src="bower_components/qrcode-generator/js/qrcode.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbuild -->
+
+	<!-- build:js js/shopApp.js -->
+
+	<!-- config -->
+	<script type="text/javascript" src="config/config.js"></script>
+
+	<!-- models -->
+	<script type="text/javascript" src="models/models.js"></script>
+	<script type="text/javascript" src="models/choice.js"></script>
+	<script type="text/javascript" src="models/welfare.js"></script>
+	<script type="text/javascript" src="models/ordinary.js"></script>
+	<script type="text/javascript" src="models/user.js"></script>
+	<script type="text/javascript" src="models/mine.js"></script>
+	<script type="text/javascript" src="models/vote.js"></script>
+	<script type="text/javascript" src="models/overview.js"></script>
+	<script type="text/javascript" src="models/manage.js"></script>
+	<script type="text/javascript" src="models/member.js"></script>
+    <script type="text/javascript" src="models/search.js"></script>
+    <script type="text/javascript" src="models/setting.js"></script>
+    <script type="text/javascript" src="models/launch.js"></script>
+
+	<!-- footer -->
+	<script type="text/javascript" src="footer/footer.js"></script>
+
+  <!-- app-download -->
+  <script type="text/javascript" src="app-download/app-download.js"></script>
+
+	<!-- home -->
+	<script type="text/javascript" src="home/home.js"></script>
+	
+	<!-- show-friend-->	
+	<script type="text/javascript" src="show-friend/show-friend.js"></script>
+
+
+	<!-- find -->
+	<script type="text/javascript" src="find/find.js"></script>
+
+	<!-- show -->
+	<script type="text/javascript" src="show/represent/represent.js"></script>
+	<script type="text/javascript" src="show/welfare/welfare.js"></script>
+	<script type="text/javascript" src="show/review/review.js"></script>
+	<script type="text/javascript" src="show/common-show/common-show.js"></script>
+	<script type="text/javascript" src="show/show.js"></script>
+	<script type="text/javascript" src="show/all/all.js"></script>
+
+	<!-- mine -->
+	<script type="text/javascript" src="mine/mine.js"></script>
+	<script type="text/javascript" src="mine/show/show.js"></script>
+	<!-- <script type="text/javascript" src="mine/join/join.js"></script>
+	<script type="text/javascript" src="mine/manage/manage.js"></script>
+	<script type="text/javascript" src="mine/apply/apply.js"></script>
+	<script type="text/javascript" src="mine/history/history.js"></script> -->
+
+	<!-- create show -->
+	<script type="text/javascript" src="create/create.js"></script>
+	<script type="text/javascript" src="create/declaration/declaration.js"></script>
+	<script type="text/javascript" src="create/info/info.js"></script>
+	<script type="text/javascript" src="create/caption/caption.js"></script>
+	<script type="text/javascript" src="create/restrictions/restrictions.js"></script>
+	<script type="text/javascript" src="create/sign/sign.js"></script>
+
+    <!-- selected show -->
+    <script type="text/javascript" src="selected/selected.js"></script>
+    <script type="text/javascript" src="selected/add/add.js"></script>
+    <script type="text/javascript" src="selected/draft/draft.js"></script>
+    <script type="text/javascript" src="selected/competition/competition.js"></script>
+    <script type="text/javascript" src="selected/detail/detail.js"></script>
+
+    <!-- commonweal show -->
+    <script type="text/javascript" src="commonweal/commonweal.js"></script>
+    <script type="text/javascript" src="commonweal/add/add.js"></script>
+    <script type="text/javascript" src="commonweal/draft/draft.js"></script>
+    <script type="text/javascript" src="commonweal/competition/competition.js"></script>
+    <script type="text/javascript" src="commonweal/contribution/contribution.js"></script>
+    <script type="text/javascript" src="commonweal/detail/detail.js"></script>
+
+	<!-- manage -->
+	<script type="text/javascript" src="manage/manage.js"></script>
+	<script type="text/javascript" src="manage/member/member.js"></script>
+	<script type="text/javascript" src="manage/message/message.js"></script>
+	<script type="text/javascript" src="manage/examine/examine.js"></script>
+
+	<script type="text/javascript" src="manage/home/home.js"></script>
+	
+	<script type="text/javascript" src="manage/identity/identity.js"></script>
+	<!-- search -->
+	<script type="text/javascript" src="search/search.js"></script>
+	<script type="text/javascript" src="search/main/main.js"></script>
+	<script type="text/javascript" src="search/category/category.js"></script>
+	<script type="text/javascript" src="search/user/user.js"></script>
+
+	<!-- pay -->
+	<script type="text/javascript" src="pay/pay.js"></script>
+	<script type="text/javascript" src="pay/pay-type/pay-type.js"></script>
+	<script type="text/javascript" src="pay/balance-pay/balance-pay.js"></script>
+
+    <!-- widgets -->
+    <script type="text/javascript" src="widgets/widgets.js"></script>
+    <script type="text/javascript" src="widgets/loading/loading.js"></script>
+	<script type="text/javascript" src="widgets/city/city.directive.js"></script>
+	<script type="text/javascript" src="widgets/slidingTabs/slidingTabsDirective.js"></script>
+
+	<script type="text/javascript" src="app.js"></script>
+
+	<!-- templates -->
+  	<script src="templates.js"></script>
+
+	<!-- endbuild -->
+
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+</body>
+</html>

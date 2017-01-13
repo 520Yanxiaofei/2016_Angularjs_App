@@ -1,0 +1,44 @@
+<div class="search-result" ng-controller="App.Goods.SearchResult.Controller">
+    <!--头部-->
+    <!-- <ion-header-bar align-title="center" class="bar bar-header">
+        <button class="button button-icon ion-ios-arrow-left light" on-touch="back()"></button>
+        <h1 class="title">店铺搜索列表</h1>
+    </ion-header-bar> -->
+    <!--主体-->
+    <ion-content class="has-tabs" scrollbar-y="true" overflow-scroll="false" lazy-scroll>
+        <!--地址-->
+        <!-- <div class="row seller-address font12">
+            <i class="icon ion-android-pin"></i> 武汉市洪山区关山大道光谷软件园A8栋附近
+        </div> 
+        <div class="graybox"></div>-->
+        <div class="padding text-center text-gray" ng-show="noData">
+            暂无商家信息
+        </div>
+        <div class="list result">
+            <div ng-repeat="list in search_list">
+                <div class="item item-thumbnail-left border-bottomLine clearfix">
+                    <img image-lazy-src="{{list.logo}}" image-lazy-loader="ios">
+                    <h2>{{list.title}} <span class="shop_isBrand" ng-if="list.shop_type == '2'">品牌店</span></h2>
+                    <p class="ribbon" ng-show="list.is_auth == 1"><i class="ribbon-icon"></i> 已认证</p>
+                    <p class="discount">
+                        <span class="tag" ng-repeat="industry in list.industry">{{industry.title}}
+                        </span>
+                    </p>
+                    <a ui-sref="shop.seller-home({ id: list.id })" class="goods-shop"> 进店逛逛</a>
+                </div>
+                <div class="row seller-goods">
+                    <div class="col-25 text-center" ng-repeat="goods in list.good_list">
+                        <a ui-sref="goods.detail({id: goods.id})" class="small-image-loader">
+                            <img image-lazy-src="{{goods.images[0]}}" image-lazy-loader="ios">
+                            <i class="shaddow"></i>
+                            <i class="price">{{goods.current_price | dyCurrency}}</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="graybox"></div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+        <div class="padding text-center text-gray" ng-show="isShow">没有更多数据了</div>
+    </ion-content>
+</div>

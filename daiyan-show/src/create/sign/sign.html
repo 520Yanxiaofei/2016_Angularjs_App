@@ -1,0 +1,39 @@
+<div class="show-sign" ng-controller="App.Create.Sign.Controller">
+
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+        <div class="row steps">
+            
+            <div class="col col-20">
+                <i ng-click="goto(1)"></i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(2)"></i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(3)"></i>
+            </div>
+            <div class="col col-20">
+                <i  class="active" ng-click="goto(4)">4</i>
+            </div>
+
+        </div>
+        <h2>填写发起人信息</h2>
+        <p>离成功只差一步啦，加油哦</p>
+        
+        <div class="input">
+             <label for="">申请人姓名</label>
+             <input type="text" placeholder="" ng-model="form.applicant">
+        </div>
+        <div class="input">
+             <label for="">申请人电话</label>
+             <input type="text" placeholder="" ng-model="form.mobile">
+        </div>
+        <div class="next">
+            <button class="button button-block button-energized" ng-click="submit()">
+                填好了，去支付
+            </button>
+            <button class="button button-block button-light" ng-click="cancel()">上一步</button>
+        </div>
+        
+    </ion-content>
+</div>

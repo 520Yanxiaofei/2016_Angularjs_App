@@ -1,0 +1,94 @@
+<div class="another-pay" ng-controller="App.User.AnotherPay.Controller">
+    <ion-tabs class="tabs-striped tabs-top tabs-color-assertive">
+        <ion-tab title="已申请" scrollbar-y="true" overflow-scroll="false" on-select="onTabSelected(0)">
+            <ion-content scrollbar-y="true" overflow-scroll="false">
+                <ion-refresher pulling-text="数据刷新中..." on-refresh="doRefresh(0, true)"></ion-refresher>
+                <ul class="list">
+                    <ion-list>
+                        <li ng-repeat="order in order_list">
+                            <div class="item itemPadding">
+                                <p>
+                                    订单号：{{order.order_number}}
+                                    <a href="#" class="subdued red">
+                                已申请
+                            </a>
+                                </p>
+                            </div>
+                            <a class="item item-avatar">
+                                <img ng-src="{{order.avatar}}">
+                                <h4>姓名：{{order.realname}}</h4>
+                                <h4>代言号：{{order.user_number}}</h4>
+                                <h4>代付金额：{{order.price || 0 | dyCurrency}}</h4>
+                                <h4>申请时间：{{order.create_time*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</h4>
+                            </a>
+                            <div class="item itemheji itemPadding">
+                                <label>
+                                    <a class="button button-small button-assertive" on-tap="payAnother(order.id)">为TA代付</a>&nbsp;&nbsp;
+                                    <a class="button button-small button-stable" on-tap="cancelPayAnother(order.id)">拒绝为TA代付</a>
+                                </label>
+                            </div>
+                        </li>
+                    </ion-list>
+                </ul>
+                <!-- <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore(0)" distance="1%"></ion-infinite-scroll> -->
+                <div class="item text-center itemListTip font12" ng-show="isShow">没有更多了</div>
+            </ion-content>
+        </ion-tab>
+        <ion-tab title="已代付" scrollbar-y="true" overflow-scroll="false" on-select="onTabSelected(1)">
+            <ion-content scrollbar-y="true" overflow-scroll="false">
+                <ion-refresher pulling-text="数据刷新中..." on-refresh="doRefresh(1, true)"></ion-refresher>
+                <ul class="list">
+                    <ion-list>
+                        <li ng-repeat="order in order_list">
+                            <div class="item itemPadding">
+                                <p>
+                                    订单号：{{order.order_number}}
+                                    <a href="#" class="subdued red">
+                                已代付
+                            </a>
+                                </p>
+                            </div>
+                            <a class="item item-avatar">
+                                <img ng-src="{{order.avatar}}">
+                                <h4>姓名：{{order.realname}}</h4>
+                                <h4>代言号：{{order.user_number}}</h4>
+                                <h4>代付金额：{{order.price || 0 | dyCurrency}}</h4>
+                                <h4>申请时间：{{order.create_time*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</h4>
+                            </a>
+                        </li>
+                    </ion-list>
+                </ul>
+                <!-- <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore(1)" distance="1%"></ion-infinite-scroll> -->
+                <div class="item text-center itemListTip font12" ng-show="isShow">没有更多了</div>
+            </ion-content>
+        </ion-tab>
+        <ion-tab title="已拒绝" scrollbar-y="true" overflow-scroll="false" on-select="onTabSelected(2)">
+            <ion-content scrollbar-y="true" overflow-scroll="false">
+                <ion-refresher pulling-text="数据刷新中..." on-refresh="doRefresh(2, true)"></ion-refresher>
+                <ul class="list">
+                    <ion-list>
+                        <li ng-repeat="order in order_list">
+                            <div class="item itemPadding">
+                                <p>
+                                    订单号：{{order.order_number}}
+                                    <a href="#" class="subdued red">
+                                已拒绝
+                            </a>
+                                </p>
+                            </div>
+                            <a class="item item-avatar">
+                                <img ng-src="{{order.avatar}}">
+                                <h4>姓名：{{order.realname}}</h4>
+                                <h4>代言号：{{order.user_number}}</h4>
+                                <h4>代付金额：{{order.price || 0 | dyCurrency}}</h4>
+                                <h4>申请时间：{{order.create_time*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</h4>
+                            </a>
+                        </li>
+                    </ion-list>
+                </ul>
+                <!-- <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore(2)" distance="1%"></ion-infinite-scroll> -->
+                <div class="item text-center itemListTip font12" ng-show="isShow">没有更多了</div>
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
+</div>

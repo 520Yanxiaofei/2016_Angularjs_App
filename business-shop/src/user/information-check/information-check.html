@@ -1,0 +1,84 @@
+<div class="infomation-check" ng-controller="App.User.InfomationCheck.Controller">
+    <!-- 入驻申请审核状态 -->
+    <ion-content scrollbar-y="true" overflow-scroll="true">
+        <div class="text-center tip-content">
+            <!-- 是否未通过 -->
+            <div class="not-pass" ng-show="isNotPass">
+                <img class="tip-img" ng-src="{{applyEmum[2].imgurl}}" alt="">
+                <p class="tip-info">
+                    {{applyEmum[status].description}}
+                </p>
+                <p class="tip-info deny-remark">
+                    原因：{{deny_remark}}             
+                </p>
+                <p class="text-center help-tel">
+                    如果需要帮助，请联系代颜街客服电话：<a class="tel" href="tel:4008892980">4008892980</a>
+                </p>
+                <p class="text-center">
+                    <a class="apply button" ui-sref="user.merchant-information({type:1})" ng-show="!havePay">重新提交入驻信息</a>
+                </p>
+            </div>
+            <!-- 入驻失败 -->
+            <div class="not-pass" ng-show="isFaild">
+                <img class="tip-img" ng-src="{{applyEmum[2].imgurl}}" alt="">
+                <p class="tip-info deny-remark">
+                    {{deny_remark}}             
+                </p>
+                <p class="">
+                    原因：{{deny}}             
+                </p>
+                <p class="text-center help-tel">
+                    如果需要帮助，请联系代颜街客服电话：<a class="tel" href="tel:4008892980">4008892980</a>
+                </p>
+                <p class="text-center">
+                    <a class="apply button" on-touch="toWait()">我已支付入驻费用</a>
+                </p>
+            </div>
+            <!-- 正在审核 -->
+            <div class="wait-examine" ng-show="isWait">
+                <img class="tip-img" ng-src="{{applyEmum[0].imgurl}}" alt="">
+                <p class="tip-info">等待审核...</p>
+                <p class="text-center">代颜街客服电话：<a class="tel" href="tel:4008892980">4008892980</a></p>
+                <p class="text-center">您的店铺入驻信息已提交，客服将于1个工作日内审核完毕，请耐心等待</p>
+            </div>
+            <!-- 未支付 -->
+            <div class="wait-pay" ng-show="isPay">
+                <img class="tip-img" ng-src="{{applyEmum[2].imgurl}}" alt="">
+                <p class="tip-info">未缴纳入驻费用</p>
+                <p class="text-center">
+                    <button on-touch="toEdit()">重新提交入驻信息</button>
+                    <button on-touch="toPay()">去支付</button>
+                </p>
+            </div>
+            <!-- 退款成功 -->
+            <div class="wait-pay" ng-show="isRefund">
+                <img class="tip-img" ng-src="{{applyEmum[2].imgurl}}" alt="">
+                <p class="tip-info">退款成功</p>
+                <p class="text-center">
+                    <button on-touch="toJoin()">重新提交入驻信息</button>
+                </p>
+            </div>
+            <!-- 通过审核（包含客服审核和财务审核） -->
+            <div class="submit-again" ng-show="isSuccess">
+                <img class="tip-img" ng-src="{{applyEmum[status].imgurl}}" alt="">
+                <p class="tip-info pass" ng-show="inforWrong">资料审核未通过</p>
+                <p class="tip-info pass" ng-show="inforWrong">原因：{{deny_remark}}</p>
+                <p class="tip-info pass margin-bottom" ng-show="inforWrong">请点击下面按钮重新修改</p>
+                <p class="tip-info pass margin-bottom" ng-show="!inforWrong">{{deny_remark}}</p>
+                <p class="tip-info tip-success text-left">
+                    为了方便您更好地管理店铺，您可以到店铺后台－代颜街商家中心管理您的商品和财务。<br/>
+                    代颜街商家中心地址：<b style="-webkit-user-select:text;user-select:text;">http://seller.cellmyth.cn</b><br/>
+                    <span class="promt">温馨提示：</span><br/>
+                    1、如果您在微信公众号－我是代言人里的代颜街申请入驻商家，请使用微信绑定的手机号作为账号，到代颜街商家中心设置登陆密码。<br/><br/>
+                    2、如果您是从代言秀app里申请入驻商家，您可使用代言秀的账号密码进行登录。<br/><br/>
+                </p>
+                <p class="text-center">
+                    如果有相关疑问，请致电代颜网客服部：<a class="tel" href="tel:4008892980">4008892980</a><br/>
+                </p>
+                <p class="text-center">
+                    <a class="apply button" on-touch="toEdit()" ng-if="isEdit">修改店铺信息</a>
+                </p>
+            </div>
+        </div>
+    </ion-content>
+</div>

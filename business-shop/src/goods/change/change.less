@@ -1,0 +1,423 @@
+.Change {
+    .list {
+        margin-bottom: 0;
+    }
+    img {
+        display: block;
+        border: none;
+    }
+    .title {
+        color: #fff;
+    }
+    .choose {
+        .item {
+            border: none;
+        }
+        .item-select:after {
+            color: #FF8508;
+            right: 10px;
+        }
+    }
+    .item-input {
+        padding: 20px;
+    }
+    .item-select select {
+        padding-right: 24px;
+        max-width: 100%;
+    }
+    .graybox {
+        background: #f1f1f1;
+        height: 10px;
+    }
+    .list .borderText {
+        padding: 10px;
+        overflow: hidden;
+        margin-bottom: 2px;
+    }
+    .list .borderText h4.listH4 {
+        max-width: 73%;
+        float: left;
+        line-height: 22px;
+        margin: 0;
+    }
+    .list .borderText span.listH5 {
+        display: inline-block;
+        float: right;
+        margin: 0;
+        font-size: 12px;
+        color: #888
+    }
+    .list .borderText .listH4 strong {
+        position: relative;
+        top: 4px;
+        font-weight: normal;
+        white-space: normal;
+        font-size: 14px;
+        color: #666;
+        line-height: 140%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        max-width: 54%;
+        color: #333;
+        float: left
+    }
+    .item h2 {
+        white-space: normal;
+        font-size: 14px;
+        color: #666;
+        line-height: 140%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        padding-top: 5px;
+        margin-bottom: 10px;
+        line-height: 24px;
+        color: #333
+    }
+    .item .listTabs li {
+        font-size: 12px;
+        float: left;
+        position: relative;
+    }
+    .item .listTabs li:before {
+        content: '+';
+        position: absolute;
+        top: -1px;
+        right: 0px;
+        font-size: 13px;
+        color: #FF8508
+    }
+    .item .listTabs li.redvol {
+        color: #FF8508;
+        .boxs {
+            font-size: 11px;
+            border: 1px solid #FF8508;
+            color: #FF8508;
+            padding: 0 2px;
+            line-height: 18px;
+            margin: 0 2px;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+    }
+    .item .listTabs li.redvol.boxsd {
+        color: #ff3b30
+    }
+    .item .listTabs li.boxsd:before {
+        display: none;
+    }
+    /*底部固定tab导航*/
+    .tabs {
+        background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
+    }
+    .shoptab .icon {
+        font-size: 24px;
+        height: 25px;
+        margin-top: 3px;
+    }
+    .bar {
+        // background-color: @header-bg-color;
+        .item-input-wrapper {
+            background: #fff;
+            .select-box {
+                display: inline-block;
+                width: 90px;
+                .select-bar {
+                    display: inline-block;
+                    width: 40px;
+                    border: none;
+                    background-color: transparent;
+                    color: @text-gray;
+                    appearance: none;
+                    -moz-appearance: none;
+                    -webkit-appearance: none;
+                }
+            }
+            .ion-ios-search:before {
+                .font(26px);
+            }
+        }
+    }
+    .item-input-inset {
+        padding-left: 0;
+    }
+    .list {
+        .item:first-child {
+            border: none;
+        }
+    }
+    .clear-srarch-record {
+        color: @text-gray
+    }
+    // lazy-load
+    .image-loader-container {
+        max-width: 100px;
+        max-height: 100px;
+        width: 100%;
+        height: 100%;
+        top: 10px;
+        left: 10px;
+        position: absolute;
+        background-color: #e5e5e5;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+        border-radius: 5px;
+    }
+    .buttonAce {
+        position: absolute;
+        top: 100px;
+        right: 0;
+        color: red;
+        display: block;
+        width: 78px;
+        font-size: 12px;
+        z-index: 555
+    }
+    .small-image-loader {
+        .image-loader-container {
+            max-width: 70px;
+            max-height: 70px;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background-color: #e5e5e5;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-content: stretch;
+            align-items: center;
+        }
+    }
+    .selectHideBox {
+        padding: 0;
+        border: none;
+        .showSelect {
+            display: block;
+            width: 97%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-right: 1px solid #eee;
+            padding-right: 15px;
+            overflow: hidden;
+            white-space: normal;
+            font-size: 13px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+        }
+        .showSelect.showSelect-right {
+            border: none
+        }
+        .showSelect.pro-sel {
+            position: absolute;
+        }
+        .selectBar {
+            display: block;
+            width: 100%;
+            height: 40px;
+            opacity: 0;
+        }
+    }
+    .item-thumbnail-left {
+        position: relative;
+        padding: 10px;
+        padding-left: 120px;
+        padding-bottom: 50px;
+        min-height: 155px;
+        img:first-child {
+            max-height: none;
+            max-width: none;
+            height: 100px;
+            width: 100px;
+            border-radius: 4px;
+        }
+    }
+    .item-thumbnail-left .listNr {
+        position: absolute;
+        bottom: 40px;
+    }
+    .item-thumbnail-left .listNr .old-price {
+        font-size: 12px;
+        color: #999
+    }
+    .item-thumbnail-left .listTabs {
+        position: absolute;
+        width: 100%;
+        left: 10px;
+        bottom: 10px;
+        height: 25px;
+        line-height: 25px;
+    }
+    .list-data {
+        position: relative;
+    }
+    .button.voclurBtn {
+        position: absolute;
+        top: 120px;
+        right: 10px;
+        z-index: 222;
+        min-height: 30px;
+        border: 1px solid #fb8b44;
+        color: #fb8b44;
+        background: #fff8f4;
+        line-height: 30px;
+        font-size: 15px
+    }
+    .button.voclurBtn.actives {
+        background: #eee;
+        border: 1px solid #ddd;
+        color: #888
+    }
+    @media screen and (max-width:320px) {
+        .item-thumbnail-left {
+            padding-left: 100px;
+            min-height: 140px;
+            padding-bottom: 50px;
+        }
+        .buttonAce {
+            width: 66px;
+            top: 86px;
+        }
+        .item-thumbnail-left img:first-child {
+            width: 80px;
+            height: 80px;
+        }
+        .item h2 {
+            font-size: 14px;
+            margin-bottom: 0;
+            line-height: 22px;
+            margin-top: -5px;
+        }
+        .item-thumbnail-left .listNr {
+            bottom: 44px;
+        }
+        .button.voclurBtn {
+            font-size: 13px;
+            padding: 0 5px;
+            line-height: 25px;
+            top: 106px;
+        }
+        .image-loader-container {
+            max-width: 80px;
+            max-height: 80px;
+        }
+        .item p {
+            font-size: 13px;
+            margin-bottom: 0px
+        }
+        // .item .listTabs li.redvol {
+        //     max-width: 25%;
+        //     .boxs {
+        //         font-size: 11px;
+        //         border: 1px solid #e7b049;
+        //         color: #e7b049;
+        //         padding: 0 2px;
+        //         line-height: 18px;
+        //         margin: 0 2px;
+        //         margin-right: 10px;
+        //         white-space: normal;
+        //         display: inline-block;
+        //         max-width: 83%;
+        //         display: -webkit-box;
+        //         -webkit-box-orient: vertical;
+        //         -webkit-line-clamp: 1;
+        //         overflow: hidden;
+        //     }
+        // }
+    }
+}
+
+.popup-container.change_iteckem.active .popup .popup-body {
+    padding: 0;
+}
+
+.change_iteckem .text-left {
+    text-align: center;
+    padding: 20px 0;
+    height: 107px;
+    line-height: 30px;
+    font-size: 13px;
+    overflow: hidden;
+    background: #eee;
+    color: #888
+}
+
+.change_iteckem .text-left .textH2 {
+    padding: 0 10px;
+    white-space: normal;
+    font-size: 13px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    margin-bottom: 10px;
+    line-height: 24px;
+    color: #333
+}
+
+.change_iteckem .popup-buttons .button.button-positive {
+    background: #fb8b44;
+    font-weight: normal;
+}
+
+.change_iteckem .popup-buttons .button.button-positive b {
+    font-weight: normal;
+}
+
+.change_iteckem .color03 {
+    color: #999;
+    text-align: left;
+}
+
+.change_iteckem input {
+    border: 1px solid red;
+    padding: 3px;
+    margin: 0;
+    width: 45px;
+    border-radius: none;
+    display: inline-block;
+    height: 30px;
+    line-height: 1;
+    text-align: center;
+    border-top: 1px solid #fb8b44;
+    border-bottom: 1px solid #fb8b44;
+    background: #fff
+}
+
+.change_iteckem .itemBtnnum {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    text-align: center;
+    background: #fb8b44
+}
+
+.change_iteckem .itemBtnnum i {
+    font-size: 25px;
+    position: relative;
+    top: -1px;
+    color: #fff;
+    cursor: pointer
+}
+
+.change_iteckem .itemBtnnum.itemRiht {
+    position: relative;
+    right: -7px;
+}
+
+.change_iteckem .itemBtnnum-add {
+    position: relative;
+    left: -7px;
+}

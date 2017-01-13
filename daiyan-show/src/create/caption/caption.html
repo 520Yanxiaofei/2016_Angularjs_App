@@ -1,0 +1,35 @@
+<div class="show-caption" ng-controller="App.Create.Caption.Controller">
+
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+        <div class="row steps">
+            
+            <div class="col col-20">
+                <i ng-click="goto(1)"></i>
+            </div>
+            <div class="col col-20">
+                <i  class="active" ng-click="goto(2)">2</i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(3)"></i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(4)"></i>
+            </div>
+
+        </div>
+        <h2>填写活动说明</h2>
+        <p>认真填写说明有机会被代颜网推荐，并设置成 热门选秀哦</p>
+        
+        <div class="input">
+             <textarea rows="5" placeholder="请输入活动说明，吸引代言人加入您的活动" ng-model="form.description"></textarea>
+             <input type="text" placeholder="一句话概括这个活动，不超过20个字" ng-model="form.summary">
+        </div>
+        <div class="next">
+            <button class="button button-block button-energized" ng-click="next()">
+                下一步
+            </button>
+            <button class="button button-block button-light" ng-click="cancel()">上一步</button>
+        </div>
+        
+    </ion-content>
+</div>

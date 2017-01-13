@@ -1,0 +1,48 @@
+<div class="join-pay" ng-controller="App.User.JoinPay.Controller as ctrl">
+    <!-- <ion-header-bar align-title="center" class="bar">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-left light" ui-sref="user.info"></button>
+        </div>
+        <h1 class="title light">商家入驻支付</h1>
+    </ion-header-bar> -->
+    <div class="bar bar-header need-pay">
+        <h1 class="title">商家入驻需要支付申请入驻费</h1>
+    </div>
+    <ion-content class="content">
+        <ul class="list pay-info">
+            <li class="item">
+                <label class="label">入驻商家：</label>
+                <span>{{ store }}</span>
+            </li>
+            <li class="item">
+                <label class="label">需&nbsp;付&nbsp;款&nbsp;：</label>
+                <span class="price">￥100.00</span>
+            </li>
+            <li class="item no-border">
+                <label>请选择支付方式：</label>
+            </li>
+            <li class="item pay-type">
+                <div class="card" ng-class="{active:isActive==1}" on-touch="isChoose(1)">
+                    <div class="item item-text-wrap">
+                        <i class="checkbox"></i>
+                        <i class="pay-balance"></i>
+                        <span>余额支付<small>(你的余额还有 <span class="balance">{{ balance | dyCurrency }}</span> 元)</small></span>
+                    </div>
+                </div>
+                <div class="card" ng-class="{active:isActive==2}" on-touch="isChoose(2)">
+                    <div class="item item-text-wrap">
+                        <i class="checkbox"></i>
+                        <i class="pay-ali"></i>
+                        <span>支付宝支付</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="pay">
+            <button on-touch="pay(isActive)">确认支付</button>
+        </div>
+
+    </ion-content>
+</div>
+

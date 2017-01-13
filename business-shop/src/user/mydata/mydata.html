@@ -1,0 +1,71 @@
+<div class="mydata" ng-controller="App.User.MyData.Controller">
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+    <form novalidate="" name="applyForm" enctype="multipart/form-data">
+        <div class="list">
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>姓名</span>
+                <input type="text" placeholder="请输姓名" ng-model="form.username" required="" ng-disabled="!status.is_edit">
+            </div>
+            <label class="item item-input">
+                <span class="input-label"><i class="assertive">*</i>手机</span>
+                <input type="tel" placeholder="请输入手机" ng-model="form.mobile" required="" ng-disabled="!status.is_edit">
+            </label>
+            <label class="item item-input" ng-if="check_aptitude.code == '1' || check_aptitude.code == '2'">
+                <span class="input-label"><i class="assertive">*</i>手机验证码</span>
+                <input type="text" class="vertify-code" placeholder="请输入手机验证码" ng-model="form.vertify_code" required="">
+                <timerbutton show-timer="showTimer" event="getVertifyCode">获取验证码</timerbutton>
+            </label>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label"><i class="assertive">*</i>全返区域</span>
+                <div class="row padding text-left" 
+                     dy-city
+                     areaid="form.area_id"
+                     position="position"
+                     col="3" 
+                     itemclass="col-33" 
+                     required="">
+                </div>
+            </div>
+            <label class="item item-input">
+                <span class="input-label share-people"><i class="assertive">*</i>分享人</span>
+                <a class="change-people share-people" on-touch="changePeople(1)" ng-if="check_aptitude.code == '1' || check_aptitude.code == '2'">更改分享人</a>
+                <div class="people">
+                    <img class="people-img" ng-src="{{share.img_url}}">
+                    <span class="people-info">
+                        <span class="people-num">代言号：{{share.share_mum}}</span>
+                        <span class="people-name">姓名：{{share.share_name}}</span>
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input">
+                <span class="input-label share-text">您可以选择平台上任何一位代言人作为自己分享人</span>
+            </label>
+            <label class="item item-input" ng-if="status.is_bus">
+                <span class="input-label share-people"><i class="assertive">*</i>推荐人</span>
+                <a class="change-people share-people" on-touch="changePeople(2)" ng-if="check_aptitude.code == '1' || check_aptitude.code == '2'">更改推荐人</a>
+                <div class="people">
+                    <img class="people-img" ng-src="{{referee.img_url}}">
+                    <span class="people-info">
+                        <span class="people-num">代言号：{{referee.share_mum}}</span>
+                        <span class="people-name">姓名：{{referee.share_name}}</span>
+                    </span>
+                </div>
+            </label>
+            <label class="item item-input" ng-if="status.is_bus">
+                <span class="input-label share-people"><i class="assertive">*</i>节点人</span>
+                <a class="change-people share-people" on-touch="changePeople(3)" ng-if="check_aptitude.code == '1' || check_aptitude.code == '2'">更改节点人</a>
+                <div class="people">
+                    <img class="people-img" ng-src="{{node.img_url}}">
+                    <span class="people-info">
+                        <span class="people-num">代言号：{{node.share_mum}}</span>
+                        <span class="people-name">姓名：{{node.share_name}}</span>
+                    </span>
+                </div>
+            </label>
+        </div>
+        <div class="padding" ng-if="!status.is_info">
+            <button class="button button-block button-positive btn-bottom" on-touch="submit()">提交</button>
+        </div>
+    </form>
+    </ion-content>
+</div>

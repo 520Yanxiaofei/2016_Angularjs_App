@@ -1,0 +1,118 @@
+.examine-show {
+
+	background-color: #f1f1f1;
+
+	a {
+		text-decoration: none;
+		color: #222;
+	}
+
+	.examine-show-header {
+		background:#373737;
+		.more {
+			position: absolute;
+			right: 8px;
+			font-size: 32px;
+		}
+	}
+
+	.examine-show-content {
+		background-color: #fff;
+
+		.item-avatar {
+			height:69px;
+			min-height:69px;
+			padding: 0;
+			margin: 0 12px;
+			border: none;
+			border-bottom: 1px solid #ddd;
+			img {
+				width: 45px;
+				height: 45px;
+				max-width: 45px;
+				max-height: 45px;
+				position: absolute;
+				border-radius: 4px;
+				top: 12px;
+				left: 0;
+			}
+			h2 {
+				position: absolute;
+				height: 100%;
+				line-height: 69px;
+				left: 55px;
+			}
+		}
+
+		.list {
+			border-bottom: 1px solid #ddd;
+			.item {
+				height:31px;
+				line-height: 31px;
+				font-size: 13px;
+				padding: 0;
+				color: #1f1f1f;
+				margin: 0 12px;
+				border: none;
+				border-bottom: 1px solid #ddd;
+				&:last-child {
+					border: none;
+				}
+				.text-r {
+					float: right;
+					color: #666;
+				}
+			}
+		}
+
+		.examine-btn {
+			margin-top: 40px;
+			overflow: hidden;
+			text-align: center;
+			button {
+				width: 140px;
+				height: 40px;
+				border: none;
+				color: #fff;
+				font-size: 16px;
+				border-radius: 4px;
+				background-color: #c6c6c6;
+				&:last-child {
+					background-color: #ffa200;
+				}
+			}
+			@media screen and (max-width: 320px) {
+				button:first-child {
+					margin-right: 5px;
+				}
+				button:last-child {
+					margin-left: 5px;
+				}
+			}
+			@media screen and (min-width: 321px) and (max-width: 375px) {
+				button:first-child {
+					margin-right: 10px;
+				}
+				button:last-child {
+					margin-left: 10px;
+				}
+			}
+			@media screen and (min-width: 376px) and (max-width: 414px) {
+				button:first-child {
+					margin-right: 15px;
+				}
+				button:last-child {
+					margin-left: 15px;
+				}
+			}
+		}
+
+	}
+}
+
+
+
+
+
+
+

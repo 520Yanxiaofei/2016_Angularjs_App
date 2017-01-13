@@ -1,0 +1,20 @@
+<div class="buy-success" ng-controller="App.User.BuySuccess.Controller">
+    <!-- 入驻申请审核状态 -->
+    <ion-content scrollbar-y="true" overflow-scroll="true">
+        <div class="text-center tip-content">
+            <!-- 是否未通过 -->
+            <div class="not-pass">
+                <img class="tip-img" ng-src="image/buy-success.png" alt="">
+                <p class="tip-info">
+                    {{buy_success[status].text}}
+                </p>
+                <p class="tip-info care-text" ng-if="buy_success[status].care_text">
+                    {{buy_success[status].care_text}}            
+                </p>
+                <p class="text-center">
+                    <a class="apply button" ui-sref="user.mydata()">{{buy_success[status].btn_text}}</a>
+                </p>
+            </div>
+        </div>
+    </ion-content>
+</div>

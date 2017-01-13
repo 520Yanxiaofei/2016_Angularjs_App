@@ -1,0 +1,20 @@
+<div class="activity-msg" ng-controller="App.Manage.Message.Controller">
+    <!-- 主题选秀申请加入/退出列表 -->
+    <ion-content class="activity-msg-content">
+        <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()"></ion-refresher>
+        <div class="list">
+            <a class="item item-avatar" ng-repeat="item in applyList" ng-click="toProcess({id:item.id,uid:item.uid,type:item.type,avatar:item.avatar,title:item.title,name:item.name,message:item.message,time:item.create_time,status:item.status})">
+                <img ng-src="{{item.avatar}}">
+                <div>
+                    <h2>{{ item.title }}</h2>
+                    <span ng-if="joinOrExit(item.type)">申请加入选秀</span>
+                    <span ng-if="!joinOrExit(item.type)">申请退出选秀</span>
+                    <span>申请人：{{ item.name }}</span>
+                </div>
+                <button class="button button-positive-wait" ng-if="processState(item.status)">待处理</button>
+                <button class="button button-positive-had" ng-if="!processState(item.status)">已处理</button>
+            </a>
+        </div>
+        <ion-infinite-scroll ng-if="isLoadMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</div>

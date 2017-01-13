@@ -1,0 +1,160 @@
+<div class="detail" ng-controller="App.Goods.Detail.Controller">
+    <ion-content class="page-content" scrollbar-y="true" overflow-scroll="false">
+        <!--幻灯-->
+        <ion-slide-box on-slide-changed="slideChanged(index)" auto-play="true" show-pager="false" slide-interval="2000">
+            <ion-slide ng-repeat="img in goods_detail.image" class="slideItem">
+                <div class="slide-pic">
+                    <img ng-src="{{img.url}}" alt="">
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+        <div class="graybox"></div>
+        <!--标题-->
+        <div class="row detail-info">
+            <div class="good-title">
+                <div class="sign" ng-if="goods_detail.shop.is_own == 1">代言</div>
+                <span class="tequan" ng-if="goods_detail.goods.goods_type != '0'">{{zige_text}}</span>
+                {{goods_detail.goods.title}}
+            </div>
+        </div>
+        <!--价格-->
+        <div class="row detail-info" class="relative" style="padding-left:7px;">
+            <s class="old-price">原价：{{goods_detail.goods.original_price || 0 | dyCurrency}}</s>
+            <span class="price">{{goods_detail.goods.current_price || 0 | dyCurrency}}</span>
+            <span class="prices_all">已销售：{{goods_detail.goods.sales_all || 0}}</span>
+        </div>
+        <!--资格商品权限-->
+        <div class="zige-text" ng-if="goods_detail.goods.goods_type != '0'">
+            <span class="tequan">特权</span>
+            <ul>
+                <li class="text" ng-repeat="zige_text in zige_text_list">{{zige_text}}</li>
+                <!-- <li>1、购买商品获取此商品代言人资格；</li>
+                <li>2、拥有资格分享此商品，获取代言奖励；</li>
+                <li>3、购买商品享受参与俏佳人国际代言大赛拿大奖购买商品享受参与俏佳人国际代言大赛拿大奖;</li> -->
+            </ul>
+        </div>
+        <!--抵扣-->
+        <div class="row detail-info listTabs" ng-hide="goods_detail.goods.voucher == 0 && goods_detail.goods.integral == 0 && goods_detail.goods.gold == 0" style="padding-left:7px;">
+            <li class="redvol" ng-hide="goods_detail.goods.voucher == 0"><span class="boxs">
+            红包{{ goods_detail.goods.voucher/100 || 0 }}</span></li>
+            <li class="redvol" ng-hide="goods_detail.goods.integral == 0"><span class="boxs">颜值分{{ goods_detail.goods.integral || 0 }}</span></li>
+            <li class="redvol" ng-hide="goods_detail.goods.gold == 0"><span class="boxs">代言币{{ goods_detail.goods.gold/100 || 0 }}</span></li>
+            <li class="redvol boxsd" class="priceColor"><span>{{goods_detail.goods.current_price - ((goods_detail.goods.integral * goods_detail.goods.integral_val) + (goods_detail.goods.gold / 100 * goods_detail.goods.gold_val) + (goods_detail.goods.voucher / 100)) * 100  || 0 | dyCurrency}}</span></li>
+        </div>
+        <!--配送-->
+        <div class="row detail-info">
+            <span class="express">配送：{{ distribution[goods_detail.goods.ship_type].title}}</span>
+            <a ng-if="goods_detail.is_reward" class="pull-right" style="color:#FF8881;text-decoration:none;" ui-sref="goods.reward({ id:goods_detail.goods.id,shop_id:goods_detail.shop.id})" > 有奖 </a>
+        </div>
+        <div class="row detail-info type" ng-if="goods_detail.goods.attrbute.length !=0">
+            <span class="express">已选：{{ selectedType }} </span>
+            <i class="icon ion-more" on-touch="selectType.showSelectType()"></i>
+        </div>
+        <div class="graybox"></div>
+        <!--店铺信息-->
+        <div class="seller-info" ng-hide="{{goods_detail.shop.is_own == 1}}">
+            <div class="seller-name">
+                <div class="sellerText"><strong>{{goods_detail.shop.title}}</strong> <span class="shop_isBrand" ng-if="goods_detail.shop.shop_type == '2'">品牌店</span><span class="shop_isBrand" ng-if="goods_detail.shop.shop_type == '1'">O2O线下服务店</span><span class="shop_isBrand" ng-if="goods_detail.shop.is_own == '1'">自营店</span></div>
+                <span class="pull-right gray">商家编号:{{goods_detail.shop.id}}</span>
+            </div>
+            <div class="address">
+                <i class="seller-address"></i> 地址:{{goods_detail.shop.arealocal}}
+            </div>
+            <div class="seller-distance"><span ng-if="distance">{{distance_error}}</span><span ng-if="!distance">距离{{shop_address | number:2}}千米</span></div>
+            <a href="tel:{{goods_detail.shop.mobile}}" class="seller-tel"></a>
+        </div>
+        <div class="graybox"></div>
+        <!--商品信息-->
+        <div class="detail-info">
+            <h3>商品信息</h3>
+            <div class="detail-infoText" ng-bind-html="goods_detail.description">
+            </div>
+        </div>
+    </ion-content>
+    <!-- 购买 -->
+    <div class="buy-layer" on-touch="buy.hideBuyCard()" ng-show="flag_showCard"></div>
+    <div class="buy-card animated" ng-show="flag_showCard" ng-class="{slideInUp:flag_showCard}">
+        <div class="row">
+            <div class="col-20 padding-left padding-top">
+                <img class="buy-image" ng-src="{{goods_detail.image[0].url}}" alt="">
+            </div>
+            <div class="col-80 padding-left padding-top padding-right">
+                <p class="goods-title">{{goods_detail.goods.title}}</p>
+                <p class="goods-title assertive" style="margin:0">{{goods_detail.goods.current_price | dyCurrency}}
+                    <s class="old-price">原价：{{goods_detail.goods.original_price || 0 | dyCurrency}}</s>
+                </p>
+            </div>
+        </div>
+        <div class="row listTabs filtBottm" ng-hide="goods_detail.goods.voucher == 0 && goods_detail.goods.integral == 0 && goods_detail.goods.gold == 0">
+            <li class="redvol" ng-hide="goods_detail.goods.voucher == 0"><span class="boxs">
+            红包{{ goods_detail.goods.voucher/100 || 0 }}</span></li>
+            <li class="redvol" ng-hide="goods_detail.goods.integral == 0"><span class="boxs">颜值分{{ goods_detail.goods.integral || 0 }}</span></li>
+            <li class="redvol" ng-hide="goods_detail.goods.gold == 0"><span class="boxs">代言币{{ goods_detail.goods.gold/100 || 0 }}</span></li>
+            <li class="redvol boxsd" class="priceColor"><span>{{goods_detail.goods.current_price - ((goods_detail.goods.integral * goods_detail.goods.integral_val) + (goods_detail.goods.gold / 100 * goods_detail.goods.gold_val) + (goods_detail.goods.voucher / 100)) * 100  || 0 | dyCurrency}}</span></li>
+        </div>
+        <div class="type-list">
+            <div ng-repeat="attr in attr_list">
+                <h4>{{attr.name}}</h4>
+                <div class="selcet-list">
+                    <button class="button button-small button-stable" ng-repeat="type in attr.values" on-touch="changeType(type.id, attr.id)" ng-class="{ 'button-balanced': (selectedAttrs[type.attribute_id] == type.id), 'border': !type.show}" ng-disabled="!type.show">
+                        {{type.value}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row pro-number iteckem">
+            <div class="text-left">数量:
+                <span class="itemBtnnum itemRiht" on-touch="buy.subtract()">
+                            <i class="icon ion-ios-minus-empty" ></i>
+                        </span>
+                <input type="text" ng-model="goods_number" onkeyup="value=value.replace(/[^\d]/g,'')" readonly="readonly" />
+                <span class="itemBtnnum itemBtnnum-add" on-touch="buy.plus($event)">
+                            <i class="icon ion-ios-plus-empty"></i>
+                        </span>
+            </div>
+        </div>
+        <div class="row">
+            <button class="button button-block button-energized" on-touch="buy.confirmBuy(goods_number)">确认</button>
+        </div>
+    </div>
+    <div class="buy-layer" on-touch="selectType.hideSelectType()" ng-show="flag_selectCard"></div>
+    <div class="buy-card animated selectType" ng-show="flag_selectCard" ng-class="{slideInUp:flag_selectCard}">
+        <div class="row">
+            <div class="col-20 padding-left padding-top">
+                <img class="buy-image" ng-src="{{goods_detail.image[0].url}}" alt="">
+            </div>
+            <div class="col-80 padding-left padding-top padding-right">
+                <p class="goods-title">{{goods_detail.goods.title}}</p>
+                <p class="goods-title assertive" style="margin:0">{{goods_detail.goods.current_price | dyCurrency}}
+                    <s class="old-price">原价：{{goods_detail.goods.original_price || 0 | dyCurrency}}</s>
+                </p>
+            </div>
+        </div>
+
+        <div class="type-list">
+            <div ng-repeat="attr in attr_list">
+                <h4>{{attr.name}}</h4>
+                <div class="selcet-list">
+                    <button class="button button-small button-stable" ng-repeat="type in attr.values" on-touch="changeType(type.id, attr.id)" ng-class="{ 'button-balanced': (selectedAttrs[type.attribute_id] == type.id), 'border': !type.show}" ng-disabled="!type.show">
+                        {{type.value}}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <button class="button button-block button-energized" ng-disabled="selectType.disabledButton()" on-touch="selectType.confirmSelect()">确认</button>
+        </div>
+    </div>
+    <div class="bar bar-footer">
+        <div class="text-left goods-shop">
+            <a ui-sref="shop.seller-home({id: goods_detail.goods.shop_id})"><i class="home-icon"></i>店铺</a>
+            <a on-touch="collect(goods_detail.goods.id, is_fav)"><i class="heart" ng-class="{favorite: !is_fav }"></i><span ng-show="is_fav">取消</span>收藏</a>
+        </div>
+        <div class="text-right ">
+            <button class="button button-block button-energized" on-touch="buy.showBuyCard()" ng-class="{'btn-gray': goods_detail.goods.stock == 0}" ng-disabled="goods_detail.goods.stock == 0">
+                立即购买
+            </button>
+        </div>
+    </div>
+</div>

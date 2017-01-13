@@ -1,0 +1,54 @@
+<div class="block full good-add" ng-controller="App.Goods.Add.Controller">
+    <form enctype="multipart/form-data" class="form-horizontal" name="addForm">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="control-label" for="example-multiple-select">选择商品品牌</label>
+                <select class="form-control" size="12" ng-model="form.brand_id">
+                    <option ng-repeat="brand in brands" value="{{brand.id}}">{{brand.title}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="example-multiple-select">选择商品分类</label>
+                <select class="form-control" size="12" ng-model="parentCate_id" ng-change="getSubCates(parentCate_id)">
+                    <option ng-repeat="parentCate in parentCates" value="{{parentCate.id}}">{{parentCate.title}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="example-multiple-select">选择商品分类</label>
+                <select class="form-control" size="12" ng-model="form.category_id">
+                    <option ng-repeat="subCate in subCates" value="{{subCate.id}}">{{subCate.title}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">您当前选择是：</label>
+            <div class="col-md-9">
+                <p class="form-control-static">{{getCategories()}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">产品名称：</label>
+            <div class="col-md-4">
+                <input type="text" ng-model="form.title" class="form-control" placeholder="请输入产品名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">自定义分类：</label>
+            <div class="col-md-4">
+                <select id="example-select" ng-model="form.shop_category_id" class="form-control" size="1">
+                    <option value="0" selected disabled="">请选择</option>
+                    <option ng-repeat="myCate in myCates" value="{{myCate.id}}">{{myCate.title}}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button  class="btn btn-primary" ui-sref="goods.classification-add">添加自定义分类</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-9">
+                <button type="submit" class="btn btn-primary" ng-click="submit()" ng-disabled="help.submiting">{{submitName}}</button>
+            </div>
+        </div>
+    </form>
+</div>

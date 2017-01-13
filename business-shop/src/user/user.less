@@ -1,0 +1,77 @@
+.user {
+    background: #F5F5F5;
+    .item{
+    	padding-top: 15px;
+    	padding-bottom: 10px;
+    }
+    .face-box {
+        .item {
+            border: none;
+            background: @header-bg-color;
+            img:first-child {
+                border-radius: 4px;
+            }
+            p {
+                color: #FDDAC5;
+            }
+        }
+        .edit-box {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            z-index: 9999;
+            .ion-ios-gear-outline:before {
+                .font(26px);
+            }
+        }
+        .nav-box {
+            background: #E27000;
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .list {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        .my-orders {
+            background: #fff;
+            .tab-item {
+                .icon {
+                    background: url(static/img/user-nav1.png) no-repeat center;
+                    background-size: auto 26px;
+                    height: 40px;
+                    width: 40px;
+                }
+                .nav2 {
+                    background: url(static/img/user-nav2.png) no-repeat center;
+                    background-size: auto 26px;
+                    height: 40px;
+                    width: 40px;
+                }
+                .nav3 {
+                    background: url(static/img/user-nav3.png) no-repeat center;
+                    background-size: auto 26px;
+                    height: 40px;
+                    width: 40px;
+                }
+                .nav4 {
+                    background: url(static/img/user-nav4.png) no-repeat center;
+                    background-size: auto 26px;
+                    height: 40px;
+                    width: 40px;
+                }
+            }
+        }
+        .ion-ios-arrow-right {
+            color: #B2B2B2;
+            .font(20px);
+        }
+    }
+    .divider-box {
+        height: 20px;
+        background: #F5F5F5;
+    }
+}

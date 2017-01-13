@@ -1,0 +1,48 @@
+<div class="seller-home" ng-controller="App.Shop.SellerHome.Controller">
+    <ion-content class="has-tabs" scrollbar-y="true" overflow-scroll="false" lazy-scroll>
+        <div class="bar-header-operate">
+            <div class="text-right goods-shop">
+                <a on-touch="fav(info.id, is_fav)"><i class="heart" ng-class="{favorite: !is_fav }"></i><span ng-if="is_fav">取消</span>收藏</a>
+            </div>
+        </div>
+        <ion-refresher pulling-text="数据刷新中..." on-refresh="doRefresh()"></ion-refresher>
+        <!--幻灯图-->
+        <div class="top-banner-box">
+            <ion-slide-box on-slide-changed="slideChanged(index)" auto-play="true" show-pager="false" does-continue="true" slide-interval="2000" ng-if="3" on-touch="goAlbum()">
+                <ion-slide>
+                    <div class="slide-pic adjust-size" on-finish-render-filters size='420*170'>
+                        <img ng-src="{{info.cover}}" alt="">
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+            <div class="seller-num">店铺编号：{{info.id}} &nbsp;&nbsp;</div>
+        </div>
+        <div class="divider-bar"></div>
+        <!--店铺信息-->
+        <div class="seller-info">
+            <div class="seller-name">{{info.title}} <span class="shop_isBrand" ng-if="info.shop_type == '2'">品牌店</span><span class="shop_isBrand" ng-if="info.shop_type == '1'">O2O线下服务店</span><span class="shop_isBrand" ng-if="info.is_own == '1'">自营店</span></div>
+            <div class="address"><i class="seller-address"></i>地址: {{info.arealocal}}</div>
+            <div class="seller-distance">
+                <span ng-if="distance">{{distance_error}}</span><span ng-if="!distance">距离{{address.distance | number:2}}千米</span>
+            </div>
+            <a href="tel:{{info.mobile}}" class="seller-tel"></a>
+        </div>
+        <div class="divider-bar"></div>
+        <!--店铺商品-->
+        <div class="list seller-goods">
+            <div class="seller-goods-list padding-top">店铺商品</div>
+            <ion-list>
+                <a class="item item-thumbnail-left" ui-sref="goods.detail({ id: goods.id })" ng-repeat="goods in dataset">
+                    <img image-lazy-src="{{goods.images[0].url}}" image-lazy-loader="ios">
+                    <h2>{{goods.title}}</h2>
+                    <p class="home-price" style="bottom:28px;right:10px"><span>已销售：{{goods.sales_all || 0}}</span></p>
+                    <p class="home-price">{{goods.current_price | dyCurrency}}</p>
+                    <s class="old-price">原价：{{goods.original_price || 0 | dyCurrency}}</s>
+                </a>
+            </ion-list>
+            <div class="item text-center itemListTip font12" ng-show="noData">暂无商品</div>
+            <div class="item text-center itemListTip font12" ng-show="isShow">没有更多了</div>
+        </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+</div>

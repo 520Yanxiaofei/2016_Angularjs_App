@@ -1,0 +1,24 @@
+<div class="Welfareadd" ng-controller="App.Selected.add.Controller">
+    <ion-content class="content padding">
+
+        <ul class="list">
+            <li>
+            1、主题选秀是发起单位（个人）主办，非代颜网主办，每个主题选秀的奖品都由主办单位（个人）直接发放，与代颜网无关，有关奖品的发放和详细事宜，请联系发起单位（个人）；<br/>
+            2、通过主题选秀进入投票后，对该主题选秀加票，同时在代言大赛里加票，不是参加的所有选秀一起加票。从代言大赛入口进入投票，仅代言大赛加票，所有的主题选秀均不加票；<br/>
+            3、以上最终解释权归代颜网所有；
+            </li>
+            <li>
+                <textarea rows="3" name="slogan" ng-model="addUser.slogan" maxlength="30" placeholder="输入参赛宣言，30字内。例如：我为美业代言，我为正能量代言；一起做慈善，弘扬正能量；勿以善小而不为。" ></textarea>
+            </li>
+
+            <li>
+                <textarea rows="2" name="verify" ng-model="addUser.verify" maxlength="20" placeholder="输入验证消息，20字内，选秀管理者可见。例如：我叫宝宝，申请加入。"></textarea>
+            </li>
+        </ul>
+        <ion-checkbox ng-model="checkboxModel.value">我已阅读并且同意以上协议</ion-checkbox>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="footer-bar">
+        <div class="footerBtn active" on-touch="addClick()">确认</div>
+        <div class="footerBtn" on-touch="close()">取消</div>
+    </ion-footer-bar>
+</div>

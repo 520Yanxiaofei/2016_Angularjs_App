@@ -1,0 +1,37 @@
+<div>
+    <div class="modal-header">
+        <button class="bootbox-close-button close" type="button" ng-click="close()">
+            ×
+        </button>
+        <h3 class="modal-title" style="text-align: center;">设置商品的颜值分、代言币、红包抵扣比例</h3>
+    </div>
+    <div class="modal-body" style="margin-top:0px;">
+        <div class="discount">
+            <div class="row form-group">
+                <div class="col-md-6 col-md-push-3">
+                    1颜值分 = ￥
+                    <input type="text" ng-model="form.integral" placeholder=""   required>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-6  col-md-push-3">
+                    1代言币 = ￥
+                    <input type="text" ng-model="form.gold" placeholder=""  required>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4  col-md-push-4">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary" ng-click="save()">确定</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary" ng-click="close()">取消</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>

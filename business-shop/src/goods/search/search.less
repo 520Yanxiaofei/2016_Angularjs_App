@@ -1,0 +1,38 @@
+@text-gray: #666666;
+.good-search {
+    background: #fff;
+    .bar {
+        // background-color: @header-bg-color;
+        .item-input-wrapper {
+            background: #fff;
+            .select-box {
+                display: inline-block;
+                width: 90px;
+                .select-bar {
+                    display: inline-block;
+                    width: 40px;
+                    border: none;
+                    background-color: transparent;
+                    color: @text-gray;
+                    appearance: none;
+                    -moz-appearance: none;
+                    -webkit-appearance: none;
+                }
+            }
+            .ion-ios-search:before {
+                .font(26px);
+            }
+        }
+    }
+    .item-input-inset{
+        padding-left: 0;
+    }
+    .list {
+        .item:first-child {
+            border: none;
+        }
+    }
+    .clear-srarch-record {
+        color: @text-gray
+    }
+}

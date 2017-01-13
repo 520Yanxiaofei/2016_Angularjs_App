@@ -1,0 +1,99 @@
+<div class="mycollection" ng-controller="App.User.Mycollection.Controller">
+    <ion-tabs class="tabs-striped tabs-top tabs-color-assertive">
+        <ion-tab title="店铺">
+            <ion-content scrollbar-y="true" overflow-scroll="false">
+                <ion-refresher pulling-text="下拉刷新" on-refresh="doRefreshse()"></ion-refresher>
+                <ion-list show-delete="shouldShowDeleted" can-swipe="true">
+                    <div ng-hide="shopList.length==0">
+                        <ion-item class="item-thumbnail-left item-remove-animate" ng-repeat="item in shopList" ui-sref="shop.seller-home({id:item.shop_id})">
+                            <img image-lazy-src="{{item.shop.logo}}" image-lazy-loader="ios">
+                            <h2>{{item.shop.title}} <span class="shop_isBrand" ng-if="item.shop.shop_type == '2'">品牌店</span><span class="shop_isBrand" ng-if="item.shop.shop_type == '1'">O2O线下服务店</span><span class="shop_isBrand" ng-if="item.shop.is_own == '1'">自营店</span></h2>
+                            <p class="scTop">{{item.shop.industry.title}}</p>
+                            <ion-delete-button>
+                                <div class="item-checkbox">
+                                    <label class="checkbox item-checkPa">
+                                        <input type="checkbox" ng-model="item.shop_id" ng-checked="item.checked" ng-click="changeds(item)">
+                                    </label>
+                                </div>
+                            </ion-delete-button>
+                            <ion-option-button class="button-assertive" ng-click="listremove_id(item.shop_id)">
+                                删除
+                            </ion-option-button>
+                        </ion-item>
+                    </div>
+                </ion-list>
+                <div class="padding text-center text-gray marinTop" ng-hide="shopList_length">
+                    <i class="icon ion-ios-filing-outline"></i> 暂时没有收藏任何店铺
+                    <br/>
+                    <br/>
+                    <a ui-sref="goods.search-result" class="button button-positive">去逛一逛，更多店铺等着您收藏喔~</a>
+                </div>
+                <ion-infinite-scroll pulling-text="加载更多" ng-if="moreData" on-infinite="loadMorese()" distance="1%">
+                </ion-infinite-scroll>
+                <div class="padding text-center text-gray" ng-hide="moreDataed">没有更多数据了</div>
+            </ion-content>
+            <ion-footer-bar align-title="left" class="footer-bar">
+                <div class="buttons">
+                    <div class="item-checkbox item-checkboxed">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-click="selectAll()" ng-checked="select_all">
+                        </label>
+                        &nbsp;全选
+                    </div>
+                </div>
+                <div class="buttons btnight">
+                    <a href="javascript:;" class="button-positive" on-touch="listId(shopList)">删除</a>
+                </div>
+            </ion-footer-bar>
+        </ion-tab>
+        <ion-tab title="商品">
+            <ion-content>
+                <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+                <ion-list show-delete="shouldShowDelete" can-swipe="true">
+                    <div ng-hide="proList.length==0">
+                        <ion-item class="item-thumbnail-left item-remove-animate" ng-repeat="itemro in proList" ui-sref="goods.detail({id: itemro.goods_id})">
+                            <img image-lazy-src="{{itemro.good_images[0]}}" image-lazy-loader="ios">
+                            <h2>{{itemro.good.title}}</h2>
+                            <p class="scTop">
+                                <s class="ys">原价：{{itemro.good.original_price | dyCurrency}}</s><span>{{itemro.good.current_price | dyCurrency}}</span></p>
+                            <p class="scTop" style="top:75px">{{itemro.shop.title}}</p>
+                            <ion-delete-button>
+                                <div class="item-checkbox">
+                                    <label class="checkbox item-checkPa">
+                                        <input type="checkbox" ng-model="itemro.shop_id" ng-checked="itemro.checked" ng-click="changeed(itemro)">
+                                    </label>
+                                </div>
+                            </ion-delete-button>
+                            <ion-option-button class="button-assertive" ng-click="listProremove_id(itemro.goods_id)">
+                                删除
+                            </ion-option-button>
+                        </ion-item>
+                    </div>
+                </ion-list>
+                <div class="padding text-center text-gray marinTop" ng-hide="proList_length">
+                    <i class="icon ion-ios-filing-outline"></i> 暂时没有收藏任何商品
+                    <br/>
+                    <br/>
+                    <a ui-sref="goods.search-goods" class="button button-positive">去逛一逛，更多商品等着您收藏喔~</a>
+                </div>
+                <div class="padding text-center text-gray" ng-hide="localmore">加载更多</div>
+                <ion-infinite-scroll pulling-text="加载更多" ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="1%">
+                </ion-infinite-scroll>
+                <div class="padding text-center text-gray" ng-hide="moreDatared">没有更多数据了</div>
+            </ion-content>
+            <ion-footer-bar align-title="left" class="footer-bar">
+                <div class="buttons">
+                    <div class="item-checkbox item-checkboxed">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-click="selectAlled()" ng-checked="select_alled">
+                        </label>
+                        &nbsp;全选
+                    </div>
+                </div>
+                <div class="buttons btnight">
+                    <a href="javascript:;" class="button-positive" ng-click="listProId(proList)">删除</a>
+                </div>
+            </ion-footer-bar>
+        </ion-tab>
+    </ion-tabs>
+</div>

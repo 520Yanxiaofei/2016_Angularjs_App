@@ -1,0 +1,61 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">代言资格商品，共享粉丝经济</h1>
+    </ion-header-bar>
+    <ion-content style="border:none" class="popup-box"  scrollbar-y="true" overflow-scroll="false">
+        
+
+
+
+    <div class="detail">
+    <div class="box">
+    <div class="img"><img src="image/reward-img.png" width="100%"></div>
+    <div class="text">您的代言角色：{{rolename.title}}</div>
+    </div>   
+    
+    <h4 class="title-reward">奖励标准</h4>
+
+
+    <div class="two" ng-show="rewardList.distribution[1].commission!=0&&(rewardList.rid==3||rewardList.rid==4)">
+    <h4 class="B-reward">B端净值现金奖励</h4>
+    <li class="jin1">金额:<span>￥{{rewardList.distribution[1].commission/100}}</span></li>
+    </div>
+
+
+
+      <div class="four" ng-if="rewardList.distribution[5].price" ng-show="rewardList.distribution[5].price!=0&&(rewardList.rid==3||rewardList.rid==4)">
+    <h4 class="B-reward3">B端客户现金奖励</h4>
+    <ul class="jin_four">
+    <li ng-show="rewardList.distribution[5].c1!=0">第一级金额:<span>￥{{((rewardList.distribution[5].c1/100)*rewardList.distribution[5].price)/100}}</span></li>
+    <li ng-show="rewardList.distribution[5].c2!=0">第二级金额:<span>￥{{((rewardList.distribution[5].c2/100)*rewardList.distribution[5].price)/100}}</span></li>
+    <li ng-show="rewardList.distribution[5].c3!=0">第三级金额:<span>￥{{((rewardList.distribution[5].c3/100)*rewardList.distribution[5].price)/100}}</span></li>
+    </ul>
+    </div>
+
+
+    
+    <div class="three" ng-if="rewardList.distribution[5].price" ng-show="rewardList.distribution[3].price!=0">
+    <h4 class="B-reward2">C端商家现金奖励</h4>
+    <ul class="three_jin">
+    <li ng-show="rewardList.distribution[3].c1!=0">第一级金额:<span>￥{{((rewardList.distribution[3].c1/100)*rewardList.distribution[3].price)/100}}</span></li>
+    <li ng-show="rewardList.distribution[3].c2!=0">第二级金额:<span>￥{{((rewardList.distribution[3].c2/100)*rewardList.distribution[3].price)/100}}</span></li>
+    <li ng-show="rewardList.distribution[3].c3!=0">第三级金额:<span>￥{{((rewardList.distribution[3].c3/100)*rewardList.distribution[3].price)/100}}</span></li>
+    </ul>
+    </div>
+
+  
+
+    </div>
+       
+        <div class="row">
+            
+            <div class="col-50 padding">
+                <button class="button button-block button-clear button-positive" on-touch="closeModal()">
+                    关闭
+                </button>
+            </div>
+
+
+        </div>
+    </ion-content>
+</ion-modal-view>

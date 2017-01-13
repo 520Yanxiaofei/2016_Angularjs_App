@@ -1,0 +1,83 @@
+<div class="show-restrictions" ng-controller="App.Create.Restrictions.Controller">
+
+    <ion-content scrollbar-y="true" overflow-scroll="false">
+
+        <div class="row steps">
+            <div class="col col-20">
+                <i ng-click="goto(1)"></i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(2)"></i>
+            </div>
+            <div class="col col-20">
+                <i class="active" ng-click="goto(3)">3</i>
+            </div>
+            <div class="col col-20">
+                <i ng-click="goto(4)"></i>
+            </div>
+        </div>
+        <h2>设置活动时间和人数</h2>
+        <p>当选秀未开始，或者选秀已经结束，都不能投票哦， 已经结束的选秀不会被删除</p>
+        <form>
+            <div class="item row">
+                <label class="col-25">选秀分类</label>
+                <div class="col-75 dy-item-checkbox">
+                    
+                        <div ng-repeat="item in showTypes">
+                        <input type="checkbox" class="checkbox-orange" ng-model="item.checked" ng-click="changeType(item)">{{item.title}} </div>
+                        
+                </div>
+            </div>
+            <div class="item row">
+                <label class="col-25">开始时间</label>
+                <div class="col-75 row input">
+                    <input type="datetime-local" placeholder="点击设置" ng-model="form.starttime">
+                </div>
+            </div>
+            <div class="item row">
+                <label class="col-25">结束时间</label>
+                <div class="col-75 row input">
+                    <input type="datetime-local" placeholder="点击设置" ng-model="form.endtime">
+                </div>
+            </div>
+            <div class="item row">
+                <label class="col-25">人数上限</label>
+                <div class="col-75 row input">
+                    <input type="text" placeholder="请输入人数" ng-model="form.limit">
+                </div>
+            </div>
+            <div class="item row">
+                <label class="col-75" style="line-height: 27px;">允许他人加入</label>
+                <div class="col-20 input">
+                    <label class="toggle toggle-positive">
+                        <input type="checkbox" ng-model="form.public">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+                
+            </div>
+            <div class="item row" style="margin-top: -15px;">
+                <div class="col-75">如选否，则需要管理员主动发出邀请</div>
+            </div>
+            <div class="item row" style="margin-top:10px;">
+                <label class="col-75" style="line-height: 27px;">是否公益活动</label>
+                <div class="col-20 input">
+                    <label class="toggle toggle-positive">
+                        <input type="checkbox" ng-model="form.is_charity">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </form>
+        <div class="next">
+            <button class="button button-block button-energized" ng-click="next()">
+                下一步
+            </button>
+            <button class="button button-block button-light" ng-click="cancel()">上一步</button>
+        </div>
+    </ion-content>
+</div>
